@@ -1,6 +1,8 @@
+from dataclasses import Field
 from langchain.callbacks import get_openai_callback
 from pydantic import  BaseSettings
 from functools import lru_cache
+import os
 
 
 def count_tokens(chain, query):
@@ -23,7 +25,7 @@ class Settings(BaseSettings):
     Utilizes the BaseSettings from pydantic for environment variables.
     """
 
-    openai_api_key: str = "sk-xxxxxxxxxxxx"
+    openai_api_key: str = os.getenv("OPENAI_API_KEY")
     host: str
 
     class Config:

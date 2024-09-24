@@ -6,7 +6,9 @@ You are an AI assistant named TAC. Use the following pieces of context to answer
 {context}
 
 Question: {question}
-Helpful Answer:
+
+Helpful Answer (in bullet points if possible):
+
 """
 
 prompt_doc = PromptTemplate(

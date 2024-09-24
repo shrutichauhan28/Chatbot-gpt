@@ -1,10 +1,18 @@
+import uuid
 from pydantic import BaseModel, Field, validator
 from typing import Optional, Literal
 import os
 import re
 from fastapi import HTTPException
 from utils import get_settings
+from typing import Optional, Literal
+from dotenv import load_dotenv
 
+
+load_dotenv()
+
+# Get the OpenAI API key
+openai_api_key = os.getenv('OPENAI_API_KEY')
 
 def validate_uuid(uuid_string):
     """
@@ -44,7 +52,7 @@ class DocModel(BaseModel):
         Validates the embeddings name.
         """
         if embeddings_name == 'openai':
-            key = "sk-xxxxxxxxxxxxxxxxxxxxx"
+            key = openai_api_key
             if not key.startswith('sk'):
                 raise ValueError('The API is not valid or not provided')
         return embeddings_name
@@ -56,7 +64,7 @@ class QueryModel(BaseModel):
     """
 
     text: str
-    session_id: str
+    session_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     llm_name: Optional[Literal['openai', 'llamacpp', 'gpt4all']] = 'openai'
     collection_name: Optional[str] = 'LangChainCollection'
 
@@ -84,7 +92,7 @@ class QueryModel(BaseModel):
         Validates the 'llm_name' field based on specific conditions for different values.
         """
         if llm_name == 'openai':
-            key ="sk-xxxxxxxxxxxx"
+            key = openai_api_key
             # if not key.startswith('sk'):
             #     raise ValueError('The API is not valid or not provided')
 

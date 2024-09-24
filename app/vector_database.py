@@ -9,10 +9,18 @@ from langchain.chains import ConversationalRetrievalChain
 from fastapi import HTTPException
 import pymilvus
 from langchain.llms import GPT4All
-
+import os
 from langchain.schema import messages_from_dict
 from utils import get_settings
 from prompts import prompt_doc, prompt_chat
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+# Get the OpenAI API key
+openai_api_key = os.getenv('OPENAI_API_KEY')
+
 
 def vector_database(
               collection_name,
@@ -32,7 +40,7 @@ def vector_database(
         """
 
     if embeddings_name == 'openai':
-        embeddings = OpenAIEmbeddings(openai_api_key="")
+        embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     elif embeddings_name == 'sentence':
         embeddings = HuggingFaceEmbeddings()
     else:
