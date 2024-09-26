@@ -1,0 +1,14 @@
+/* src/Settings.css */
+.settings-page {
+    padding: 20px;
+  }
+  
+  input {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
