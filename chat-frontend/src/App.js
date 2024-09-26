@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'; // Import React Router components
 import Chat from './Chat';
+import ProfileDropdown from './ProfileDropdown';
+import Signup from './Signup';
+import Login from './Login';
 import './App.css';
 
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(true);
   const [isRightSidebarCollapsed, setRightSidebarCollapsed] = useState(false);
+  const [isUserInfoVisible, setUserInfoVisible] = useState(false); 
+  const [userInfo] = useState({ name: 'John Doe', role: 'Admin' });
 
   const toggleLeftSidebar = () => {
     setLeftSidebarOpen(!isLeftSidebarOpen);
@@ -15,12 +21,16 @@ function App() {
     setRightSidebarOpen(!isRightSidebarOpen);
   };
 
+  const toggleUserInfo = () => {
+    setUserInfoVisible(!isUserInfoVisible);
+  };
+
   const checkScreenSize = () => {
     if (window.innerWidth < 768) {
-      setRightSidebarOpen(false); // Collapse right sidebar on small screens
+      setRightSidebarOpen(false);
       setRightSidebarCollapsed(true);
     } else {
-      setRightSidebarOpen(true); // Expand right sidebar on larger screens
+      setRightSidebarOpen(true);
       setRightSidebarCollapsed(false);
     }
   };
@@ -32,49 +42,65 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container">
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="navbar-left">
-          <h1>Company CHATBOT</h1>
-        </div>
-        <div className="navbar-right">
-          <button>Chat</button>
-          <button>Saved</button>
-          <button>History</button>
-          <button className="toggle-left-sidebar" onClick={toggleLeftSidebar}>
-            {isLeftSidebarOpen ? 'Hide Left' : 'Show Left'}
-          </button>
-          <button className="toggle-right-sidebar" onClick={toggleRightSidebar}>
-            {isRightSidebarOpen ? 'Hide Right' : 'Show Right'}
-          </button>
-        </div>
-      </nav>
+    <Router>
+      <div className="app-container">
+        {/* Navbar */}
+        <nav className="navbar">
+          <div className="navbar-left">
+            <h1>YUGM</h1>
+          </div>
+          <div className="navbar-right">
+           
+            {/* Profile Dropdown Component */}
+            <ProfileDropdown />
 
-      <div className="content">
-        {/* Left Sidebar */}
-        {isLeftSidebarOpen && (
-          <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
-            <button>New Chat</button>
-            <button>Saved</button>
-            <button>History</button>
-            <button>Logout</button>
-          </aside>
+            {/* Link to Signup Page */}
+            <Link to="/signup">
+              <button className="signup-link">Signup</button>
+            </Link>
+              {/* Link to Login Page */}
+              <Link to="/login">
+              <button className="login-link">Login</button>
+            </Link>
+          </div>
+        </nav>
+
+        {isUserInfoVisible && (
+          <div className="user-info">
+            <span>{userInfo.name}</span>
+            <span> - {userInfo.role}</span>
+          </div>
         )}
 
-        {/* Main Chat Section */}
-        <main className="chat-main">
-          <Chat />
-        </main>
+        <div className="content">
+          {/* Left Sidebar */}
+          {isLeftSidebarOpen && (
+            <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
+              <button>New Chat</button>
+              <button>Saved</button>
+              <button>History</button>
+              <button>Logout</button>
+            </aside>
+          )}
 
-        {/* Right Sidebar (Collapsible) */}
-        {isRightSidebarOpen && (
-          <aside className={`right-sidebar ${isRightSidebarCollapsed ? 'collapsed' : ''}`}>
-            <h2>Generated Links of Websites and Documents</h2>
-          </aside>
-        )}
+          {/* Main Chat Section or Routes */}
+          <main className="chat-main">
+            <Routes>
+              <Route path="/" element={<Chat />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} /> 
+            </Routes>
+          </main>
+
+          {/* Right Sidebar (Collapsible) */}
+          {isRightSidebarOpen && (
+            <aside className={`right-sidebar ${isRightSidebarCollapsed ? 'collapsed' : ''}`}>
+              <h2>Generated Links of Websites and Documents</h2>
+            </aside>
+          )}
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

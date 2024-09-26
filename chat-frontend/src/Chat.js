@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { queryAPI } from './api';
 import Message from './Message';
+import { IoSend } from "react-icons/io5";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -46,7 +47,7 @@ function Chat() {
           placeholder="Type your message..." 
           onKeyPress={(e) => e.key === 'Enter' ? sendMessage() : null}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage}><IoSend /></button>
       </div>
     </div>
   );
