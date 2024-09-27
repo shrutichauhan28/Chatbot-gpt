@@ -20,7 +20,7 @@ class CleanTextLoader(TextLoader):
         with open(self.file_path, encoding=self.encoding) as f:
             text = f.read()
         text = self.clean_text(text)
-        metadata = {"source": self.file_path}
+        metadata = {"source": self.file_path, "filename": self.file_name}
         return [Document(page_content=text, metadata=metadata)]
 
     def clean_text(self, text):

@@ -14,30 +14,47 @@ from langchain.schema import messages_from_dict
 from utils import get_settings
 from prompts import prompt_doc, prompt_chat
 from dotenv import load_dotenv
-
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 load_dotenv()
 
 # Get the OpenAI API key
 openai_api_key = os.getenv('OPENAI_API_KEY')
 
+def chunk_text(doc_text, chunk_size=1000, chunk_overlap=200):
+    """
+    Splits a long document into smaller chunks.
+    Args:
+        doc_text: The document text.
+        chunk_size: The maximum size of each chunk.
+        chunk_overlap: The number of overlapping characters between chunks.
+    Returns:
+        A list of text chunks.
+    """
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+    chunks = text_splitter.split_text(doc_text)
+    return chunks
 
 def vector_database(
-              collection_name,
-              drop_existing_embeddings=False,
-              embeddings_name='sentence',
-              doc_text=None):
-
+    collection_name,
+    drop_existing_embeddings=False,
+    embeddings_name='sentence',
+    doc_text=None,
+    chunk_size=1000,   # Adding chunk size and overlap as parameters
+    chunk_overlap=200
+):
     """
     Creates and returns a Milvus database based on the specified parameters.
     Args:
-        doct_text: The document text. 
+        doc_text: The document text. 
         collection_name: The name of the collection.
         drop_existing_embeddings: Whether to drop existing embeddings.
         embeddings_name: The name of the embeddings ('openai' or 'sentence').
+        chunk_size: Size of each chunk (default is 1000 characters).
+        chunk_overlap: Overlap between chunks (default is 200 characters).
     Returns:
         The Milvus database.
-        """
+    """
 
     if embeddings_name == 'openai':
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
@@ -45,16 +62,18 @@ def vector_database(
         embeddings = HuggingFaceEmbeddings()
     else:
         print('invalid embeddings')
+
     if doc_text:
+        # Chunk the document into smaller pieces
+        doc_chunks = chunk_text(doc_text, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+        
         try: 
             vector_db = Milvus.from_documents(
-                doc_text,
+                doc_chunks,  # Store chunks instead of the entire doc
                 embeddings,
                 collection_name=collection_name,
                 drop_old=drop_existing_embeddings,
-                connection_args={"host": "localhost", "port": "19530", "timeout": 60  },
-                # if we want to communicate between two dockers then instead of local 
-                # host we need to use milvus-standalone
+                connection_args={"host": "localhost", "port": "19530", "timeout": 60},
             )
         except pymilvus.exceptions.ParamError:
             raise HTTPException(status_code=400,
@@ -63,19 +82,16 @@ def vector_database(
         vector_db = Milvus(
             embeddings,
             collection_name=collection_name,
-            connection_args={"host":"localhost", "port": "19530"},
+            connection_args={"host": "localhost", "port": "19530"},
         )
     return vector_db
-
 
 def get_chat_history(inputs):
     """
     Get human input only
     """
     inputs = [i.content for i in inputs]
-    # inputs = [string for index, string in enumerate(inputs) if index % 2 == 0]
     return '\n'.join(inputs)
-
 
 def db_conversation_chain(llm_name, stored_memory, collection_name):
 
@@ -112,18 +128,20 @@ def db_conversation_chain(llm_name, stored_memory, collection_name):
     vector_db = vector_database(
         collection_name=collection_name,
         embeddings_name=embeddings_name
-        )
+    )
 
     if stored_memory:
         retrieved_messages = messages_from_dict(stored_memory)
         chat_history = ChatMessageHistory(messages=retrieved_messages)
     else:
         chat_history = ChatMessageHistory()
+    
     memory = ConversationBufferMemory(memory_key="chat_history",
                                       return_messages=True,
                                       output_key='answer',
                                       chat_memory=chat_history
                                       )
+    
     chain = ConversationalRetrievalChain.from_llm(
         llm,
         retriever=vector_db.as_retriever(),
@@ -135,5 +153,8 @@ def db_conversation_chain(llm_name, stored_memory, collection_name):
         return_generated_question=True,
         get_chat_history=get_chat_history,
         combine_docs_chain_kwargs={"prompt": prompt_doc}
-        )
+    )
+    
     return chain
+
+

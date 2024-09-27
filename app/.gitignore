@@ -101,3 +101,5 @@ instance/
 
 # Static files
 staticfiles/
+
+../volumes
