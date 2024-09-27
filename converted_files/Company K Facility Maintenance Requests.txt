@@ -1,0 +1,87 @@
+Company K Facility Maintenance Requests
+1. Purpose
+This document outlines the procedures and guidelines for requesting and managing facility maintenance at Company K. It aims to ensure that all facility issues are addressed promptly and efficiently to maintain a safe and functional work environment.
+2. Scope
+This policy applies to all employees at Company K who need to request maintenance or repair services for the facility. It includes procedures for reporting issues, prioritizing requests, and tracking maintenance activities.
+
+3. Facility Maintenance Request Procedure
+3.1 Reporting Maintenance Issues
+3.1.1 Online Maintenance Request System
+Access: Use the company’s online maintenance request system available on the intranet.
+Steps:
+Log In: Access the system using your employee credentials.
+Submit Request: Complete the maintenance request form with details including:
+Description of the issue
+Location of the issue
+Urgency level (e.g., routine, urgent, emergency)
+Any additional notes or attachments (e.g., photos)
+Confirmation: Receive a confirmation email with a request number and estimated response time.
+3.1.2 Manual Requests
+Description: For situations where the online system is unavailable or for special requests.
+Steps:
+Form: Complete the Facility Maintenance Request Form available from the HR department or facilities manager.
+Submit Form: Send the completed form to facilities@companyk.com.
+Confirmation: Await confirmation and an estimated response time from the facilities team.
+3.1.3 Emergency Maintenance
+Description: For urgent issues that require immediate attention (e.g., plumbing leaks, electrical failures).
+Steps:
+Contact: Call the facilities emergency hotline at (555) 987-6543.
+Details: Provide details of the issue and location.
+Follow-Up: The facilities team will respond immediately and provide updates on the status of the repair.
+
+4. Maintenance Request Categories
+4.1 Routine Maintenance
+Description: Regular maintenance tasks that are planned and scheduled.
+Examples:
+HVAC system checks
+Light bulb replacements
+Minor repairs and adjustments
+4.2 Urgent Maintenance
+Description: Maintenance tasks that need to be addressed quickly but are not emergencies.
+Examples:
+Malfunctioning doors or locks
+Minor water leaks
+Broken furniture
+4.3 Emergency Maintenance
+Description: Critical issues that pose immediate risks to safety or functionality.
+Examples:
+Major plumbing issues
+Electrical outages
+Fire or safety system malfunctions
+
+5. Maintenance Tracking and Follow-Up
+5.1 Tracking Requests
+Description: Monitoring the status of maintenance requests.
+Procedure:
+Request Status: Use the online maintenance request system to track the status of your request.
+Updates: Receive email notifications with updates on the status of your request.
+5.2 Follow-Up
+Description: Ensuring that maintenance issues are resolved satisfactorily.
+Procedure:
+Feedback: After completion, provide feedback on the maintenance service via the online system or by emailing facilities@companyk.com.
+Issue Resolution: Report any unresolved issues or additional problems related to the request.
+
+6. Contact Information
+6.1 Facilities Management Team
+Role: Manage and address facility maintenance requests.
+Contact:
+Name: Jane Smith, Facilities Manager
+Phone: (555) 234-5678
+Email: facilities@companyk.com
+6.2 Emergency Maintenance Hotline
+Role: Handle urgent maintenance issues.
+Contact:
+Phone: (555) 987-6543
+6.3 HR Department
+Role: Assist with forms and general inquiries.
+Contact:
+Email: hr@companyk.com
+Phone: (555) 123-4567
+
+7. Continuous Improvement
+7.1 Feedback
+Surveys: Provide feedback on the maintenance request process and service quality.
+Suggestions: Submit suggestions for improvements to facilities@companyk.com.
+7.2 Review
+Updates: Regularly review and update the facility maintenance procedures based on feedback and operational needs.
+

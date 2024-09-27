@@ -1,0 +1,81 @@
+Company K Data Privacy and Security Policies
+Introduction: Company K is committed to protecting the privacy and security of all personal and business data it processes. This policy outlines how Company K handles data collection, usage, storage, and protection to comply with legal requirements, safeguard employee and customer information, and ensure business continuity.
+
+1. Purpose
+The purpose of this Data Privacy and Security Policy is to:
+Protect the privacy of individuals (employees, customers, and third parties).
+Ensure the confidentiality, integrity, and availability of personal and sensitive business data.
+Comply with relevant data protection laws, including the General Data Protection Regulation (GDPR) and other applicable laws in the jurisdictions where Company K operates.
+Mitigate risks related to data breaches, unauthorized access, and misuse of personal data.
+
+2. Scope
+This policy applies to:
+All employees, contractors, and third-party vendors handling data on behalf of Company K.
+All personal data collected, processed, and stored by Company K, including customer data, employee information, and sensitive business information.
+All systems, applications, and devices used to collect, process, and store personal or business-related data.
+
+3. Data Collection and Use
+3.1 Types of Data Collected
+Personal Data: Includes names, contact information, employee IDs, financial data, health data, and any other information that can be used to identify an individual.
+Sensitive Data: Information related to race, religion, health, or financial status that requires special protection.
+Business Data: Includes company IP, trade secrets, contracts, client information, and financial records.
+3.2 Data Collection Principles
+Data is collected for specific, legitimate purposes and not processed in a manner incompatible with those purposes.
+The data collected is minimized to what is necessary for the business purpose.
+Data collection must be transparent. Employees and customers must be informed about the type of data being collected and the purpose of its collection.
+3.3 Legal Basis for Processing
+Consent: Personal data is processed based on explicit and informed consent of the individual.
+Contractual Necessity: Data required to fulfill contractual obligations with employees, customers, and partners.
+Legal Obligation: Processing is required to comply with legal obligations.
+Legitimate Interest: Data is processed to meet the legitimate interests of the company, provided it doesn’t violate the privacy rights of the individual.
+
+4. Data Retention
+Personal and business data will be retained only as long as necessary to fulfill the purpose for which it was collected or as required by law.
+Data Deletion/Disposal: Once the retention period is over or data is no longer needed, it will be securely deleted or anonymized.
+Backup Data: Backup data will be retained only for the necessary time for business continuity purposes and will be securely deleted thereafter.
+
+5. Data Security Measures
+5.1 Encryption: Personal and sensitive data must be encrypted both in transit and at rest using industry-standard encryption protocols (e.g., SSL/TLS for data in transit and AES for data at rest).
+5.2 Access Control:
+Role-Based Access: Access to personal and sensitive data is restricted based on job roles and responsibilities. Only authorized personnel can access or modify data.
+Authentication: Employees must use strong passwords and multi-factor authentication (MFA) to access sensitive data and systems.
+Logging and Monitoring: All access to personal data will be logged, and regular audits will be conducted to detect unauthorized access or anomalies.
+5.3 Data Masking and Anonymization: Personal data should be masked or anonymized where possible, especially when used for research, analytics, or testing purposes.
+5.4 Secure Storage: Sensitive data is stored on secured servers with firewalls, encryption, and access control mechanisms.
+5.5 Data Breach Management:
+Incident Reporting: Employees must immediately report any suspected data breach to the Data Protection Officer (DPO) or IT security team.
+Containment: Steps will be taken to contain and mitigate the breach, including isolating affected systems.
+Notification: Affected individuals and regulatory authorities will be notified within 72 hours, as required by GDPR and other regulations.
+Remediation: The company will take appropriate actions to address vulnerabilities and prevent future breaches.
+
+6. Employee Responsibilities
+6.1 Data Handling and Protection: Employees must handle personal and sensitive data with care, ensuring it is only used for authorized purposes and in compliance with this policy.
+6.2 Reporting Suspected Violations: Employees are required to report any suspected violations of the Data Privacy and Security Policy or any data protection concerns to the DPO.
+6.3 Training: All employees will receive regular training on data privacy laws, security practices, and the company’s policies on data protection.
+
+7. Third-Party Vendors and Data Sharing
+7.1 Vendor Contracts: Third-party vendors that process data on behalf of Company K must sign a Data Processing Agreement (DPA) that outlines data protection requirements.
+7.2 Vendor Audits: Company K reserves the right to audit vendors’ data protection practices to ensure compliance with security standards.
+7.3 Data Sharing Principles: Personal data will only be shared with third parties if:
+The individual has given explicit consent.
+It is required by law.
+It is necessary for business operations or service provision (e.g., payroll, benefits administration).
+
+8. Data Subject Rights
+Employees, customers, and other data subjects have the following rights under GDPR and other data privacy laws:
+Right to Access: Individuals can request access to their personal data.
+Right to Rectification: Individuals can request corrections to inaccurate or incomplete personal data.
+Right to Erasure: Individuals can request deletion of their data when it is no longer necessary for the purposes it was collected.
+Right to Restrict Processing: Individuals can request to limit the processing of their personal data under certain circumstances.
+Right to Data Portability: Individuals can request to receive their personal data in a structured, machine-readable format and transfer it to another organization.
+Right to Object: Individuals can object to data processing based on legitimate interest or for direct marketing purposes.
+
+9. Compliance with Local Laws
+Company K complies with the relevant data protection and privacy regulations in each region it operates, including but not limited to:
+GDPR: Applies to the collection, processing, and storage of personal data of EU citizens.
+CCPA: Governs data privacy for residents of California.
+Data Protection Act (India, Singapore, etc.): Specific laws applicable to employees and data subjects based on their geographic location.
+
+10. Policy Review and Updates
+This Data Privacy and Security Policy will be reviewed annually to ensure it remains up-to-date with evolving data protection laws and technological advancements.
+

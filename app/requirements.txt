@@ -13,3 +13,4 @@ gpt4all==0.3.0
 pdfplumber
 python-docx
 python-multipart
+ebooklib

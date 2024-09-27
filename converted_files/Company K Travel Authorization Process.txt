@@ -1,0 +1,113 @@
+Company K Travel Authorization Process
+1. Purpose
+This document outlines the procedures for requesting and approving travel for business purposes at Company K. It aims to ensure that all business travel is planned, authorized, and managed efficiently and in compliance with company policies.
+2. Scope
+This policy applies to all employees who need to travel for business purposes and require authorization prior to making travel arrangements.
+
+3. Travel Request Submission
+3.1 Types of Travel
+3.1.1 Domestic Travel
+Description: Travel within the country for business purposes.
+Procedure: Submit a Travel Authorization Request Form with details of the trip.
+3.1.2 International Travel
+Description: Travel outside the country for business purposes.
+Procedure: Submit a Travel Authorization Request Form with additional documentation such as visa requirements and international travel policies.
+3.2 Submission Procedure
+3.2.1 Online Request Form
+Description: Use the company’s travel management system to submit travel requests.
+Procedure:
+Log In: Access the travel management system using your employee credentials.
+Complete Form: Fill out the Travel Authorization Request Form with details including travel dates, destination, purpose of travel, estimated costs, and any special requirements.
+Attach Documentation: Upload any supporting documents, such as itineraries or visa applications.
+3.2.2 Manual Request Form
+Description: For cases where the online system is unavailable, a manual form can be used.
+Procedure:
+Complete Form: Fill out the Manual Travel Authorization Request Form with necessary details.
+Submit to HR or Travel Coordinator: Email or hand-deliver the completed form to HR or the Travel Coordinator.
+3.3 Notice Period
+Description: Submit travel requests with sufficient notice to allow for processing and approval.
+Guidelines:
+Domestic Travel: At least 2 weeks’ notice.
+International Travel: At least 4 weeks’ notice, considering visa and other travel requirements.
+
+4. Approval Workflow
+4.1 Initial Review
+Description: HR or the Travel Coordinator reviews the request for completeness and compliance with travel policies.
+Procedure:
+Verify Details: Ensure all required fields are completed and documentation is attached.
+Compliance Check: Confirm that the travel request adheres to company policies and budget constraints.
+4.2 Manager Approval
+Description: The request is forwarded to the employee’s direct manager for approval.
+Procedure:
+Review Request: Assess the necessity of the trip, its alignment with business goals, and impact on the team.
+Decision: Approve or reject the request based on business needs and travel policies. Provide feedback if necessary.
+4.3 Final Approval
+Description: For high-cost or international travel, additional approval from senior management or finance may be required.
+Procedure:
+Senior Management Review: Senior management reviews and makes the final decision.
+Notification: Notify the requester of the final decision.
+
+5. Travel Arrangements
+5.1 Booking
+Description: Once travel is approved, make the necessary travel arrangements.
+Procedure:
+Use Approved Vendors: Book travel through company-approved travel agencies or vendors.
+Confirm Arrangements: Ensure all bookings are confirmed and receipt documentation is obtained.
+5.2 Travel Itinerary
+Description: Prepare and share the travel itinerary with relevant stakeholders.
+Procedure:
+Document Itinerary: Include travel dates, accommodation details, and contact information.
+Share Information: Send the itinerary to your manager and any relevant team members.
+
+6. Pre-Travel Preparation
+6.1 Documentation
+Description: Ensure all necessary documentation is prepared before departure.
+Procedure:
+Visa and Passports: Confirm visa and passport validity for international travel.
+Travel Insurance: Verify that appropriate travel insurance is in place.
+6.2 Briefing
+Description: Attend any required pre-travel briefings or training sessions.
+Procedure:
+Schedule Briefing: Arrange for any required briefings on travel safety or company policies.
+Prepare Materials: Review and prepare any materials needed for the trip.
+
+7. Post-Travel Procedures
+7.1 Expense Reporting
+Description: Submit travel-related expenses for reimbursement.
+Procedure:
+Complete Expense Report: Fill out the Travel Expense Report Form with all relevant expenses.
+Attach Receipts: Provide receipts for all expenses incurred.
+Submit for Reimbursement: Submit the completed report and receipts to Accounts Payable or the designated department.
+7.2 Travel Debrief
+Description: Provide feedback on the travel experience and any issues encountered.
+Procedure:
+Submit Feedback: Use the provided feedback form or email to share your travel experience with HR or the Travel Coordinator.
+Discuss Issues: If applicable, discuss any issues or suggestions for improvement with your manager.
+
+8. Contact Information
+8.1 HR Department
+Role: Manage travel request submissions and approvals.
+Contact:
+Name: Susan Brown, HR Manager
+Phone: (555) 234-5678
+Email: hr@companyk.com
+8.2 Travel Coordinator
+Role: Assist with travel arrangements and coordination.
+Contact:
+Name: Laura Green, Travel Coordinator
+Phone: (555) 345-6789
+Email: travel@companyk.com
+8.3 Finance Department
+Role: Handle travel expense reimbursements and approvals.
+Contact:
+Name: Rachel Adams, Finance Manager
+Phone: (555) 567-8901
+Email: finance@companyk.com
+
+9. Continuous Improvement
+9.1 Feedback
+Surveys: Provide feedback on the travel authorization process.
+Suggestions: Submit suggestions for process improvements to travel@companyk.com.
+9.2 Review
+Updates: Regularly review and update the travel authorization policies and procedures based on feedback and operational needs.
+

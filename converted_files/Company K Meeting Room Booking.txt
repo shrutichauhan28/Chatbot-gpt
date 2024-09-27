@@ -1,0 +1,106 @@
+Company K Meeting Room Booking
+1. Purpose
+This document outlines the procedures and guidelines for booking meeting rooms at Company K. The purpose is to ensure an efficient and organized process for reserving meeting spaces and to maximize the use of available resources.
+2. Scope
+This policy applies to all employees, departments, and teams requiring meeting spaces within Company K's facilities.
+
+3. Meeting Room Booking Procedures
+3.1 Overview
+Meeting room bookings are managed through an online booking system to streamline the reservation process and ensure availability. Employees are required to book rooms in advance and follow the guidelines outlined below.
+3.2 Types of Meeting Rooms
+3.2.1 Small Meeting Rooms
+Description: Suitable for small team meetings, one-on-one discussions, or interviews.
+Examples:
+Room Name: “Horizon Room”
+Capacity: 4 people
+Features: Conference table, whiteboard, video conferencing equipment.
+Room Name: “Summit Room”
+Capacity: 6 people
+Features: Round table, smart TV, teleconference phone.
+3.2.2 Medium Meeting Rooms
+Description: Ideal for medium-sized team meetings, presentations, and collaborative sessions.
+Examples:
+Room Name: “Innovation Room”
+Capacity: 12 people
+Features: Modular seating, projector, audio system.
+Room Name: “Discovery Room”
+Capacity: 15 people
+Features: Large conference table, whiteboard, video conferencing setup.
+3.2.3 Large Meeting Rooms
+Description: Designed for larger meetings, training sessions, and events.
+Examples:
+Room Name: “Executive Hall”
+Capacity: 30 people
+Features: Tiered seating, large projector screen, sound system.
+Room Name: “Grand Auditorium”
+Capacity: 50 people
+Features: Stage, AV equipment, microphone system.
+3.2.4 Conference Rooms
+Description: Equipped for high-level meetings, seminars, and presentations.
+Examples:
+Room Name: “Global Conference Room”
+Capacity: 40 people
+Features: Teleconferencing facilities, multiple screens, video conferencing.
+Room Name: “Visionary Room”
+Capacity: 60 people
+Features: Modular seating arrangement, advanced AV equipment, wireless connectivity.
+
+4. Booking Procedure
+4.1 Online Booking System
+Access: Log in to the company’s online booking system via the intranet or dedicated booking app.
+Steps:
+Select Room: Choose from the list of available meeting rooms.
+Specify Time: Enter the date and time for the meeting.
+Add Details: Provide details about the meeting, including the purpose, number of participants, and any special requirements.
+Confirm Booking: Review the booking details and confirm the reservation.
+Receive Confirmation: An email confirmation will be sent with booking details and any necessary instructions.
+4.2 Manual Booking Requests
+Description: For special requests or if the online system is unavailable.
+Steps:
+Contact: Email the facilities management team at facilities@companyk.com with booking details.
+Provide Information: Include the desired room, date, time, and number of participants.
+Confirmation: Await confirmation from the facilities team.
+4.3 Cancellation
+Description: Procedure for canceling a meeting room booking.
+Steps:
+Log In: Access the online booking system.
+Find Booking: Locate the reservation you wish to cancel.
+Cancel: Follow the prompts to cancel the booking.
+Notification: A cancellation email will be sent to confirm the action.
+4.4 Modifications
+Description: Procedure for modifying an existing booking.
+Steps:
+Log In: Access the online booking system.
+Find Booking: Locate the reservation you need to modify.
+Edit Details: Make necessary changes to the booking.
+Confirm Changes: Review and confirm the updated booking details.
+
+5. Room Usage Guidelines
+5.1 Equipment and Supplies
+AV Equipment: Available in most rooms; ensure to check the room’s features before booking.
+Supplies: Request any additional supplies (e.g., markers, notepads) through the booking system or by contacting facilities.
+5.2 Cleanliness and Setup
+Before Use: Ensure the room is left in good condition. Return furniture to its original arrangement if moved.
+After Use: Dispose of trash and clear the room of any personal items.
+5.3 Special Requests
+Catering: Arrange through the company’s catering service if needed.
+Accessibility: Request accommodations for special accessibility needs when booking.
+
+6. Contact Information
+6.1 Facilities Management
+Email: facilities@companyk.com
+Phone: (555) 123-4567
+6.2 IT Support
+Email: it-support@companyk.com
+Phone: (555) 234-5678
+6.3 General Inquiries
+Email: info@companyk.com
+Phone: (555) 345-6789
+
+7. Continuous Improvement
+7.1 Feedback
+Surveys: Provide feedback on the meeting room booking process and room facilities.
+Suggestions: Submit suggestions for improving meeting room services to facilities@companyk.com.
+7.2 Review
+Updates: Regularly review and update the meeting room booking procedures based on user feedback and operational needs.
+

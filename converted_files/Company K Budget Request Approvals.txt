@@ -1,0 +1,104 @@
+Company K Budget Request Approvals
+1. Purpose
+This document outlines the procedures for requesting, reviewing, and approving budget allocations at Company K. It aims to ensure that all budget requests are evaluated for alignment with company goals and financial constraints before approval.
+2. Scope
+This policy applies to all departments and employees requesting budget approvals for projects, operations, and other business needs.
+
+3. Budget Request Submission
+3.1 Types of Budget Requests
+3.1.1 Project Budgets
+Description: Budgets required for specific projects, including development, marketing, and operational expenses.
+Procedure: Submit a Project Budget Request Form with detailed project expenses.
+3.1.2 Operational Budgets
+Description: Ongoing budgets for departmental operations, including salaries, supplies, and maintenance.
+Procedure: Submit an Operational Budget Request Form outlining recurring costs.
+3.1.3 Capital Expenditures
+Description: Budgets for large, long-term investments in assets such as equipment or facilities.
+Procedure: Submit a Capital Expenditure Request Form with a detailed cost analysis and justification.
+3.2 Submission Procedure
+3.2.1 Online Request Form
+Description: Use the company’s financial management system to submit budget requests.
+Procedure:
+Log In: Access the financial management system using your employee credentials.
+Complete Form: Fill out the appropriate Budget Request Form with details including expenses, justifications, and supporting documents.
+Attach Documentation: Upload any required supporting documents such as cost estimates, vendor quotes, and project plans.
+3.2.2 Manual Request Form
+Description: For cases where the online system is unavailable, a manual form can be used.
+Procedure:
+Complete Form: Fill out the Manual Budget Request Form with all necessary details.
+Submit to Finance Department: Email or hand-deliver the completed form to the Finance Department.
+3.3 Notice Period
+Description: Submit budget requests with adequate notice to allow for review and approval.
+Guidelines:
+Project Budgets: At least 3 weeks before the start of the project.
+Operational Budgets: At least 2 weeks before the new fiscal period.
+Capital Expenditures: At least 4 weeks before the planned purchase.
+
+4. Review and Evaluation
+4.1 Initial Review
+Description: The Finance Department conducts an initial review of the budget request for completeness and compliance.
+Procedure:
+Verify Details: Ensure all required fields are completed and documentation is attached.
+Compliance Check: Confirm that the request aligns with company policies and financial constraints.
+4.2 Departmental Review
+Description: The budget request is reviewed by the relevant department for feasibility and alignment with operational needs.
+Procedure:
+Departmental Input: Gather feedback from department heads and managers regarding the necessity and impact of the budget request.
+Feasibility Assessment: Evaluate the feasibility of the request in terms of resource allocation and operational impact.
+4.3 Senior Management Review
+Description: Senior management reviews the budget request, focusing on strategic alignment, financial impact, and overall approval.
+Procedure:
+Review Meeting: Conduct a review meeting with senior management to discuss the request.
+Decision: Approve, reject, or request revisions to the budget request based on the review.
+
+5. Approval and Implementation
+5.1 Approval
+Description: Once reviewed, the budget request is either approved, rejected, or sent back for revisions.
+Procedure:
+Approval Notification: Notify the requester of the approval status.
+Request Revisions: If necessary, provide feedback for revisions and resubmit the request.
+5.2 Implementation
+Description: Upon approval, allocate the approved budget and implement the planned expenditures.
+Procedure:
+Allocate Funds: Transfer approved funds to the appropriate department or project account.
+Monitor Expenditures: Track expenditures against the approved budget to ensure compliance and report any variances.
+
+6. Monitoring and Reporting
+6.1 Budget Tracking
+Description: Monitor the budget to ensure that expenditures stay within approved limits.
+Procedure:
+Regular Reports: Generate and review regular budget reports to track spending.
+Address Variances: Investigate and address any significant variances from the approved budget.
+6.2 Final Review
+Description: Conduct a final review upon completion of the budget period or project.
+Procedure:
+Completion Report: Prepare a final report detailing actual expenditures versus the approved budget.
+Review Meeting: Conduct a review meeting with stakeholders to discuss budget performance and lessons learned.
+
+7. Contact Information
+7.1 Finance Department
+Role: Manage budget requests, approvals, and monitoring.
+Contact:
+Name: Rachel Adams, Finance Manager
+Phone: (555) 567-8901
+Email: finance@companyk.com
+7.2 Department Heads
+Role: Review and provide input on departmental budget requests.
+Contact:
+Name: Michael Brown, Operations Director
+Phone: (555) 678-9012
+Email: operations@companyk.com
+7.3 Senior Management
+Role: Provide final approval and oversight for budget requests.
+Contact:
+Name: John Miller, CEO
+Phone: (555) 234-5678
+Email: ceo@companyk.com
+
+8. Continuous Improvement
+8.1 Feedback
+Surveys: Provide feedback on the budget request and approval process.
+Suggestions: Submit suggestions for process improvements to finance@companyk.com.
+8.2 Review
+Updates: Regularly review and update budget approval policies and procedures based on feedback and operational needs.
+

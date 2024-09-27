@@ -1,0 +1,109 @@
+Company K Purchase Request Workflow
+1. Purpose
+This document outlines the procedures for submitting, reviewing, and approving purchase requests at Company K. It ensures that all purchases are made efficiently, comply with company policies, and are within budget.
+2. Scope
+This policy applies to all employees who need to request the purchase of goods or services for business purposes.
+
+3. Purchase Request Submission
+3.1 Types of Purchases
+3.1.1 Office Supplies
+Description: Items necessary for day-to-day operations (e.g., stationery, office equipment).
+Procedure: Request through the Purchase Request Form with details of the items needed.
+3.1.2 Capital Expenditures
+Description: High-value items or long-term investments (e.g., computers, furniture).
+Procedure: Request through the Purchase Request Form with a detailed justification and budget.
+3.1.3 Services
+Description: Services required for business operations (e.g., consulting, maintenance).
+Procedure: Request through the Purchase Request Form with a detailed scope of work.
+3.2 Submission Procedure
+3.2.1 Online Request Form
+Description: Use the company’s purchase request management system to submit requests.
+Procedure:
+Log In: Access the purchase request system using your employee credentials.
+Complete Form: Fill out the Purchase Request Form with details including item/service description, quantity, estimated cost, and reason for purchase.
+Attach Documentation: Upload any supporting documents or quotes from suppliers if available.
+3.2.2 Manual Request Form
+Description: For cases where the online system is unavailable, a manual form can be used.
+Procedure:
+Complete Form: Fill out the Manual Purchase Request Form with necessary details.
+Submit to Procurement: Email or hand-deliver the completed form to the Procurement department.
+3.3 Approval Process
+Description: Ensure all purchase requests are reviewed and approved according to company policies.
+Procedure:
+Review: The Procurement department will review the request for completeness and compliance with policies.
+Approval Request: The request is forwarded to the department head or manager for approval.
+
+4. Approval Workflow
+4.1 Initial Review
+Description: Verify that the request is complete, valid, and within budget.
+Procedure:
+Check Documentation: Ensure all required documentation is attached and correct.
+Compliance Check: Confirm that the request adheres to company policies and budget constraints.
+4.2 Department Head/Manager Approval
+Description: The manager or department head reviews and approves or rejects the request based on necessity and budget.
+Procedure:
+Review Details: Assess the need for the item/service and ensure it fits within the department’s budget.
+Decision: Approve or reject the request. Provide feedback if necessary.
+4.3 Final Approval
+Description: Requests requiring additional approval (e.g., high-value purchases) are forwarded to senior management.
+Procedure:
+Senior Management Review: Higher-level management reviews and makes the final decision.
+Notification: Notify the requester of the final decision.
+
+5. Purchase Order Creation
+5.1 PO Generation
+Description: Upon approval, a Purchase Order (PO) is created and sent to the supplier.
+Procedure:
+Generate PO: The Procurement department generates a PO based on the approved request.
+Send PO: Send the PO to the supplier and confirm receipt.
+5.2 Order Tracking
+Description: Track the order to ensure timely delivery.
+Procedure:
+Follow-Up: Regularly follow up with the supplier regarding the status of the order.
+Update Records: Update the purchase tracking system with the order status and delivery information.
+
+6. Receiving and Inspection
+6.1 Delivery
+Description: Receive and inspect the delivered items/services to ensure they meet the order specifications.
+Procedure:
+Inspect Delivery: Check that the delivered items match the PO and are in good condition.
+Report Issues: Report any discrepancies or issues to the Procurement department immediately.
+6.2 Confirmation
+Description: Confirm receipt of goods/services and update records.
+Procedure:
+Update System: Mark the order as received in the purchase management system.
+File Documents: File all relevant documentation, including delivery receipts and inspection reports.
+
+7. Payment Processing
+7.1 Invoice Submission
+Description: Suppliers submit invoices for payment.
+Procedure:
+Receive Invoice: Collect the invoice from the supplier.
+Verify: Verify that the invoice matches the PO and delivery documentation.
+7.2 Payment Approval
+Description: Process the payment for approved invoices.
+Procedure:
+Approval: Obtain necessary approvals from Finance or senior management.
+Payment: Process payment according to the company’s payment policies.
+
+8. Contact Information
+8.1 Procurement Department
+Role: Manage purchase requests, approvals, and order tracking.
+Contact:
+Name: Michael Smith, Procurement Manager
+Phone: (555) 456-7890
+Email: procurement@companyk.com
+8.2 Finance Department
+Role: Handle payment processing and financial approvals.
+Contact:
+Name: Rachel Adams, Finance Manager
+Phone: (555) 567-8901
+Email: finance@companyk.com
+
+9. Continuous Improvement
+9.1 Feedback
+Surveys: Provide feedback on the purchase request workflow.
+Suggestions: Submit suggestions for process improvements to procurement@companyk.com.
+9.2 Review
+Updates: Regularly review and update the purchase request policies and procedures based on feedback and operational needs.
+

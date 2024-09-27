@@ -1,0 +1,97 @@
+Company K Facility Access and Badge Issuance
+1. Purpose
+This document outlines the procedures for accessing Company K facilities and issuing badges to employees, contractors, and visitors. It aims to ensure secure and efficient access to the company premises while maintaining a safe work environment.
+2. Scope
+This policy applies to all employees, contractors, visitors, and any other individuals requiring access to Company K facilities.
+
+3. Facility Access
+3.1 Employee Access
+3.1.1 Access Control
+Description: Employees are granted access to the facilities based on their roles and working hours.
+Procedure:
+Request: Employees do not need to request access; it is automatically granted based on employment status.
+Access: Use the company-issued badge to enter secured areas. Access to certain areas may require additional permissions.
+3.1.2 Working Hours
+Description: Regular working hours are from 9:00 AM to 6:00 PM, Monday to Friday. Access outside these hours may require special authorization.
+Procedure:
+Request: Submit a request for after-hours access to HR or Facilities.
+Approval: Obtain approval from your department head and the security team.
+3.2 Contractor and Visitor Access
+3.2.1 Contractor Access
+Description: Contractors require temporary access to perform specific tasks.
+Procedure:
+Request: Contractor’s company must submit a Facility Access Request Form to the HR department.
+Approval: HR will review and approve the request, coordinating with Facilities for badge issuance.
+Badge: Contractors will receive a temporary access badge upon arrival.
+3.2.2 Visitor Access
+Description: Visitors are granted temporary access to the facility for meetings or events.
+Procedure:
+Registration: Visitors must be registered in advance with the receptionist or host.
+Badge Issuance: Receive a visitor badge upon arrival, which must be displayed at all times while on the premises.
+Escort: Visitors must be escorted by an employee at all times.
+
+4. Badge Issuance
+4.1 Employee Badges
+4.1.1 Issuance
+Description: Employees are issued a badge upon onboarding.
+Procedure:
+Request: No action is required from the employee; badges are issued by HR.
+Pickup: Collect the badge from the HR department during the onboarding process.
+Activation: Badges are activated for facility access according to job role and department.
+4.1.2 Replacement
+Description: Replacement badges are issued if a badge is lost, stolen, or damaged.
+Procedure:
+Report: Report the lost or damaged badge to HR or Security immediately.
+Request: Submit a Badge Replacement Request Form to HR.
+Pickup: Collect the new badge from HR.
+4.2 Contractor and Visitor Badges
+4.2.1 Issuance
+Description: Temporary badges are issued to contractors and visitors.
+Procedure:
+Request: Facility Access Request Forms must be submitted in advance.
+Issuance: Badges are issued upon arrival at the facility.
+Return: Badges must be returned to the reception or Security upon departure.
+
+5. Badge Security and Usage
+5.1 Security
+Description: Badges must be kept secure and used appropriately to prevent unauthorized access.
+Guidelines:
+Display: Always display your badge visibly while on the premises.
+Transfer: Do not transfer your badge to others. Each badge is linked to the individual it is issued to.
+5.2 Lost or Stolen Badges
+Procedure:
+Report: Immediately report lost or stolen badges to HR or Security.
+Replacement: Follow the procedure for badge replacement as outlined in section 4.1.2.
+5.3 Access Control
+Description: Ensure you use your badge only for authorized access and comply with facility access policies.
+Guidelines:
+Access Points: Use your badge at designated access points.
+Unauthorized Access: Report any security breaches or unauthorized access attempts to Security.
+
+6. Contact Information
+6.1 HR Department
+Role: Manage badge issuance, replacement, and access requests.
+Contact:
+Name: Susan Brown, HR Manager
+Phone: (555) 234-5678
+Email: hr@companyk.com
+6.2 Security Team
+Role: Oversee access control and badge security.
+Contact:
+Name: Mark Johnson, Security Lead
+Phone: (555) 345-6789
+Email: security@companyk.com
+6.3 Reception
+Role: Assist with visitor registration and badge issuance.
+Contact:
+Name: Laura Green, Receptionist
+Phone: (555) 123-4567
+Email: reception@companyk.com
+
+7. Continuous Improvement
+7.1 Feedback
+Surveys: Provide feedback on facility access and badge management.
+Suggestions: Submit suggestions for improvements to hr@companyk.com or security@companyk.com.
+7.2 Review
+Updates: Regularly review and update access and badge policies based on feedback and operational needs.
+

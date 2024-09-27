@@ -1,19 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react'; 
+import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { uploadFile, getFiles, deleteFile } from './api';
+import { getFolders, uploadFile, getFiles, deleteFile } from './api';
 import './Settings.css';
 
 const Settings = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);  // To store selected files
-  const [files, setFiles] = useState([]);                  // To display already uploaded files
-  const [isDragging, setIsDragging] = useState(false);     // To indicate drag state
-  const fileInputRef = useRef(null);                       // Hidden file input reference
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [folders, setFolders] = useState([]); // Dynamic folders from backend
+  const [selectedFolder, setSelectedFolder] = useState(''); // Folder selected by user
+  const [newFolder, setNewFolder] = useState(''); // Name for new folder
+  const [createNewFolder, setCreateNewFolder] = useState(false); // To track if new folder creation is selected
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
-    fetchFiles();  // Fetch uploaded files on component mount
+    fetchFiles();
+    fetchFolders(); // Fetch existing folders from the backend
   }, []);
 
-  // Fetch files from the server
+  // Fetch folders from the backend
+  const fetchFolders = async () => {
+    try {
+      const fetchedFolders = await getFolders();
+      setFolders(fetchedFolders.folders);
+    } catch (error) {
+      toast.error('Failed to fetch folders.');
+    }
+  };
+
   const fetchFiles = async () => {
     try {
       const fetchedFiles = await getFiles();
@@ -23,117 +37,165 @@ const Settings = () => {
     }
   };
 
-  // Handle drag over event
   const handleDragOver = (event) => {
     event.preventDefault();
     setIsDragging(true);
   };
 
-  // Handle drag leave event
   const handleDragLeave = () => {
     setIsDragging(false);
   };
 
-  // Handle file drop event
   const handleDrop = (event) => {
     event.preventDefault();
     setIsDragging(false);
-    const filesDropped = Array.from(event.dataTransfer.files); // Get dropped files
-    setSelectedFiles((prevFiles) => [...prevFiles, ...filesDropped]); // Add dropped files to state
+    const files = Array.from(event.dataTransfer.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
-  // Handle file input change event (when files are selected from the file explorer)
   const handleFileChange = (event) => {
-    const filesSelected = Array.from(event.target.files); // Get files from input
-    setSelectedFiles((prevFiles) => [...prevFiles, ...filesSelected]); // Add selected files to state
+    const files = Array.from(event.target.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
-  // Handle file upload
   const handleFileUpload = async () => {
     if (selectedFiles.length === 0) {
       toast.error('Please select at least one file before uploading.');
       return;
     }
-
+  
+    const folderToUpload = createNewFolder ? newFolder : selectedFolder;
+  
+    if (!folderToUpload) {
+      toast.error('Please select or create a folder.');
+      return;
+    }
+  
     try {
       for (const file of selectedFiles) {
-        await uploadFile(file); // Upload each file
+        await uploadFile(file, folderToUpload, createNewFolder); // Pass folder and new folder flag
       }
       toast.success('Files uploaded successfully!');
-      setSelectedFiles([]); // Clear selected files
-      fetchFiles();         // Fetch updated list of files after upload
+      setSelectedFiles([]);
+      fetchFiles();
+      fetchFolders(); // Refresh folder list in case a new folder was created
     } catch (error) {
       console.error("Error uploading files: ", error);
       toast.error('Failed to upload files. Please try again.');
     }
   };
+  
 
-  // Handle file delete
-  const handleFileDelete = async (fileName) => {
-    try {
-      await deleteFile(fileName);
-      toast.success(`File '${fileName}' deleted successfully!`);
-      fetchFiles();
-    } catch (error) {
-      console.error("Error deleting file: ", error);
-      toast.error('Failed to delete file. Please try again.');
-    }
-  };
-
-  // Trigger file explorer when the drag/drop area is clicked
-  const handleUploadAreaClick = () => {
-    fileInputRef.current.click(); // Trigger hidden input click
-  };
-
-  // Handle canceling the file upload
   const handleCancelUpload = () => {
-    setSelectedFiles([]); // Clear selected files
+    setSelectedFiles([]);
     toast.info('File upload canceled.');
   };
 
+  const handleFileDelete = async (fileName, folderName) => { // Accept folderName as an argument
+    if (!fileName || !folderName) { // Check both fileName and folderName
+        toast.error('Please select a file and folder to delete.');
+        return;
+    }
+
+    try {
+        console.log(`Attempting to delete file: ${fileName} from folder: ${folderName}`);
+        await deleteFile(folderName, fileName); // Pass folder and file name to delete API
+        toast.success('File deleted successfully!');
+        fetchFiles(); // Refresh the file list after deletion
+    } catch (error) {
+        console.error("Error deleting file: ", error);
+        toast.error('Failed to delete file. Please try again.');
+    }
+};
+
   return (
     <div className="settings-page">
-      <div 
-        className={`upload-area ${isDragging ? 'dragging' : ''}`} 
-        onDragOver={handleDragOver} 
-        onDragLeave={handleDragLeave} 
+      <div className="folder-select">
+  <label htmlFor="folder">Select Folder:</label>
+  <select
+    id="folder"
+    value={createNewFolder ? '' : selectedFolder}
+    onChange={(e) => setSelectedFolder(e.target.value)}
+    disabled={createNewFolder}
+  >
+    <option value="" disabled>Select a folder</option>
+    {folders.map((folder) => (
+      <option key={folder} value={folder}>
+        {folder}
+      </option>
+    ))}
+  </select>
+
+  <div className="new-folder">
+    <input 
+      type="checkbox" 
+      id="createNewFolder" 
+      checked={createNewFolder} 
+      onChange={(e) => setCreateNewFolder(e.target.checked)} 
+    />
+    <label htmlFor="createNewFolder">Create New Folder</label>
+  </div>
+
+  {createNewFolder && (
+    <input 
+      type="text" 
+      placeholder="Enter new folder name"
+      value={newFolder}
+      onChange={(e) => setNewFolder(e.target.value)} 
+    />
+  )}
+</div>
+
+      <div
+        className={`upload-area ${isDragging ? 'dragging' : ''}`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onClick={handleUploadAreaClick} // Click to open file explorer
+        onClick={() => fileInputRef.current.click()}
       >
         {selectedFiles.length > 0 ? (
-          selectedFiles.map((file, index) => <p key={index}>{file.name}</p>) // Show selected files
+          selectedFiles.map((file, index) => <p key={index}>{file.name}</p>)
         ) : (
-          <p>Drag and drop files here or click to select</p> // Placeholder text
+          <p>Drag and drop files here or click to select</p>
         )}
         <input
           type="file"
           multiple
-          ref={fileInputRef} // Reference to the hidden input
-          onChange={handleFileChange} // Handle file selection
-          style={{ display: 'none' }} // Hide input
+          ref={fileInputRef}
+          onChange={handleFileChange}
         />
       </div>
 
-      {/* Upload/Cancel buttons */}
       <div className="button-group">
         <button onClick={handleFileUpload}>Upload</button>
-        {selectedFiles.length > 0 && <button onClick={handleCancelUpload}>Cancel Upload</button>}
+        {selectedFiles.length > 0 && (
+          <button onClick={handleCancelUpload}>Cancel Upload</button>
+        )}
       </div>
 
-      {/* Display the list of uploaded files */}
-      <h2>List of Files</h2>
-      <ul>
-        {files.length > 0 ? (
-          files.map((fileObj, index) => (
-            <li key={index}>
-              <a href={fileObj.url} target="_blank" rel="noopener noreferrer">{fileObj.file}</a>
-              <button onClick={() => handleFileDelete(fileObj.file)}>Delete</button>
-            </li>
-          ))
-        ) : (
-          <p>No files found.</p>
-        )}
-      </ul>
+      <h2>Knowledge Base</h2>
+      <div className="file-list-container"> {/* Scrollable container */}
+    {files && Object.keys(files).length > 0 ? (
+        Object.keys(files).map((folder, index) => (
+            <div key={index}>
+                <h3>{folder}</h3>
+                <ul>
+                    {files[folder].map((fileObj, idx) => (
+                        <li key={idx}>
+                            <a href={fileObj.url} target="_blank" rel="noopener noreferrer">
+                                {fileObj.file}
+                            </a>
+                            <button onClick={() => handleFileDelete(fileObj.file, folder)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        ))
+    ) : (
+        <p>No files found.</p>
+    )}
+</div>
+
     </div>
   );
 };

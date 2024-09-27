@@ -1,0 +1,63 @@
+Company K Learning Management System (LMS) Access
+1. Purpose
+This document provides information on accessing and using the Learning Management System (LMS) at Company K. The LMS is designed to facilitate employee training, development, and continuous learning.
+2. Scope
+This policy applies to all full-time, part-time, temporary, and contract employees of Company K.
+
+3. Overview of LMS
+3.1 What is LMS?
+Definition: The Learning Management System (LMS) is a digital platform used to deliver, track, and manage training and development programs for employees.
+Features: Includes course catalogs, registration tools, progress tracking, and reporting functionalities.
+3.2 LMS Provider
+System: Company K uses [LMS Platform Name] for its learning management needs.
+Access URL: [LMS Access URL]
+
+4. Accessing the LMS
+4.1 Initial Login
+Credentials: Employees will receive login credentials (username and temporary password) via email from the HR department.
+First Login: Upon first login, employees are required to change their temporary password to a secure, personalized password.
+4.2 Login Process
+Website: Go to [LMS Access URL].
+Username: Enter your employee ID or email address.
+Password: Enter your current password.
+Forgot Password: If you have forgotten your password, click on the “Forgot Password” link and follow the instructions to reset it.
+4.3 Troubleshooting Access Issues
+Contact: For issues accessing the LMS, contact the IT Support Team at it-support@companyk.com.
+Helpdesk: If you encounter login issues or other technical problems, submit a ticket through the IT helpdesk portal.
+
+5. Navigating the LMS
+5.1 Dashboard
+Overview: The LMS dashboard provides an overview of available courses, upcoming training events, and your learning progress.
+Widgets: Includes widgets for quick access to course catalogs, ongoing courses, and training history.
+5.2 Course Enrollment
+Browse Courses: Use the “Course Catalog” section to browse available training programs and certifications.
+Enroll: Click on the desired course and select “Enroll” to add it to your training plan.
+Confirmation: You will receive a confirmation email upon successful enrollment.
+5.3 Tracking Progress
+My Courses: Access the “My Courses” section to view your enrolled courses, completion status, and upcoming deadlines.
+Reports: Generate progress reports and completion certificates from the “Reports” section.
+5.4 Completing Courses
+Course Materials: Access course materials, including videos, readings, and assignments, through the course page.
+Assessments: Complete quizzes and assessments as part of the course requirements.
+Certification: Download your completion certificate upon finishing the course.
+
+6. Using LMS Features
+6.1 Communication Tools
+Forums: Participate in course-related discussions through the forum feature.
+Messages: Use the messaging tool to communicate with instructors and other participants.
+6.2 Scheduling
+Training Calendar: View scheduled webinars, workshops, and other live training events on the “Training Calendar” section.
+Reminders: Set reminders for upcoming training sessions and deadlines.
+6.3 Feedback
+Surveys: Provide feedback on courses and training sessions via post-training surveys available in the LMS.
+
+7. Support and Resources
+7.1 User Guides
+Documentation: Access user guides and FAQs on the LMS homepage or through the “Help” section.
+Tutorials: Watch video tutorials on how to use various LMS features.
+7.2 Contact Information
+For questions or further assistance regarding LMS access and usage, employees should contact:
+IT Support Team: it-support@companyk.com
+Training Coordinator: training@companyk.com
+Phone: [IT Support or Training Coordinator Phone Number]
+

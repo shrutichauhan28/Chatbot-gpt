@@ -1,0 +1,108 @@
+Company K IT Support Requests and Ticketing
+1. Purpose
+This document provides guidelines for submitting IT support requests and managing the IT ticketing process at Company K. It ensures that all employees receive timely and efficient support for technical issues, system access, hardware troubleshooting, software installation, and other IT-related needs.
+2. Scope
+The policy applies to all employees, contractors, and third-party collaborators who require technical assistance or IT support for any Company K systems, devices, or networks.
+
+3. Submitting IT Support Requests
+There are multiple ways to submit IT support requests at Company K:
+3.1 IT Helpdesk Portal
+Employees can submit a support ticket via the Company K IT Helpdesk Portal.
+Steps:
+Log in to the Helpdesk Portal using Company K credentials.
+Select the category of the issue (e.g., software, hardware, network, access).
+Provide a detailed description of the issue, including error messages, device information, or screenshots, if applicable.
+Submit the ticket.
+3.2 Email
+Support requests can be submitted via email to it-support@companyk.com.
+Required Information:
+Subject line: Brief description of the issue (e.g., "VPN Connectivity Issue").
+Body: Detailed description of the problem, affected systems, urgency, and any troubleshooting steps already taken.
+Attachments: Screenshots or error logs if available.
+3.3 Phone
+For urgent issues (e.g., system outages, critical network failures), employees can call the IT support hotline at [Phone Number].
+3.4 Walk-in Support
+Employees may also visit the on-site IT support desk at [Location] for in-person troubleshooting assistance during business hours.
+
+4. IT Ticketing System
+Once a support request is submitted, it will be logged into Company K’s ticketing system. The ticketing system enables IT staff to manage, prioritize, and track support requests to resolution.
+4.1 Ticket Creation
+When a support request is submitted via the Helpdesk Portal or email, a ticket is automatically generated and assigned a unique ticket number.
+Employees will receive an email confirmation with the ticket number, issue summary, and estimated response time.
+4.2 Ticket Categories
+Tickets are categorized based on the type of issue:
+Software Issues: Problems with installed software or applications.
+Hardware Issues: Troubleshooting for company-issued devices (e.g., laptops, printers).
+Network Issues: Connectivity problems, VPN access, or internal network issues.
+System Access: Requests for access to internal tools or resetting passwords.
+Other: Miscellaneous IT-related issues not covered by the above categories.
+
+5. Prioritization of Tickets
+The IT department will prioritize tickets based on urgency, severity, and business impact. Each ticket is assigned one of the following priority levels:
+5.1 Priority Levels
+Critical: Severe business impact or system outage affecting multiple users (e.g., company-wide email failure, network outage).
+Response Time: Immediate response (within 1 hour).
+High: High-impact issues affecting an individual’s ability to work (e.g., hardware failure, no access to essential tools).
+Response Time: Within 4 hours.
+Medium: Moderate issues that can be worked around (e.g., slow system performance, minor application bugs).
+Response Time: Within 1 business day.
+Low: Minor issues, general inquiries, or non-urgent requests (e.g., software upgrade requests, non-critical troubleshooting).
+Response Time: Within 2-3 business days.
+5.2 Escalation Process
+If an issue cannot be resolved within the estimated response time, the ticket will be escalated to a senior technician or specialized team.
+Escalations will also occur for issues that have a significant impact on critical business operations.
+
+6. Ticket Resolution Process
+Once a ticket is assigned, IT staff will work to resolve the issue based on the priority level.
+6.1 Resolution Steps
+Ticket Assignment: The ticket is assigned to an appropriate technician based on the issue category.
+Investigation: The technician will investigate the issue, gather necessary data, and attempt troubleshooting steps.
+Communication: The employee who submitted the ticket will receive regular updates on the status of their issue.
+Resolution: Once the issue is resolved, the technician will close the ticket and send a resolution summary.
+6.2 Ticket Closure
+Employees will receive an email notification when the ticket is closed, confirming the resolution.
+If the issue persists after closure, employees may reopen the ticket by replying to the email or submitting a new ticket referencing the original issue.
+
+7. Common IT Support Issues
+Below are examples of common IT support requests and the typical resolution processes:
+7.1 Software Installation
+Request: Employee requests installation of a new software tool (e.g., Microsoft Teams, Slack).
+Resolution: IT verifies the licensing and installs the software remotely or provides the user with installation instructions.
+7.2 Hardware Malfunction
+Request: Employee reports that their laptop is not booting up.
+Resolution: IT provides troubleshooting steps (e.g., battery check, restart). If unresolved, the employee may be required to bring the device to the IT support desk for repair or replacement.
+7.3 VPN Connectivity Issues
+Request: Employee is unable to connect to the company VPN remotely.
+Resolution: IT verifies the network settings, reconfigures VPN software, and provides instructions for reconnecting.
+7.4 Password Reset
+Request: Employee is locked out of their account due to forgotten or expired password.
+Resolution: IT verifies the employee’s identity and provides a password reset link or manually resets the password.
+
+8. IT Support Best Practices
+To ensure efficient support and faster resolution times, employees are encouraged to follow these best practices when submitting requests:
+Provide Detailed Information: Include as much detail as possible in the support request (e.g., screenshots, error messages, affected systems).
+Categorize Issues Correctly: Select the appropriate category when submitting a ticket to ensure the issue is assigned to the correct team.
+Follow Up Promptly: If IT requests additional information or actions (e.g., rebooting a device, providing logs), respond promptly to avoid delays in resolving the issue.
+
+9. IT Support for Remote Employees
+Company K provides IT support for remote employees, ensuring that they can access company systems and resolve technical issues from off-site locations.
+9.1 Remote Support Tools
+IT may use remote desktop tools (e.g., TeamViewer, AnyDesk) to troubleshoot issues on remote devices.
+VPN support is available to ensure secure access to internal systems from external networks.
+9.2 Equipment Shipping
+If a hardware issue cannot be resolved remotely, Company K will arrange for shipping of replacement equipment to remote employees.
+
+10. IT Support Metrics and Reporting
+The IT department regularly monitors support ticket metrics to ensure efficiency and continuous improvement. Key performance indicators (KPIs) include:
+Response Time: Time between ticket submission and first response.
+Resolution Time: Time taken to fully resolve the issue.
+Customer Satisfaction: Survey feedback from employees on the support received.
+These metrics are reviewed monthly to identify areas for improvement and optimize IT support operations.
+
+11. Contact Information
+For IT support or inquiries, employees can reach out through the following channels:
+IT Helpdesk Portal: [Link to IT Helpdesk Portal]
+Email: it-support@companyk.com
+Phone: [IT Support Hotline Number]
+In-Person: [Location of IT Support Desk]
+

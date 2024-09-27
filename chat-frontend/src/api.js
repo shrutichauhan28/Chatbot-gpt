@@ -18,9 +18,11 @@ export const queryAPI = async (session_id, text, llm_name, collection_name) => {
 };
 
 // API call to upload file
-export const uploadFile = async (file) => {
+export const uploadFile = async (file, folder, createNewFolder) => {
   const formData = new FormData();
   formData.append('file', file);
+  formData.append('folder', folder); // Add folder to form data
+  formData.append('create_new_folder', createNewFolder); // Pass flag for folder creation
 
   try {
     const response = await axios.post('http://127.0.0.1:8000/upload', formData, {
@@ -35,7 +37,6 @@ export const uploadFile = async (file) => {
   }
 };
 
-
 // API call to fetch the list of files
 export const getFiles = async () => {
   try {
@@ -48,12 +49,28 @@ export const getFiles = async () => {
 };
 
 // API call to delete a file
-export const deleteFile = async (fileName) => {
+export const deleteFile = async (folder, fileName) => {
   try {
-    const response = await axios.delete(`http://127.0.0.1:8000/files/${fileName}`);
-    return response.data; // Handle the response as needed
+      const response = await axios.delete('http://127.0.0.1:8000/delete', {
+          data: {
+              folder,
+              fileName
+          }
+      });
+      return response.data;
   } catch (error) {
-    console.error("Error deleting file:", error); // Log error in console
-    throw error; // Throw the error to be caught in Settings.js
+      console.error("Error in API deleteFile: ", error);
+      throw error;
+  }
+};
+
+// Add the function to get folders from the backend
+export const getFolders = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/folders'); // Assuming the backend provides folders API
+    return response.data; // Return folder data from the response
+  } catch (error) {
+    console.error("Error fetching folders:", error);
+    throw error;
   }
 };

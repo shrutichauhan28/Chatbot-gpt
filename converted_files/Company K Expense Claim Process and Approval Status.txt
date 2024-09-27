@@ -1,0 +1,88 @@
+Company K Expense Claim Process and Approval Status
+1. Purpose
+This document outlines the procedures for submitting and approving expense claims at Company K. It aims to ensure that all expense claims are processed efficiently, fairly, and in compliance with company policies.
+2. Scope
+This policy applies to all employees who incur expenses related to their work and need reimbursement from the company.
+
+3. Expense Claim Process
+3.1 Submission
+3.1.1 Eligible Expenses
+Description: Only business-related expenses that are pre-approved or fall under company policy are eligible for reimbursement.
+Examples:
+Travel expenses (flights, accommodation, mileage)
+Office supplies
+Meals and entertainment (related to business meetings)
+3.1.2 Procedure
+Step 1: Documentation
+Collect Receipts: Ensure you have receipts or invoices for all expenses.
+Complete Expense Report: Fill out the Expense Claim Form with details of the expenses incurred.
+Step 2: Submission
+Submit Form: Submit the completed Expense Claim Form along with the receipts to the Accounts Payable department.
+Deadline: Claims should be submitted within 30 days of the expense being incurred.
+3.2 Approval
+3.2.1 Approval Workflow
+Step 1: Review
+Initial Review: The Accounts Payable team will conduct an initial review of the submitted claim to ensure completeness and compliance with company policies.
+Approval Request: Claims are then forwarded to the respective department head or manager for approval.
+Step 2: Authorization
+Manager Approval: The manager or department head will review and approve or reject the claim based on its validity and adherence to policy.
+Final Processing: Approved claims are processed for reimbursement. Rejected claims will be returned to the employee with feedback.
+3.3 Reimbursement
+3.3.1 Payment
+Description: Reimbursement will be processed via direct deposit to the employee’s bank account or as per the company's payment policy.
+Timeline: Reimbursement is typically completed within 2 weeks of approval.
+3.3.2 Communication
+Notification: Employees will receive a notification via email or through the expense management system once their claim has been processed and payment has been issued.
+
+4. Tracking Approval Status
+4.1 Status Updates
+4.1.1 Online Tracking
+Description: Employees can track the status of their expense claims using the company’s expense management system.
+Procedure:
+Log In: Access the expense management system using your employee credentials.
+View Status: Check the status of your claim (e.g., Submitted, Under Review, Approved, Rejected).
+4.1.2 Notifications
+Description: Status updates and notifications will be sent via email or within the expense management system.
+Types:
+Submission Confirmation: Confirmation of claim submission.
+Approval/Reject Notifications: Updates on approval or rejection of the claim.
+Reimbursement Confirmation: Notification of payment.
+
+5. Common Issues and Resolutions
+5.1 Incomplete Submissions
+Description: Claims lacking necessary documentation or information.
+Resolution:
+Follow-Up: Accounts Payable will notify the employee to provide the missing information.
+Resubmission: Employee must complete and resubmit the claim with all required documents.
+5.2 Policy Violations
+Description: Expenses not in compliance with company policies.
+Resolution:
+Feedback: Claims that violate policy will be returned with feedback for correction or explanation.
+Adjustments: Employee must adjust the claim according to the policy and resubmit.
+5.3 Delays
+Description: Delays in processing or reimbursement.
+Resolution:
+Inquiries: Employees can inquire about the status of their claim through the expense management system or by contacting Accounts Payable.
+Follow-Up: Accounts Payable will investigate and provide an update.
+
+6. Contact Information
+6.1 Accounts Payable Department
+Role: Manage expense claim submissions, approvals, and reimbursements.
+Contact:
+Name: Emily White, Accounts Payable Manager
+Phone: (555) 234-5678
+Email: accounts@companyk.com
+6.2 HR Department
+Role: Address policy-related questions and provide guidance on expense claims.
+Contact:
+Name: Susan Brown, HR Manager
+Phone: (555) 234-5678
+Email: hr@companyk.com
+
+7. Continuous Improvement
+7.1 Feedback
+Surveys: Provide feedback on the expense claim process.
+Suggestions: Submit suggestions for process improvements to accounts@companyk.com or hr@companyk.com.
+7.2 Review
+Updates: Regularly review and update expense claim policies and procedures based on feedback and operational needs.
+
