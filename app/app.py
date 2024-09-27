@@ -5,11 +5,12 @@ import uuid
 from dotenv import load_dotenv
 from models import DocModel, QueryModel, DeleteSession
 from database import create_db_and_tables
-from vector_database import vector_database, db_conversation_chain
+from vector_database import  vector_database, db_conversation_chain
 from data import load_n_split
 from chat_session import ChatSession
-from utils import count_tokens
+from utils import *
 from fastapi.middleware.cors import CORSMiddleware
+from sentence_transformers import SentenceTransformer, util  # Import for SentenceTransformer
 
 app = FastAPI()
 
@@ -25,8 +26,9 @@ load_dotenv()
 
 # Get the OpenAI API key
 openai_api_key = os.getenv('OPENAI_API_KEY')
-
 chat_session = ChatSession()
+
+
 
 
 @app.on_event("startup")
@@ -35,6 +37,8 @@ def on_startup():
     Event handler called when the application starts up.
     """
     create_db_and_tables()
+
+
 
 
 @app.post("/doc_ingestion")
@@ -50,25 +54,23 @@ def add_documents(doc: DocModel):
     )
     return JSONResponse(content={"message": "Documents added successfully"})
 
-
 @app.post("/query")
 def query_response(query: QueryModel):
     """
     Endpoint to process user queries.
     Automatically generates a session_id if not provided.
+    Processes the current query without considering previous chat history.
     """
     # Automatically generate a session ID if none is provided
     if not query.session_id:
         query.session_id = str(uuid.uuid4())
 
-    # Check if there is a conversation history for the session
-    stored_memory = chat_session.load_history(query.session_id)
-    if len(stored_memory) == 0:
-        stored_memory = None
+    # Skip loading conversation history
+    stored_memory = None  # No chat history will be loaded
 
     # Get conversation chain
     chain = db_conversation_chain(
-        stored_memory=stored_memory,
+        stored_memory=stored_memory,  # No history used
         llm_name=query.llm_name,
         collection_name=query.collection_name
     )
@@ -78,18 +80,25 @@ def query_response(query: QueryModel):
     else:
         result = chain(query.text)
         cost = None
+ 
 
+    
     sources = list(set([doc.metadata['source'] for doc in result['source_documents']]))
+    
+    # Generate final answer by appending sources to the AI response
     answer = result['answer']
-    chat_session.save_sess_db(query.session_id, query.text, answer)
+    sources_str = "\nSources:\n" + "\n".join(sources)  # Format sources into a string
+    final_answer = f"{answer}\n\n{sources_str}"  # Append sources to the answer
+    
+    # Save only the current interaction, if needed
+    chat_session.save_sess_db(query.session_id, query.text, final_answer)
 
     return {
-        'answer': answer,
+        'answer': final_answer,
         "cost": cost,
         'source': sources,
         'session_id': query.session_id  # Return the session ID in the response
     }
-
 
 @app.post("/delete")
 def delete_session(session: DeleteSession):
@@ -98,3 +107,7 @@ def delete_session(session: DeleteSession):
     """
     response = chat_session.delete_sess_db(session.session_id)
     return response
+
+
+
+    
