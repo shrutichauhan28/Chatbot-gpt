@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react'; 
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import Chat from './Chat';
 import ProfileDropdown from './ProfileDropdown';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Settings from './Settings';
-import { BiBookmark, BiHistory, BiPlus, BiUser, BiSolidUserCircle } from 'react-icons/bi';
-import { MdOutlineArrowLeft, MdOutlineArrowRight } from 'react-icons/md';
+import Signup from './Signup';
+import Login from './Login';
 import './App.css';
-import './ProfileDropdown.css';
-
-function AppContent() {
+import { BiMessageAlt } from "react-icons/bi";
+import { CiSaveUp2 } from "react-icons/ci";
+import { BsClockHistory } from "react-icons/bs";
+import { LiaSignOutAltSolid } from "react-icons/lia";
+ 
+function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(true);
   const [isRightSidebarCollapsed, setRightSidebarCollapsed] = useState(false);
+  const [isUserInfoVisible, setUserInfoVisible] = useState(false);
+  const [userInfo, setUserInfo] = useState({ username: '', role: '' });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleLeftSidebar = () => {
     setLeftSidebarOpen(!isLeftSidebarOpen);
@@ -23,115 +28,134 @@ function AppContent() {
     setRightSidebarOpen(!isRightSidebarOpen);
   };
 
+  const toggleUserInfo = () => {
+    setUserInfoVisible(!isUserInfoVisible);
+  };
+
   const checkScreenSize = () => {
     if (window.innerWidth < 768) {
-      setRightSidebarOpen(false); // Collapse right sidebar on small screens
+      setRightSidebarOpen(false);
       setRightSidebarCollapsed(true);
     } else {
-      setRightSidebarOpen(true); // Expand right sidebar on larger screens
+      setRightSidebarOpen(true);
       setRightSidebarCollapsed(false);
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Clear token from localStorage
+    setUserInfo({ username: '', role: '' }); // Reset user info
+    setIsLoggedIn(false);
+    navigate('/login'); // Redirect to login page
+  };
+
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+      fetchUserInfo(token); // Fetch dynamic user info
+    }
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Get the current route path using useLocation
-  const location = useLocation();
+  const fetchUserInfo = async (token) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/userInfo', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-  // Check if the current route is the Settings page
-  const isSettingsPage = location.pathname === '/settings';
+      if (response.ok) {
+        const data = await response.json();
+        console.log('User Info:', data.user); // Log the user info
+        if (data.user) {
+          setUserInfo({ username: data.user.username, role: data.user.role });
+        } else {
+          console.error('User data missing from response.');
+          setIsLoggedIn(false);
+        }
+      } else {
+        const errorMsg = await response.text(); // Get detailed error message
+        console.error('Failed to fetch user info:', errorMsg);
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+      setIsLoggedIn(false);
+    }
+  };
 
   return (
     <div className="app-container">
       {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-left">
-          {/* Left Arrow Icon */}
-          {!isSettingsPage && (
-            <MdOutlineArrowLeft
-              className="toggle-left-sidebar-icon"
-              size={24}
-              onClick={toggleLeftSidebar}
-              title={isLeftSidebarOpen ? "Hide Left Sidebar" : "Show Left Sidebar"}
-            />
-          )}
-          <h1 className="app-title">YUGM</h1> {/* Title aligned horizontally */}
+          <div className="title">
+            <h1>YUGM</h1>
+          </div>
         </div>
-
         <div className="navbar-right">
-          {/* User and Organization Icons with Hover Popups */}
-          <div className="navbar-icon user-icon" title="User">
-            <BiSolidUserCircle size={24} />
-          </div>
-
-          <div className="navbar-icon org-icon" title="Organization">
-            <BiUser size={24} />
-          </div>
-
-          {/* Add PopupWithTooltip next to User/Org icons */}
-          <ProfileDropdown />  {/* This is the new popup component */}
-          
-          {/* Right Arrow Icon */}
-          {!isSettingsPage && (
-            <MdOutlineArrowRight
-              className="toggle-right-sidebar-icon"
-              size={24}
-              onClick={toggleRightSidebar}
-              title={isRightSidebarOpen ? "Hide Right Sidebar" : "Show Right Sidebar"}
-            />
+          { <ProfileDropdown userInfo={userInfo} handleLogout={handleLogout} />} {/* Display dropdown only when logged in */}
+          {!isLoggedIn ? (
+            <>
+              <Link to="/signup">
+                <button className="btn btn-gradient-border btn-glow">Signup</button>
+              </Link>
+              <Link to="/login">
+                <button className="btn btn-gradient-border btn-glow">Login</button>
+              </Link>
+            </>
+          ) : (
+            <button className="btn btn-gradient-border btn-glow" onClick={handleLogout}>
+              Logout
+            </button>
           )}
         </div>
       </nav>
 
+      {isUserInfoVisible && (
+        <div className="user-info">
+          <span>{userInfo.username}</span>
+          <span> - {userInfo.role}</span>
+        </div>
+      )}
+
       <div className="content">
         {/* Left Sidebar */}
-        {!isSettingsPage && isLeftSidebarOpen && (
+        {isLeftSidebarOpen && (
           <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
-            <div className='sidebar-header' role='button'>
-              <BiPlus size={20} />
-              <button>New Chat</button>
-            </div>
-            <div className='sidebar-header' role='button'>
-              <BiBookmark size={20} />
-              <button>Saved Chat</button>
-            </div>
-            <div className='sidebar-header' role='button'>
-              <BiHistory size={20} />
-              <button>History</button>
-            </div>
+            <button className="btn btn-gradient-border btn-glow"><BiMessageAlt />New Chat</button>
+            <button className="btn btn-gradient-border btn-glow"><CiSaveUp2 />Saved</button>
+            <button className="btn btn-gradient-border btn-glow"><BsClockHistory />History</button>
+            {isLoggedIn && (
+              <button className="btn btn-gradient-border btn-glow" onClick={handleLogout}>
+                <LiaSignOutAltSolid /> Logout
+              </button>
+            )}
           </aside>
         )}
 
-        {/* Main Chat Section */}
+        {/* Main Chat Section or Routes */}
         <main className="chat-main">
           <Routes>
-            <Route path="/" element={<Chat />} />  {/* Main Chat route */}
-            <Route path="/settings" element={<Settings />} /> {/* Settings route */}
+            <Route path="/" element={<Chat />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
 
         {/* Right Sidebar (Collapsible) */}
-        {!isSettingsPage && isRightSidebarOpen && (
+        {isRightSidebarOpen && (
           <aside className={`right-sidebar ${isRightSidebarCollapsed ? 'collapsed' : ''}`}>
             <h2>Generated Links of Websites and Documents</h2>
           </aside>
         )}
       </div>
-
-      <ToastContainer />
     </div>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <AppContent />
-    </Router>
   );
 }
 

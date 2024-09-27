@@ -14,3 +14,4 @@ pdfplumber
 python-docx
 python-multipart
 ebooklib
+bs4

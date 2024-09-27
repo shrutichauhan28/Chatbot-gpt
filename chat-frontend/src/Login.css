@@ -1,0 +1,76 @@
+/* Login.css */
+
+/* Container for the login form, reusing similar styles from Signup */
+.login-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 20px auto;
+    color: black;
+}
+
+.login-container h2 {
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 15px;
+    color: black;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: black;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #180424;
+}
+
+
+.login-button {
+    background-color: #6a1b9a;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login-button:hover {
+    background-color: #53127b;
+}
+
+/* Error and success message styling */
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 10px;
+    }
+}

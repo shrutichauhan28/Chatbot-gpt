@@ -1,3 +1,4 @@
+/* ProfileDropdown.css */
 .profile-section {
     position: relative;
   }
@@ -46,3 +47,4 @@
   .profile-dropdown li:hover {
     background-color: #f0f0f0;
   }
+  
