@@ -1,0 +1,40 @@
+/* Left Sidebar styles */
+.left-sidebar {
+    background-color: #020411;
+    padding: 15px;
+    width: 250px;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  /* Collapsible left sidebar for responsive layout */
+  .left-sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+  
+  @media (max-width: 768px) {
+    .left-sidebar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      z-index: 10;
+      transform: translateX(-100%);
+    }
+  
+    .left-sidebar.collapsed {
+      transform: translateX(0);
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .left-sidebar.collapsed {
+      width: 0;
+      padding: 0;
+    }
+  }
+  

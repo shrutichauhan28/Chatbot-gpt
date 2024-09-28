@@ -1,0 +1,43 @@
+/* Right Sidebar styles */
+.right-sidebar {
+    background: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411);
+    width: 300px;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  /* Collapsible right sidebar for responsive layout */
+  .right-sidebar.collapsed {
+    transform: translateX(100%);
+  }
+  
+  @media (max-width: 768px) {
+    .right-sidebar {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      z-index: 10;
+      transform: translateX(100%);
+    }
+  
+    .right-sidebar.collapsed {
+      transform: translateX(0);
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .right-sidebar.collapsed {
+      width: 0;
+      padding: 0;
+    }
+  
+    .right-sidebar {
+      width: 250px;
+    }
+  }
+  

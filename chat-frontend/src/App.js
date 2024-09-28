@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import Chat from './Chat';
-import ProfileDropdown from './ProfileDropdown';
 import Signup from './Signup';
 import Login from './Login';
-import Settings from './Settings'; // Import the Settings component
+import Settings from './Settings';
+import LeftSidebar from './LeftSidebar';
+import RightSidebar from './RightSidebar';
+import Navbar from './Navbar'; // Import Navbar component
 import './App.css';
-import { BiMessageAlt } from "react-icons/bi";
-import { CiSaveUp2 } from "react-icons/ci";
-import { BsClockHistory } from "react-icons/bs";
 
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
@@ -18,7 +17,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current location
+  const location = useLocation();
 
   const toggleLeftSidebar = () => {
     setLeftSidebarOpen(!isLeftSidebarOpen);
@@ -41,18 +40,13 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
-    // Clear user info state
     setUserInfo({ username: '', role: '' });
     setIsLoggedIn(false);
-
-    // Redirect to login page
     navigate('/login');
   };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    
     if (token) {
       fetchUserInfo(token);
     } else {
@@ -92,47 +86,24 @@ function App() {
     }
   };
 
-  // Check if the current path is the chat path
   const isChatPath = location.pathname === '/';
 
   return (
     <div className="app-container">
-      <nav className="navbar">
-        <div className="navbar-left">
-          <div className="title">
-            <h1>YUGM</h1>
-          </div>
-        </div>
-        <div className="navbar-right">
-          {/* Pass userInfo and handleLogout as props */}
-          {isLoggedIn && (
-            <ProfileDropdown userInfo={userInfo} handleLogout={handleLogout} />
-          )}
-          {!isLoggedIn ? (
-            <>
-              {/* Define routes */}
-              <Link to="/signup">
-                <button className="btn btn-gradient-border btn-glow">Signup</button>
-              </Link>
-              <Link to="/login">
-                <button className="btn btn-gradient-border btn-glow">Login</button>
-              </Link>
-            </>
-          ) : (
-            <button className="btn btn-gradient-border btn-glow" onClick={handleLogout}>
-              Logout
-            </button>
-          )}
-        </div>
-      </nav>
+      <Navbar 
+        isChatPath={isChatPath}
+        isLeftSidebarOpen={isLeftSidebarOpen}
+        toggleLeftSidebar={toggleLeftSidebar}
+        isLoggedIn={isLoggedIn}
+        userInfo={userInfo}
+        handleLogout={handleLogout}
+        isRightSidebarOpen={isRightSidebarOpen}
+        toggleRightSidebar={toggleRightSidebar}
+      />
 
       <div className="content">
-        {isChatPath && isLeftSidebarOpen && ( // Only show the left sidebar if on chat path
-          <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
-            <button className="btn btn-gradient-border btn-glow"><BiMessageAlt />New Chat</button>
-            <button className="btn btn-gradient-border btn-glow"><CiSaveUp2 />Saved</button>
-            <button className="btn btn-gradient-border btn-glow"><BsClockHistory />History</button>
-          </aside>
+        {isChatPath && isLeftSidebarOpen && (
+          <LeftSidebar isLeftSidebarOpen={isLeftSidebarOpen} />
         )}
 
         <main className="chat-main">
@@ -140,14 +111,12 @@ function App() {
             <Route path="/" element={<Chat />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />} />
-            <Route path="/settings" element={<Settings />} /> {/* Add route for Settings */}
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
 
-        {isChatPath && isRightSidebarOpen && ( // Only show the right sidebar if on chat path
-          <aside className={`right-sidebar ${isRightSidebarCollapsed ? 'collapsed' : ''}`}>
-            <h2>Generated Links of Websites and Documents</h2>
-          </aside>
+        {isChatPath && isRightSidebarOpen && (
+          <RightSidebar isRightSidebarOpen={isRightSidebarOpen} isRightSidebarCollapsed={isRightSidebarCollapsed} />
         )}
       </div>
     </div>

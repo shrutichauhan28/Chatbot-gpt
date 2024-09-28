@@ -76,8 +76,6 @@ h1 {
   color: #122;
 }
 
-
-
 .app-container {
   display: flex;
   flex-direction: column;
@@ -142,18 +140,6 @@ h1 {
   position: relative;
   overflow: hidden; /* Prevents scroll on the entire page */
 }
-
-/* Sidebar styles */
-.left-sidebar, .right-sidebar {
-  background-color: #020411;
-
-  padding: 15px;
-  width: 250px;
-  height: 100%; /* Fix sidebar height */
-  flex-shrink: 0; /* Prevents shrinking on small screens */
-}
-
-
 
 .chat-main {
   flex-grow: 1;
@@ -236,19 +222,48 @@ h1 {
   }
 }
 
-
-/* Collapsible sidebar for responsive layout */
-.left-sidebar.collapsed {
-  transform: translateX(-100%);
+/* Sidebar Headers */
+.sidebar-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.3rem;
+  border: 0.05rem solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
 }
 
-
-.right-sidebar.collapsed {
-  transform: translateX(100%);
+.sidebar-header:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
+/* Sidebar Info */
+.sidebar-info {
+  width: 100%;
+  padding-top: 1rem;
+  border-top: 0.05rem solid rgba(255, 255, 255, 0.5);
+}
+
+.sidebar-info-upgrade,
+.sidebar-info-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.sidebar li:hover,
+.sidebar-info-upgrade:hover,
+.sidebar-info-user:hover {
+  background: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411);
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+/* Sidebar Toggle Buttons */
 .toggle-sidebar {
-  background: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411); /* made at https://learnui.design/tools/gradient-generator.html */;
+  background: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411);
   color: white;
   border: none;
   padding: 10px;
@@ -260,53 +275,19 @@ h1 {
 }
 
 .toggle-sidebar:hover {
-  background: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411); /* made at https://learnui.design/tools/gradient-generator.html */;
+  background: linear-gradient(195deg, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411);
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .left-sidebar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    z-index: 10;
-    transform: translateX(-100%);
-  }
-
-  .right-sidebar {
-    position: absolute;
-    background-color: #020411;
-    right: 0;
-    top: 0;
-    height: 100%;
-    z-index: 10;
-    transform: translateX(100%);
-  }
-
-  .left-sidebar.collapsed {
-    transform: translateX(0);
-  }
-
-  .right-sidebar.collapsed {
-    transform: translateX(0);
-  }
+/* Sidebar toggle icons */
+.toggle-left-sidebar-icon,
+.toggle-right-sidebar-icon {
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
-@media (max-width: 1024px) {
-  .right-sidebar {
-    width: 250px;
-  }
-
-  .left-sidebar.collapsed {
-    width: 0;
-    padding: 0;
-  }
-
-  .right-sidebar.collapsed {
-    width: 0;
-    padding: 0;
-  }
+.toggle-left-sidebar-icon:hover,
+.toggle-right-sidebar-icon:hover {
+  color: #007bff;
 }
 
 /* Message Styles */
