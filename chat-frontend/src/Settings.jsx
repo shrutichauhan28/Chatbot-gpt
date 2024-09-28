@@ -1,22 +1,55 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { getFolders, uploadFile, getFiles, deleteFile } from './api';
 import './Settings.css';
+
 
 const Settings = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [files, setFiles] = useState([]);
-  const [folders, setFolders] = useState([]); // Dynamic folders from backend
-  const [selectedFolder, setSelectedFolder] = useState(''); // Folder selected by user
-  const [newFolder, setNewFolder] = useState(''); // Name for new folder
-  const [createNewFolder, setCreateNewFolder] = useState(false); // To track if new folder creation is selected
+  const [folders, setFolders] = useState([]); 
+  const [selectedFolder, setSelectedFolder] = useState('');
+  const [newFolder, setNewFolder] = useState(''); 
+  const [createNewFolder, setCreateNewFolder] = useState(false); 
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
+  // State for confirmation dialog
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [fileToDelete, setFileToDelete] = useState(null);
+  const [folderToDeleteFrom, setFolderToDeleteFrom] = useState(null);
+
   useEffect(() => {
     fetchFiles();
-    fetchFolders(); // Fetch existing folders from the backend
+    fetchFolders();
   }, []);
+
+  const handleFileDeleteClick = (fileName, folderName) => {
+    setFileToDelete(fileName);
+    setFolderToDeleteFrom(folderName);
+    setIsDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      if (fileToDelete && folderToDeleteFrom) {
+        await deleteFile(folderToDeleteFrom, fileToDelete);
+        toast.success('File deleted successfully!');
+        fetchFiles(); 
+        setIsDialogOpen(false); 
+        setFileToDelete(null);
+        setFolderToDeleteFrom(null);
+      }
+    } catch (error) {
+      toast.error('Failed to delete file. Please try again.');
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setIsDialogOpen(false);
+    setFileToDelete(null);
+    setFolderToDeleteFrom(null);
+  };
 
   // Fetch folders from the backend
   const fetchFolders = async () => {
@@ -110,6 +143,7 @@ const Settings = () => {
 
   return (
     <div className="settings-page">
+      <ToastContainer />
       <div className="folder-select">
   <label htmlFor="folder">Select Folder:</label>
   <select
@@ -179,16 +213,16 @@ const Settings = () => {
         Object.keys(files).map((folder, index) => (
             <div key={index}>
                 <h3>{folder}</h3>
-                <ul>
-                    {files[folder].map((fileObj, idx) => (
-                        <li key={idx}>
-                            <a href={fileObj.url} target="_blank" rel="noopener noreferrer">
-                                {fileObj.file}
-                            </a>
-                            <button onClick={() => handleFileDelete(fileObj.file, folder)}>Delete</button>
-                        </li>
-                    ))}
-                </ul>
+                  <ul>
+                      {files[folder].map((fileObj, idx) => (
+                  <li key={idx}>
+                    <a href={fileObj.url} target="_blank" rel="noopener noreferrer">
+                        {fileObj.file}
+                    </a>
+                          <button onClick={() => handleFileDeleteClick(fileObj.file, folder)}>Delete</button>
+                      </li>
+                  ))}
+              </ul>
             </div>
         ))
     ) : (
@@ -196,6 +230,22 @@ const Settings = () => {
     )}
 </div>
 
+    {/* Delete Confirmation Dialog */}
+    {isDialogOpen && (
+    <>
+        <div className="backdrop" onClick={handleCancelDelete}></div>
+        <div className="dialog">
+            <div className="dialog-content">
+                <h3>Confirm Delete</h3>
+                <p>Are you sure you want to delete the file "{fileToDelete}"?</p>
+                <div className="dialog-actions">
+                    <button className="confirm-button" onClick={handleConfirmDelete}>Yes, Delete</button>
+                    <button className="cancel-button" onClick={handleCancelDelete}>Cancel</button>
+                </div>
+            </div>
+        </div>
+    </>
+)}
     </div>
   );
 };

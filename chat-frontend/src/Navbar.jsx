@@ -8,10 +8,7 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <div className="title">
-          <h1>YUGM</h1>
-        </div>
-        {/* Left Arrow Icon for Left Sidebar */}
+        {/* Left Arrow Icon for Left Sidebar - Moved before the Title */}
         {isChatPath && (
           <MdOutlineArrowLeft
             className="toggle-left-sidebar-icon"
@@ -20,6 +17,9 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
             title={isLeftSidebarOpen ? "Hide Left Sidebar" : "Show Left Sidebar"}
           />
         )}
+        <div className="title">
+          <h1>YUGM</h1>
+        </div>
       </div>
       <div className="navbar-right">
         {isLoggedIn ? (

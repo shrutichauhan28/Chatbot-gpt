@@ -19,13 +19,13 @@
   }
   
   .title h1 {
-    margin: 0;
+    margin-left: 1rem; /* Add margin to the left to give space after the toggle icon */
     font-size: 1.5rem;
   }
   
   .toggle-left-sidebar-icon, .toggle-right-sidebar-icon {
     cursor: pointer;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     color: white;
     transition: color 0.3s ease;
   }
