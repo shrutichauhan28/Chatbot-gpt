@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import Chat from './Chat';
 import ProfileDropdown from './ProfileDropdown';
 import Signup from './Signup';
@@ -9,9 +9,6 @@ import './App.css';
 import { BiMessageAlt } from "react-icons/bi";
 import { CiSaveUp2 } from "react-icons/ci";
 import { BsClockHistory } from "react-icons/bs";
-import { LiaSignOutAltSolid } from "react-icons/lia";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
@@ -21,6 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
 
   const toggleLeftSidebar = () => {
     setLeftSidebarOpen(!isLeftSidebarOpen);
@@ -94,6 +92,9 @@ function App() {
     }
   };
 
+  // Check if the current path is the chat path
+  const isChatPath = location.pathname === '/';
+
   return (
     <div className="app-container">
       <nav className="navbar">
@@ -126,7 +127,7 @@ function App() {
       </nav>
 
       <div className="content">
-        {isLeftSidebarOpen && (
+        {isChatPath && isLeftSidebarOpen && ( // Only show the left sidebar if on chat path
           <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
             <button className="btn btn-gradient-border btn-glow"><BiMessageAlt />New Chat</button>
             <button className="btn btn-gradient-border btn-glow"><CiSaveUp2 />Saved</button>
@@ -143,13 +144,12 @@ function App() {
           </Routes>
         </main>
 
-        {isRightSidebarOpen && (
+        {isChatPath && isRightSidebarOpen && ( // Only show the right sidebar if on chat path
           <aside className={`right-sidebar ${isRightSidebarCollapsed ? 'collapsed' : ''}`}>
             <h2>Generated Links of Websites and Documents</h2>
           </aside>
         )}
       </div>
-      <ToastContainer />
     </div>
   );
 }
