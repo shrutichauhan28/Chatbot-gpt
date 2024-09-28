@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MdOutlineArrowLeft, MdOutlineArrowRight } from 'react-icons/md';
+import { MdOutlineArrowLeft, MdOutlineArrowRight, MdLogout } from 'react-icons/md'; // Add MdLogout
 import ProfileDropdown from './ProfileDropdown'; // Assuming this exists
 import './Navbar.css';
 
@@ -25,9 +25,12 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
         {isLoggedIn ? (
           <>
             <ProfileDropdown userInfo={userInfo} handleLogout={handleLogout} />
-            <button className="btn btn-gradient-border btn-glow" onClick={handleLogout}>
-              Logout
-            </button>
+            <MdLogout 
+              className="logout-icon" 
+              size={24} 
+              onClick={handleLogout} 
+              title="Logout"
+            />
           </>
         ) : (
           <>

@@ -1,69 +1,89 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: 90px;
-    padding: 2.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .title h1 {
-    margin-left: 1rem; /* Add margin to the left to give space after the toggle icon */
-    font-size: 1.5rem;
-  }
-  
-  .toggle-left-sidebar-icon, .toggle-right-sidebar-icon {
-    cursor: pointer;
-    margin-left: 0.5rem;
-    color: white;
-    transition: color 0.3s ease;
-  }
-  
-  .toggle-left-sidebar-icon:hover, .toggle-right-sidebar-icon:hover {
-    color: gray;
-  }
-  
-  .navbar-right {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-  
-  .btn {
-    margin-left: 10px;
-    padding: 8px 16px;
-    border: 2px solid white;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .btn-glow {
-    background-image: linear-gradient(to right, #ff7e5f, #feb47b);
-    border: none;
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 126, 95, 0.5);
-  }
-  
-  .btn:hover {
-    background-color: white;
-    color: black;
-  }
-  
-  .profile-dropdown {
-    margin-left: 1rem;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #0E0C15;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 90px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.title h1 {
+  margin-left: 1rem; /* Add margin to the left to give space after the toggle icon */
+  font-size: 1.5rem;
+}
+
+.toggle-left-sidebar-icon, .toggle-right-sidebar-icon {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.toggle-left-sidebar-icon:hover, .toggle-right-sidebar-icon:hover {
+  color: gray;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align icons and buttons to the right */
+}
+
+.btn {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-glow {
+  background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 126, 95, 0.5);
+}
+
+.btn:hover {
+  background-color: white;
+  color: black;
+}
+
+.profile-dropdown {
+  margin-left: 1rem;
+}
+
+.logout-icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #fff;
+  transition: color 0.3s ease-in-out;
+  margin-left: 1rem; /* Space between the logout icon and other items */
+}
+
+.logout-icon:hover {
+  color: transparent;
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.icon {
+  font-size: 1.5rem;
+  color: #fff;
+  transition: fill 0.3s ease-in-out;
+}

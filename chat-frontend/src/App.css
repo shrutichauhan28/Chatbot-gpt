@@ -106,48 +106,24 @@ h1 {
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background: black;
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  flex-shrink: 0; 
-  height: 90px;
-  padding: 2.5rem;
-}
-
-.navbar-left h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.navbar-right{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-
 .content {
   display: flex;
   flex-grow: 1;
   position: relative;
   overflow: hidden; /* Prevents scroll on the entire page */
+  background-color: #262D3D;
 }
 
+/* Chat main container */
 .chat-main {
   flex-grow: 1;
   padding: 5px;
-  background-color: #2f2f2f;
+  background-color: #262D3D;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ensures full height of the chat section minus the navbar height */
+  flex-grow: 1;
+  transition: margin-left 0.3s, margin-right 0.3s;
+  padding: 10px;
   overflow: hidden;
 }
 
@@ -155,7 +131,8 @@ h1 {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto; /* Enable scrolling only for the chat area */
+  overflow-y: auto;
+  max-height: 100%;
 }
 
 .messages {
@@ -173,19 +150,12 @@ h1 {
   border-radius: 0.3rem;
   display: flex;
   align-items: center;
-  background-color: #020411;
-  
-  position: fixed; /* Fix the form to the viewport */
-  bottom: 1rem; /* Adjust the distance from the bottom of the screen */
-  left: 50%; /* Center the form horizontally */
-  transform: translateX(-50%); /* Correct for the centering of left: 50% */
-  
-  box-shadow:
-    rgb(0, 0, 0, 0.05) 0 3.3rem 3.4rem,
-    rgb(0, 0, 0, 0.05) 0 -0.7rem 1.8rem,
-    rgb(0, 0, 0, 0.05) 0 0.2rem 0.3rem,
-    rgb(0, 0, 0, 0.05) 0 0.7rem 0.2rem,
-    rgb(0, 0, 0, 0.05) 0 0.2rem 0.3rem;
+  background-color: #021110;
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: rgb(0, 0, 0, 0.05) 0 3.3rem 3.4rem, rgb(0, 0, 0, 0.05) 0 -0.7rem 1.8rem;
 }
 
 .input-container input {
@@ -194,14 +164,14 @@ h1 {
   font-size: 1rem;
   padding:10px;
   background: rgba(91, 0, 70, 0.85); /* Adjust the input background transparency */
-  background: linear-gradient(195deg, rgba(91, 0, 70, 0.85), rgba(80, 1, 78, 0.85), rgba(59, 2, 70, 0.85), rgba(39, 3, 59, 0.85), rgba(24, 3, 49, 0.85), rgba(12, 3, 38, 0.85), rgba(4, 3, 28, 0.85), rgba(2, 4, 17, 0.85)); /* Gradient with transparency */
+  background-color: #021110;
   outline: none;
   border: none;
 }
 
 .input-container button {
   padding: 10px 20px;
-  background-color: #4B286D;
+  background-color: #021110;
   color: white;
   border: none;
   border-radius: 5px;
@@ -222,74 +192,6 @@ h1 {
   }
 }
 
-/* Sidebar Headers */
-.sidebar-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.8rem 1rem;
-  border-radius: 0.3rem;
-  border: 0.05rem solid rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-}
-
-.sidebar-header:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Sidebar Info */
-.sidebar-info {
-  width: 100%;
-  padding-top: 1rem;
-  border-top: 0.05rem solid rgba(255, 255, 255, 0.5);
-}
-
-.sidebar-info-upgrade,
-.sidebar-info-user {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-}
-
-.sidebar li:hover,
-.sidebar-info-upgrade:hover,
-.sidebar-info-user:hover {
-  background: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411);
-  border-radius: 0.3rem;
-  cursor: pointer;
-}
-
-/* Sidebar Toggle Buttons */
-.toggle-sidebar {
-  background: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411);
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 10px;
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  cursor: pointer;
-}
-
-.toggle-sidebar:hover {
-  background: linear-gradient(195deg, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c, #020411);
-}
-
-/* Sidebar toggle icons */
-.toggle-left-sidebar-icon,
-.toggle-right-sidebar-icon {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.toggle-left-sidebar-icon:hover,
-.toggle-right-sidebar-icon:hover {
-  color: #007bff;
-}
-
 /* Message Styles */
 .message {
   margin: 5px 0;
@@ -300,7 +202,7 @@ h1 {
 }
 
 .message.user {
-  background-color: #3e3e56; /* Slightly different shade for user messages */
+  background-color: #784c79; /* Slightly different shade for user messages */
   color: #ffffff;
   border-radius: 20px 20px 5px 20px; /* Different border-radius for user */
   padding: 10px 15px;
@@ -310,13 +212,12 @@ h1 {
 }
 
 .message.bot {
-  background-color: #1e1e2e; /* Dark color for bot messages */
+  background-color: #181820; /* Dark color for bot messages */
   color: #ffffff; /* Text color */
   border-radius: 20px 20px 20px 5px; /* Customize border-radius for shape */
   padding: 10px 15px;
   max-width: 60%;
   margin-bottom: 10px;
-
 }
 
 /* Custom Scrollbar Styles */
@@ -347,12 +248,13 @@ h1 {
 .chat-container:hover {
   scrollbar-color: linear-gradient(195deg, #5b0046, #50014e, #3b0246, #27033b, #180331, #0c0326, #04031c) transparent; /* Gradient on hover for Firefox */
 }
+
 .profile-section {
   position: relative;
 }
 
 .profile-button {
-  background-color: #6a1b9a; /* Circle background color */
+  background-color: #875589; /* Circle background color */
   color: white;
   border-radius: 50%;
   width: 40px;
