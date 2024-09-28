@@ -50,7 +50,6 @@ function Chat() {
         />
         <button onClick={sendMessage}><IoSend /></button>
       </div>
-     
       </div>
     </div>
   );
