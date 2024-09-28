@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const Login = () => {
+const Login = ({ setIsLoggedIn, setUserInfo }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -10,7 +10,6 @@ const Login = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,7 +28,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', { // Update URL to your backend
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,25 +39,22 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log('JWT Token:', data.token); // Store token if necessary
-
-       
-  console.log('User data:', data.user); 
-        setSuccessMessage('Login successful! Redirecting...');
-        setErrorMessage('');
-
-        // Store the token in localStorage or cookies
         localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
 
+        setUserInfo({ username: data.user.username, role: data.user.role });
+        setIsLoggedIn(true);
+
+        setSuccessMessage('Login successful! Redirecting...');
         setTimeout(() => {
           navigate('/');
-        }, 2000);
+        }, 1000);
       } else {
         setErrorMessage(data.message || 'Login failed. Please check your credentials.');
       }
     } catch (error) {
       setErrorMessage('An error occurred. Please try again.');
-      console.error('Error during login:', error); // Log the error for debugging
+      console.error('Error during login:', error);
     }
   };
 
@@ -67,7 +63,6 @@ const Login = () => {
       <h2>Login</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
-      
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -79,7 +74,7 @@ const Login = () => {
             placeholder="Enter email"
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
@@ -90,7 +85,6 @@ const Login = () => {
             placeholder="Enter password"
           />
         </div>
-        
         <button type="submit" className="login-button">Login</button>
       </form>
     </div>

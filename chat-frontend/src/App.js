@@ -9,12 +9,11 @@ import { BiMessageAlt } from "react-icons/bi";
 import { CiSaveUp2 } from "react-icons/ci";
 import { BsClockHistory } from "react-icons/bs";
 import { LiaSignOutAltSolid } from "react-icons/lia";
- 
+
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(true);
   const [isRightSidebarCollapsed, setRightSidebarCollapsed] = useState(false);
-  const [isUserInfoVisible, setUserInfoVisible] = useState(false);
   const [userInfo, setUserInfo] = useState({ username: '', role: '' });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -28,10 +27,6 @@ function App() {
     setRightSidebarOpen(!isRightSidebarOpen);
   };
 
-  const toggleUserInfo = () => {
-    setUserInfoVisible(!isUserInfoVisible);
-  };
-
   const checkScreenSize = () => {
     if (window.innerWidth < 768) {
       setRightSidebarOpen(false);
@@ -43,18 +38,27 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Clear token from localStorage
-    setUserInfo({ username: '', role: '' }); // Reset user info
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    // Clear user info state
+    setUserInfo({ username: '', role: '' });
     setIsLoggedIn(false);
-    navigate('/login'); // Redirect to login page
+
+    // Redirect to login page
+    navigate('/login');
   };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    
     if (token) {
-      setIsLoggedIn(true);
-      fetchUserInfo(token); // Fetch dynamic user info
+      fetchUserInfo(token);
+    } else {
+      setUserInfo({ username: '', role: '' });
+      setIsLoggedIn(false);
     }
+
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
@@ -62,6 +66,8 @@ function App() {
 
   const fetchUserInfo = async (token) => {
     try {
+      setUserInfo({ username: '', role: '' });
+
       const response = await fetch('http://localhost:5000/api/auth/userInfo', {
         method: 'GET',
         headers: {
@@ -71,27 +77,22 @@ function App() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('User Info:', data.user); // Log the user info
         if (data.user) {
           setUserInfo({ username: data.user.username, role: data.user.role });
+          setIsLoggedIn(true);
         } else {
-          console.error('User data missing from response.');
           setIsLoggedIn(false);
         }
       } else {
-        const errorMsg = await response.text(); // Get detailed error message
-        console.error('Failed to fetch user info:', errorMsg);
         setIsLoggedIn(false);
       }
     } catch (error) {
-      console.error('Error fetching user info:', error);
       setIsLoggedIn(false);
     }
   };
 
   return (
     <div className="app-container">
-      {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-left">
           <div className="title">
@@ -99,7 +100,10 @@ function App() {
           </div>
         </div>
         <div className="navbar-right">
-          { <ProfileDropdown userInfo={userInfo} handleLogout={handleLogout} />} {/* Display dropdown only when logged in */}
+          {/* Pass userInfo and handleLogout as props */}
+          {isLoggedIn && (
+            <ProfileDropdown userInfo={userInfo} handleLogout={handleLogout} />
+          )}
           {!isLoggedIn ? (
             <>
               <Link to="/signup">
@@ -117,38 +121,23 @@ function App() {
         </div>
       </nav>
 
-      {isUserInfoVisible && (
-        <div className="user-info">
-          <span>{userInfo.username}</span>
-          <span> - {userInfo.role}</span>
-        </div>
-      )}
-
       <div className="content">
-        {/* Left Sidebar */}
         {isLeftSidebarOpen && (
           <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
             <button className="btn btn-gradient-border btn-glow"><BiMessageAlt />New Chat</button>
             <button className="btn btn-gradient-border btn-glow"><CiSaveUp2 />Saved</button>
             <button className="btn btn-gradient-border btn-glow"><BsClockHistory />History</button>
-            {isLoggedIn && (
-              <button className="btn btn-gradient-border btn-glow" onClick={handleLogout}>
-                <LiaSignOutAltSolid /> Logout
-              </button>
-            )}
           </aside>
         )}
 
-        {/* Main Chat Section or Routes */}
         <main className="chat-main">
           <Routes>
             <Route path="/" element={<Chat />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />} />
           </Routes>
         </main>
 
-        {/* Right Sidebar (Collapsible) */}
         {isRightSidebarOpen && (
           <aside className={`right-sidebar ${isRightSidebarCollapsed ? 'collapsed' : ''}`}>
             <h2>Generated Links of Websites and Documents</h2>

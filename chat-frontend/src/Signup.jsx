@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 
-
 const Signup = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -26,14 +25,13 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!formData.username || !formData.email || !formData.password || !formData.role) {
       setErrorMessage('All fields are required.');
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/signup', { // Update URL to your backend
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,19 +42,18 @@ const Signup = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log('JWT Token:', data.token);
-        setSuccessMessage('Signup successful! Welcome to the app.');
+        setSuccessMessage('Signup successful! Redirecting to login...');
         setErrorMessage('');
 
         setTimeout(() => {
-          navigate('/');
+          navigate('/login');
         }, 2000);
       } else {
         setErrorMessage(data.message || 'Signup failed. Please try again.');
       }
     } catch (error) {
       setErrorMessage('An error occurred. Please try again.');
-      console.error('Error during signup:', error); // Log the error for debugging
+      console.error('Error during signup:', error);
     }
   };
 
@@ -65,7 +62,7 @@ const Signup = () => {
       <h2>Sign up</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
-      
+
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
           <label htmlFor="username">Username:</label>
@@ -77,7 +74,7 @@ const Signup = () => {
             placeholder="Enter username"
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -99,7 +96,7 @@ const Signup = () => {
             placeholder="Enter the Role"
           />
         </div>
-                    
+
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
@@ -110,7 +107,7 @@ const Signup = () => {
             placeholder="Enter password"
           />
         </div>
-        
+
         <button type="submit" className="btn btn-gradient-border btn-glow">Sign Up</button>
       </form>
     </div>

@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     match: [/^.*@valuebound\.com$/, 'Only company-specific emails allowed'],
   },
   username: { type: String, required: true },
-  role: { type: String, enum: ['user', 'admin','intern','SDE','HR','Sales manager','Project Manager'], default: 'user' },
+  role: { type: String, enum: ['user', 'Admin', 'admin','intern','SDE','HR','Sales manager','Project Manager'], default: 'user' },
   password: { type: String, required: true },
 }, { timestamps: true });
 
