@@ -6,9 +6,8 @@ import Login from './Login';
 import Settings from './Settings';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
-import Navbar from './Navbar'; // Import Navbar component
+import Navbar from './Navbar';
 import './App.css';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -45,6 +44,7 @@ function App() {
     localStorage.removeItem('user');
     setUserInfo({ username: '', role: '' });
     setIsLoggedIn(false);
+    toast.success("Successfully logged out!");
     navigate('/login');
   };
 
@@ -89,6 +89,16 @@ function App() {
     }
   };
 
+  // Define handleSignupSuccess function
+  const handleSignupSuccess = () => {
+    toast.success("Successfully registered! Please log in.");
+  };
+
+  // Define handleLoginSuccess function
+  const handleLoginSuccess = () => {
+    toast.success("Successfully logged in!");
+  };
+
   const isChatPath = location.pathname === '/';
 
   return (
@@ -112,8 +122,8 @@ function App() {
         <main className="chat-main">
           <Routes>
             <Route path="/" element={<Chat />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />} />
+            <Route path="/signup" element={<Signup handleSignupSuccess={handleSignupSuccess} />} />
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} handleLoginSuccess={handleLoginSuccess} />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
@@ -122,6 +132,7 @@ function App() {
           <RightSidebar isRightSidebarOpen={isRightSidebarOpen} isRightSidebarCollapsed={isRightSidebarCollapsed} />
         )}
       </div>
+      <ToastContainer /> {/* Include the ToastContainer here */}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 
-const Signup = () => {
+const Signup = ({ handleSignupSuccess }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -12,7 +12,6 @@ const Signup = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -43,8 +42,7 @@ const Signup = () => {
 
       if (response.ok) {
         setSuccessMessage('Signup successful! Redirecting to login...');
-        setErrorMessage('');
-
+        handleSignupSuccess(); // Trigger the success toast
         setTimeout(() => {
           navigate('/login');
         }, 2000);
@@ -59,10 +57,9 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      <h2>Sign up</h2>
+      <h2>Sign Up</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
-
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
           <label htmlFor="username">Username:</label>

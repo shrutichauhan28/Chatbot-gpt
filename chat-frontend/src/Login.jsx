@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const Login = ({ setIsLoggedIn, setUserInfo }) => {
+const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -46,6 +46,7 @@ const Login = ({ setIsLoggedIn, setUserInfo }) => {
         setIsLoggedIn(true);
 
         setSuccessMessage('Login successful! Redirecting...');
+        handleLoginSuccess(); // Trigger the success toast
         setTimeout(() => {
           navigate('/');
         }, 1000);
