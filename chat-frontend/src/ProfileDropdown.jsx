@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import './ProfileDropdown.css';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './ProfileDropdown.css';
 
 const ProfileDropdown = ({ userInfo, handleLogout }) => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -10,20 +10,25 @@ const ProfileDropdown = ({ userInfo, handleLogout }) => {
     setProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  const displayInitial = userInfo?.username.charAt(0).toUpperCase();
+  const handleSettingsClick = () => {
+    navigate('/settings'); // Navigate to the Settings page
+    setProfileDropdownOpen(false); // Close dropdown after navigation
+  };
 
   return (
     <div className="profile-section">
       <button className="profile-button" onClick={toggleProfileDropdown}>
-        {displayInitial || 'G'}
+        {userInfo.username.charAt(0).toUpperCase()}
       </button>
 
       {isProfileDropdownOpen && (
         <div className="profile-dropdown">
           <ul>
-            <li>{userInfo?.username || 'Guest'}</li>
-            <li>{userInfo?.role || 'Role not assigned'}</li>
-            <li onClick={() => navigate('/settings')}>Settings</li>
+            <li>{userInfo.username}</li>
+            <li>{userInfo.role}</li>
+            {userInfo.role === 'admin' && (
+              <li onClick={handleSettingsClick}>Settings</li> // Settings option
+            )}
             <li onClick={handleLogout}>Logout</li>
           </ul>
         </div>

@@ -4,11 +4,14 @@ import Chat from './Chat';
 import ProfileDropdown from './ProfileDropdown';
 import Signup from './Signup';
 import Login from './Login';
+import Settings from './Settings'; // Import the Settings component
 import './App.css';
 import { BiMessageAlt } from "react-icons/bi";
 import { CiSaveUp2 } from "react-icons/ci";
 import { BsClockHistory } from "react-icons/bs";
 import { LiaSignOutAltSolid } from "react-icons/lia";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
@@ -106,6 +109,7 @@ function App() {
           )}
           {!isLoggedIn ? (
             <>
+              {/* Define routes */}
               <Link to="/signup">
                 <button className="btn btn-gradient-border btn-glow">Signup</button>
               </Link>
@@ -135,6 +139,7 @@ function App() {
             <Route path="/" element={<Chat />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />} />
+            <Route path="/settings" element={<Settings />} /> {/* Add route for Settings */}
           </Routes>
         </main>
 
@@ -144,6 +149,7 @@ function App() {
           </aside>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }
