@@ -32,7 +32,11 @@ const ProfileDropdown = ({ userInfo, handleLogout }) => {
             <li>{userInfo.role}</li>
             {userInfo.role === 'admin' && (
               <li onClick={handleSettingsClick}>Settings</li> // Settings option
-            ) && (<li onClick={handleUsersClick}>Manage Users</li>)}
+            )}
+            {userInfo.role === 'admin' && (
+              <li onClick={handleUsersClick}>Manage Users</li>
+            )}
+
             <li onClick={handleLogout}>Logout</li>
           </ul>
         </div>
