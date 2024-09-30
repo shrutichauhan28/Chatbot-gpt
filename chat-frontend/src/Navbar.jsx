@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MdOutlineArrowLeft, MdOutlineArrowRight, MdLogout } from 'react-icons/md'; // Add MdLogout
-import ProfileDropdown from './ProfileDropdown'; // Assuming this exists
+import { MdOutlineArrowLeft, MdOutlineArrowRight, MdLogout } from 'react-icons/md'; 
+import ProfileDropdown from './ProfileDropdown'; 
 import './Navbar.css';
 
 function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, userInfo, handleLogout, isRightSidebarOpen, toggleRightSidebar }) {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        {/* Left Arrow Icon for Left Sidebar - Moved before the Title */}
+        {/* Logo */}
+        <Link to="/">
+          <img src="/images/logo.png" alt="Logo" className="navbar-logo" />
+        </Link>
+        {/* Left Arrow Icon for Left Sidebar */}
         {isChatPath && (
           <MdOutlineArrowLeft
             className="toggle-left-sidebar-icon"
@@ -17,10 +21,12 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
             title={isLeftSidebarOpen ? "Hide Left Sidebar" : "Show Left Sidebar"}
           />
         )}
-        <div className="title">
-          <h1>YUGM</h1>
-        </div>
       </div>
+
+      <div className="navbar-center">
+        <h1 className="navbar-title">YUGM</h1>
+      </div>
+
       <div className="navbar-right">
         {isLoggedIn ? (
           <>

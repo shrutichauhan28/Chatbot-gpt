@@ -13,14 +13,34 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Add styling for the logo */
+.navbar-logo {
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+}
+
 .navbar-left {
   display: flex;
   align-items: center;
 }
 
-.title h1 {
-  margin-left: 1rem; /* Add margin to the left to give space after the toggle icon */
-  font-size: 1.5rem;
+.navbar-center {
+  flex: 1; /* Take up the remaining space to center the title */
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align icons and buttons to the right */
 }
 
 .toggle-left-sidebar-icon, .toggle-right-sidebar-icon {
@@ -32,12 +52,6 @@
 
 .toggle-left-sidebar-icon:hover, .toggle-right-sidebar-icon:hover {
   color: gray;
-}
-
-.navbar-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; /* Align icons and buttons to the right */
 }
 
 .btn {
@@ -72,7 +86,7 @@
   font-size: 1.5rem;
   color: #fff;
   transition: color 0.3s ease-in-out;
-  margin-left: 1rem; /* Space between the logout icon and other items */
+  margin-left: 1rem;
 }
 
 .logout-icon:hover {
