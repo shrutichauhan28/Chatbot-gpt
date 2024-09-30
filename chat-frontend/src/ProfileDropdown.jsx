@@ -15,6 +15,10 @@ const ProfileDropdown = ({ userInfo, handleLogout }) => {
     setProfileDropdownOpen(false); // Close dropdown after navigation
   };
 
+  const handleUsersClick=()=>{
+    navigate('/addusers');
+    setProfileDropdownOpen(false);
+  }
   return (
     <div className="profile-section">
       <button className="profile-button" onClick={toggleProfileDropdown}>
@@ -29,6 +33,10 @@ const ProfileDropdown = ({ userInfo, handleLogout }) => {
             {userInfo.role === 'admin' && (
               <li onClick={handleSettingsClick}>Settings</li> // Settings option
             )}
+            {userInfo.role === 'admin' && (
+              <li onClick={handleUsersClick}>Manage Users</li>
+            )}
+
             <li onClick={handleLogout}>Logout</li>
           </ul>
         </div>

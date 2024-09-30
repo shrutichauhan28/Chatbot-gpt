@@ -10,6 +10,7 @@ import Navbar from './Navbar';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AddUsers from './AddUsers';
 
 //manages the application's layout, navigation, and user authentication, rendering different pages and sidebars based on the user's login status and screen size
 function App() {
@@ -126,6 +127,7 @@ function App() {
             <Route path="/signup" element={<Signup handleSignupSuccess={handleSignupSuccess} />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} handleLoginSuccess={handleLoginSuccess} />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/addusers" element={<AddUsers/>}/>
           </Routes>
         </main>
 

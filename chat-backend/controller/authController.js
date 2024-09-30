@@ -64,3 +64,40 @@ exports.getUserInfo = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch user info', error });
   }
 };
+
+// Add a new user (admin only)
+exports.addUser = async (req, res) => {
+  const { email, username, role, password } = req.body;
+
+  try {
+    // Ensure the request is coming from an admin user
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'You do not have permission to add users' });
+    }
+
+    // Check if the user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    // Hash the password before saving the user
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Create a new user
+    const user = new User({
+      email,
+      username,
+      role,
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    // Respond with success
+    res.status(201).json({ message: 'User added successfully', user });
+  } catch (error) {
+    console.error('Add user error:', error);
+    res.status(500).json({ message: 'Failed to add user', error: error.message });
+  }
+};
