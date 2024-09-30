@@ -1,0 +1,68 @@
+/* App.css */
+.container {
+    width: 50%;
+    margin: auto;
+    background-color: #2e2e2e; /* Dark background */
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .upload-section {
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .upload-section label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .upload-section input,
+  .upload-section select {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  .upload-section button {
+    padding: 10px 20px;
+    background-color: #3498db; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .knowledge-base {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .knowledge-base h3 {
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+  }
+  
+  .knowledge-base table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .knowledge-base th,
+  .knowledge-base td {
+    padding: 10px;
+    border-bottom: 1px solid #555;
+    text-align: left;
+    color: white;
+  }
+  
+  .knowledge-base p {
+    color: #bbb;
+  }
+  
