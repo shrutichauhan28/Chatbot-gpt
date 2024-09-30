@@ -11,6 +11,7 @@ import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+//manages the application's layout, navigation, and user authentication, rendering different pages and sidebars based on the user's login status and screen size
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(true);
