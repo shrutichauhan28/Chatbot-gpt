@@ -286,6 +286,16 @@ def query_response(query: QueryModel):
     answer = result['answer']
     chat_session.save_sess_db(query.session_id, query.text, answer)
 
+    # sources = list(set([doc.metadata['source'] for doc in result['source_documents']]))
+    
+    # # Generate final answer by appending sources to the AI response
+    # answer = result['answer']
+    # sources_str = "\nSources:\n" + "\n".join(sources)  # Format sources into a string
+    # final_answer = f"{answer}\n\n{sources_str}"  # Append sources to the answer
+    
+    # # Save only the current interaction, if needed
+    # chat_session.save_sess_db(query.session_id, query.text, final_answer)
+
     return {
         'answer': answer,
         "cost": cost,
