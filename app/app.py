@@ -265,9 +265,9 @@ def query_response(query: QueryModel):
         query.session_id = str(uuid.uuid4())
 
     # Check if there is a conversation history for the session
-    stored_memory = chat_session.load_history(query.session_id)
-    if len(stored_memory) == 0:
-        stored_memory = None
+    stored_memory = None
+    # if len(stored_memory) == 0:
+        # stored_memory = None
 
     # Get conversation chain
     chain = db_conversation_chain(
