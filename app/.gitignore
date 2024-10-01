@@ -101,3 +101,4 @@ instance/
 
 # Static files
 staticfiles/
+sqlite.db
