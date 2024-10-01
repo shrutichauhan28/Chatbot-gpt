@@ -286,6 +286,16 @@ def query_response(query: QueryModel):
     answer = result['answer']
     chat_session.save_sess_db(query.session_id, query.text, answer)
 
+    # sources = list(set([doc.metadata['source'] for doc in result['source_documents']]))
+    
+    # # Generate final answer by appending sources to the AI response
+    # answer = result['answer']
+    # sources_str = "\nSources:\n" + "\n".join(sources)  # Format sources into a string
+    # final_answer = f"{answer}\n\n{sources_str}"  # Append sources to the answer
+    
+    # # Save only the current interaction, if needed
+    # chat_session.save_sess_db(query.session_id, query.text, final_answer)
+
     return {
         'answer': answer,
         "cost": cost,
@@ -337,74 +347,3 @@ async def delete_file(folder: str, file_name: str):
 
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
-    
-@app.get("/view-docx/{file_name}")
-async def view_docx(file_name: str):
-    file_path = os.path.join(dir_path, 'docs', file_name)
-
-    if not os.path.exists(file_path):
-        return JSONResponse(status_code=404, content={"error": "File not found"})
-
-    # Open the DOCX file
-    doc = Document(file_path)
-    content = ''
-    
-    # Read the content of the DOCX file and convert to HTML
-    for para in doc.paragraphs:
-        content += f"<p>{para.text}</p>"
-
-    # Serve the HTML content
-    return HTMLResponse(content=content)
-
-@app.get("/view-csv/{file_name}")
-async def view_csv(file_name: str):
-    file_path = os.path.join(dir_path, 'csv', file_name)
-
-    if not os.path.exists(file_path):
-        return JSONResponse(status_code=404, content={"error": "File not found"})
-
-    # Convert CSV to HTML table
-    html_content = '<table border="1">'
-    with open(file_path, newline='') as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            html_content += '<tr>'
-            for cell in row:
-                html_content += f'<td>{cell}</td>'
-            html_content += '</tr>'
-    html_content += '</table>'
-
-    return HTMLResponse(content=html_content)
-
-@app.get("/view-xlsx/{file_name}")
-async def view_xlsx(file_name: str):
-    file_path = os.path.join(dir_path, 'xlsx', file_name)
-    
-    if not os.path.exists(file_path):
-        return JSONResponse(status_code=404, content={"error": "File not found"})
-
-    # Read Excel file
-    df = pd.read_excel(file_path)
-
-    # Convert DataFrame to HTML
-    html_content = df.to_html(index=False)
-
-    return HTMLResponse(content=html_content)
-
-@app.get("/view-epub/{file_name}")
-async def view_epub(file_name: str):
-    file_path = os.path.join(dir_path, 'epub', file_name)
-
-    if not os.path.exists(file_path):
-        return JSONResponse(status_code=404, content={"error": "File not found"})
-
-    # Read and extract the EPUB content
-    book = epub.read_epub(file_path)
-    content = ''
-    
-    for item in book.get_items():
-        if item.get_type() == ebooklib.ITEM_DOCUMENT:
-            soup = BeautifulSoup(item.get_content(), 'html.parser')
-            content += str(soup)
-
-    return HTMLResponse(content=content)
