@@ -40,6 +40,8 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
+        console.log(data.token);
+        console.log('Login success');
         localStorage.setItem('user', JSON.stringify(data.user));
 
         setUserInfo({ username: data.user.username, role: data.user.role });
