@@ -11,10 +11,9 @@ import pymilvus
 from langchain.llms import GPT4All
 import os
 from langchain.schema import messages_from_dict
-from utils import get_settings
 from prompts import prompt_doc, prompt_chat
 from dotenv import load_dotenv
-
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 load_dotenv()
 
@@ -22,49 +21,86 @@ load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
 
 
-def vector_database(
-              collection_name,
-              drop_existing_embeddings=False,
-              embeddings_name='sentence',
-              doc_text=None):
+def chunk_document(doc_text, chunk_size=1000, chunk_overlap=200):
+    """
+    Splits the document text into chunks.
+    
+    Args:
+        doc_text (str): The document text to be chunked.
+        chunk_size (int): The number of characters per chunk.
+        chunk_overlap (int): The overlap size between chunks.
+    
+    Returns:
+        List of text chunks.
+    """
+    # Use a recursive character splitter for chunking based on character size
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+    )
+    chunks = text_splitter.split_text(doc_text)
+    return chunks
 
+
+def vector_database(collection_name, doc_text=None, drop_existing_embeddings=False, embeddings_name='sentence',
+                    chunk_size=1000, chunk_overlap=200):
     """
     Creates and returns a Milvus database based on the specified parameters.
+    
     Args:
-        doct_text: The document text. 
+        doc_text: The document text.
         collection_name: The name of the collection.
         drop_existing_embeddings: Whether to drop existing embeddings.
         embeddings_name: The name of the embeddings ('openai' or 'sentence').
+        chunk_size: Maximum number of characters in a chunk.
+        chunk_overlap: Number of characters of overlap between chunks.
+    
     Returns:
         The Milvus database.
-        """
-
+    """
+    # Determine the embeddings model
     if embeddings_name == 'openai':
-        embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+        try:
+            embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error loading OpenAI embeddings: {e}")
     elif embeddings_name == 'sentence':
-        embeddings = HuggingFaceEmbeddings()
+        try:
+            embeddings = HuggingFaceEmbeddings()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error loading HuggingFace embeddings: {e}")
     else:
-        print('invalid embeddings')
+        raise ValueError('Invalid embeddings option. Choose either "openai" or "sentence".')
+
     if doc_text:
-        try: 
+        # Chunk the document text before embedding
+        doc_chunks = chunk_document(doc_text, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+        
+        try:
             vector_db = Milvus.from_documents(
-                doc_text,
+                doc_chunks,  # Use the chunks here
                 embeddings,
                 collection_name=collection_name,
                 drop_old=drop_existing_embeddings,
-                connection_args={"host": "localhost", "port": "19530", "timeout": 60  },
-                # if we want to communicate between two dockers then instead of local 
-                # host we need to use milvus-standalone
+                connection_args={"host": "localhost", "port": "19530", "timeout": 60},
             )
-        except pymilvus.exceptions.ParamError:
-            raise HTTPException(status_code=400,
-                                detail=f"collection_name {collection_name} already exist. Either set drop_existing_embeddings to true or change collection_name")
+        except pymilvus.exceptions.ParamError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Collection '{collection_name}' already exists. Set drop_existing_embeddings=True to overwrite. Error: {e}"
+            )
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to create Milvus database: {e}")
     else:
-        vector_db = Milvus(
-            embeddings,
-            collection_name=collection_name,
-            connection_args={"host":"localhost", "port": "19530"},
-        )
+        try:
+            vector_db = Milvus(
+                embeddings,
+                collection_name=collection_name,
+                connection_args={"host": "localhost", "port": "19530"},
+            )
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error initializing Milvus: {e}")
+
     return vector_db
 
 
@@ -73,57 +109,74 @@ def get_chat_history(inputs):
     Get human input only
     """
     inputs = [i.content for i in inputs]
-    # inputs = [string for index, string in enumerate(inputs) if index % 2 == 0]
     return '\n'.join(inputs)
 
 
 def db_conversation_chain(llm_name, stored_memory, collection_name):
-
     """
     Creates and returns a ConversationalRetrievalChain based on the specified parameters.
+    
     Args:
         llm_name: The name of the language model ('openai', 'gpt4all', or 'llamacpp').
         stored_memory: Existing conversation.
         collection_name: The name of the collection (optional).
+    
     Returns:
         The ConversationalRetrievalChain.
     """
-
     if llm_name == 'openai':
         llm = ChatOpenAI(
             model_name='gpt-3.5-turbo',
-            openai_api_key=get_settings().openai_api_key)  
+            openai_api_key=get_settings().openai_api_key,
+            temperature=0.3,
+            verbose=False
+        )
         embeddings_name = 'openai'
 
     elif llm_name == 'gpt4all':
         llm = GPT4All(
-            model='llms/ggml-gpt4all-j.bin', 
-            n_ctx=1000, 
-            verbose=True)
+            model='llms/ggml-gpt4all-j.bin',
+            n_ctx=1000,
+            verbose=True
+        )
         embeddings_name = "sentence"
 
     elif llm_name == 'llamacpp':
         llm = GPT4All(
-            model='llms/ggml-gpt4all-l13b-snoozy.bin', 
-            n_ctx=1000, 
-            verbose=True)
+            model='llms/ggml-gpt4all-l13b-snoozy.bin',
+            n_ctx=1000,
+            verbose=True
+        )
         embeddings_name = "sentence"
 
+    else:
+        raise ValueError('Invalid LLM name.')
+
+    # Initialize the vector database
     vector_db = vector_database(
         collection_name=collection_name,
         embeddings_name=embeddings_name
-        )
+    )
 
+    # Initialize chat history memory
     if stored_memory:
-        retrieved_messages = messages_from_dict(stored_memory)
-        chat_history = ChatMessageHistory(messages=retrieved_messages)
+        try:
+            retrieved_messages = messages_from_dict(stored_memory)
+            chat_history = ChatMessageHistory(messages=retrieved_messages)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error processing chat history: {e}")
     else:
         chat_history = ChatMessageHistory()
-    memory = ConversationBufferMemory(memory_key="chat_history",
-                                      return_messages=True,
-                                      output_key='answer',
-                                      chat_memory=chat_history
-                                      )
+
+    # Initialize memory
+    memory = ConversationBufferMemory(
+        memory_key="chat_history",
+        return_messages=True,
+        output_key='answer',
+        chat_memory=chat_history
+    )
+
+    # Create and return the ConversationalRetrievalChain
     chain = ConversationalRetrievalChain.from_llm(
         llm,
         retriever=vector_db.as_retriever(),
@@ -135,5 +188,5 @@ def db_conversation_chain(llm_name, stored_memory, collection_name):
         return_generated_question=True,
         get_chat_history=get_chat_history,
         combine_docs_chain_kwargs={"prompt": prompt_doc}
-        )
+    )
     return chain
