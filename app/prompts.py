@@ -118,7 +118,7 @@ def handle_basic_questions(user_input):
         "what can you help with?": "I can assist with *company policies, **onboarding*, and any work-related queries.",
         "what is your name?": "My name is *Yugm.ai*, and I'm here to help.",
         "how do you work?": "I use AI to tap into company knowledge and provide accurate responses based on my experience.",
-        "hi": "Hi there 👋! How can I assist you today?"
+        "hi": "Hi there 👋! How can I assist you today?",
         "who are you?": "I’m **Yugm.ai**, your friendly company assistant with a decade of experience.",
         "what can you help with?": "I can assist with **company policies**, **onboarding**, and any work-related queries.",
         "what is your name?": "My name is **Yugm.ai**, and I'm here to help.",
