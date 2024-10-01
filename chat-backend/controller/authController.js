@@ -101,3 +101,23 @@ exports.addUser = async (req, res) => {
     res.status(500).json({ message: 'Failed to add user', error: error.message });
   }
 };
+
+// Get all users
+exports.getAllUsers = async (req, res) => {
+  try {
+    // Ensure that only admin can access this route
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'You do not have permission to view users' });
+    }
+
+    // Fetch all users, excluding passwords
+    const users = await User.find({}, '-password');
+    res.json({ users });
+  } catch (error) {
+    console.error('Get all users error:', error);
+    res.status(500).json({ message: 'Failed to fetch users', error: error.message });
+  }
+};
+
+
+
