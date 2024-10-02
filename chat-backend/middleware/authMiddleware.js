@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-
-
 const authMiddleware = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
+  console.log(`Received token ${token}`);
   if (!token) {
     console.log('No token provided');
     return res.status(401).json({ message: 'Authorization required' });

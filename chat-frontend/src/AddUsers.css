@@ -96,5 +96,48 @@
   }
   .user-list{
     color: black;
-    
+
   }
+
+  .drag-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    color: #ccc;
+  }
+  
+  .drag-area.dragging {
+    border-color: #00aaff;
+  }
+  
+  .drag-area-label {
+    color: #999;
+    font-size: 1.2em;
+  }
+  
+  .submit-button {
+    background-color: #00aaff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .success-message {
+    color: green;
+    margin-bottom: 10px;
+  }
+  

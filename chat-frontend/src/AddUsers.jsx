@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import './AddUsers.css'; // Assuming you have CSS for styling
+import { ToastContainer, toast } from 'react-toastify';
+import './AddUsers.css'; // Ensure you have appropriate styling
 
 const AddUsers = () => {
   const [email, setEmail] = useState('');
@@ -11,29 +12,32 @@ const AddUsers = () => {
   const [success, setSuccess] = useState('');
   const [userQueue, setUserQueue] = useState([]); // State to hold the list of added users
   const [allUsers, setAllUsers] = useState([]); // State to hold all users fetched from the database
+  const [selectedFiles, setSelectedFiles] = useState([]); // State for selected files
+  const [isDragging, setIsDragging] = useState(false); // State for drag-and-drop
+  const fileInputRef = useRef(null); // Ref for file input
 
   // Fetch all users from the backend when the component mounts
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem('token');  // or however you store the token
+      const token = localStorage.getItem('token'); // Get JWT token
       const response = await axios.get('http://localhost:5000/api/auth/users', {
         headers: {
-          Authorization: `Bearer ${token}`  // Pass the token in the Authorization header
-        }
+          Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+        },
       });
       console.log('Users:', response.data);
       setAllUsers(response.data.users); 
     } catch (error) {
       console.error('Error fetching users:', error);
+      setError('Failed to fetch users');
     }
   };
-  
+
   useEffect(() => {
     fetchUsers();
   }, []);
-  
 
-
+  // Handle individual user addition via form
   const handleAddUser = async (e) => {
     e.preventDefault();
 
@@ -47,8 +51,12 @@ const AddUsers = () => {
     const newUser = { email, username, role, password };
 
     try {
-      // Make API call to your backend to create a new user
-      const response = await axios.post('http://localhost:5000/api/auth/signup', newUser);
+      const token = localStorage.getItem('token'); // Get JWT token
+      const response = await axios.post('http://localhost:5000/api/auth/signup', newUser, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+        },
+      });
 
       // If user added successfully, update the user queue and clear the form
       setUserQueue([...userQueue, { username: response.data.user.username, email, role }]);
@@ -60,20 +68,106 @@ const AddUsers = () => {
       setError(''); // Clear any error messages
 
       // Refetch users to update the list after a new user is added
-      const allUsersResponse = await axios.get('http://localhost:5000/api/auth/users');
-      setAllUsers(allUsersResponse.data.users);
+      fetchUsers();
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to add user');
       setSuccess(''); // Clear any success messages
     }
   };
 
+  // Handle drag and drop
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(event.dataTransfer.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  // Handle file upload
+  // const handleFileUpload = async () => {
+  //   if (selectedFiles.length === 0) {
+  //     toast.error('Please select at least one file before uploading.');
+  //     return;
+  //   }
+
+  //   try {
+  //     const formData = new FormData();
+  //     selectedFiles.forEach((file) => {
+  //       formData.append('files', file);
+  //     });
+
+  //     const token = localStorage.getItem('token'); // Get JWT token
+  //     const response = await axios.post('http://localhost:5000/api/auth/upload-users', formData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+
+  //     toast.success('Users uploaded successfully');
+  //     setSelectedFiles([]); // Clear selected files after successful upload
+  //     fetchUsers(); // Refetch users after uploading
+  //   } catch (error) {
+  //     console.error('Error uploading users: ', error);
+  //     toast.error('Failed to upload users. Please try again.');
+  //   }
+  // };
+  // Update the file upload handling in frontend
+const handleFileUpload = async () => {
+  if (selectedFiles.length === 0) {
+    toast.error('Please select at least one file before uploading.');
+    return;
+  }
+
+  try {
+    const formData = new FormData();
+    selectedFiles.forEach((file) => {
+      formData.append('files', file); // Allow multiple files
+    });
+
+    console.log(formData.getAll('files'));
+
+    const token = localStorage.getItem('token'); // Get JWT token
+    const response = await axios.post('http://localhost:5000/api/auth/upload-users', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    toast.success('Users uploaded successfully');
+    console.log(formData);
+    setSelectedFiles([]); // Clear selected files after successful upload
+    fetchUsers(); // Refetch users after uploading
+  } catch (error) {
+    console.error('Error uploading users: ', error);
+    toast.error('Failed to upload users. Please try again.');
+  } 
+};
+
+
   return (
     <div className="add-users-container">
+      <ToastContainer />
       <h2>Add New User</h2>
       {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}
 
+      {/* Individual User Form */}
       <form onSubmit={handleAddUser}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -100,7 +194,7 @@ const AddUsers = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="role" className="role">Role</label><br />
+          <label htmlFor="role">Role</label>
           <select
             id="role"
             value={role}
@@ -126,7 +220,6 @@ const AddUsers = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter user's password"
             required
-            className="form-input"
           />
         </div>
 
@@ -137,32 +230,55 @@ const AddUsers = () => {
         <h3>Users in Queue:</h3>
         <ul>
           {userQueue.map((user, index) => (
-            <li key={index} className="user-list">{user.username} - {user.email} ({user.role})</li>
+            <li key={index}>{user.username} - {user.email} ({user.role})</li>
           ))}
         </ul>
       </div>
+
+      {/* Drag and Drop Section */}
+      <div
+        className={`upload-area ${isDragging ? 'dragging' : ''}`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={() => fileInputRef.current.click()}
+        style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center', margin: '20px 0' }}
+      >
+        {selectedFiles.length > 0 ? (
+          selectedFiles.map((file, index) => <p key={index}>{file.name}</p>)
+        ) : (
+          <p>Drag and drop files here or click to select</p>
+        )}
+        <input
+          type="file"
+          multiple
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          style={{ display: 'none' }} // Hide the default file input
+        />
+      </div>
+
+      <button onClick={handleFileUpload} className="upload-button">Upload Users</button>
 
       <h3>All Users:</h3>
       <table className="users-table">
         <thead>
           <tr>
-            <th className='user-list'>Name</th>
-            <th className='user-list'>Email</th>
-            <th className='user-list'>Role</th>
-            <th className='user-list'>Created On</th>
-            <th className='user-list'>Last Accessed On</th>
-            <th className='user-list'>Status</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Created On</th>
+            <th>Last Accessed On</th>
           </tr>
         </thead>
         <tbody>
           {allUsers.map((user, index) => (
-            <tr key={index} className='user-list'>
-              <td className='user-list'>{user.username}</td>
-              <td className='user-list'>{user.email}</td>
-              <td className='user-list'>{user.role}</td>
-              <td className='user-list'>{new Date(user.createdAt).toLocaleDateString()}</td>
-              <td className='user-list'>{user.lastAccessed ? `${user.lastAccessed} ago` : 'Never'}</td>
-              <td className='user-list'><button className="status-button">Claimed</button></td>
+            <tr key={index}>
+              <td>{user.username}</td>
+              <td>{user.email}</td>
+              <td>{user.role}</td>
+              <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+              <td>{user.lastAccessed ? `${user.lastAccessed} ago` : 'N/A'}</td>
             </tr>
           ))}
         </tbody>

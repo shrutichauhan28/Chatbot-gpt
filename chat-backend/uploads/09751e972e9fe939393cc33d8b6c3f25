@@ -1,0 +1,4 @@
+username,email,role,password
+John Doe,john.doe@valuebound.com,admin,password123
+Jane Smith,jane.smith@valuebound.com,HR,password456
+Mark Johnson,mark.johnson@valuebound.com,Sales manager,password789
