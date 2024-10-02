@@ -26,7 +26,7 @@ const AddUsers = () => {
         },
       });
       console.log('Users:', response.data);
-      setAllUsers(response.data.users); 
+      setAllUsers(response.data.users);
     } catch (error) {
       console.error('Error fetching users:', error);
       setError('Failed to fetch users');
@@ -88,12 +88,12 @@ const AddUsers = () => {
   const handleDrop = (event) => {
     event.preventDefault();
     setIsDragging(false);
-    const files = Array.from(event.dataTransfer.files);
+    const files = Array.from(event.dataTransfer.files).filter(file => file.name);
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
   const handleFileChange = (event) => {
-    const files = Array.from(event.target.files);
+    const files = Array.from(event.target.files).filter(file => file.name);
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
@@ -107,11 +107,15 @@ const AddUsers = () => {
   //   try {
   //     const formData = new FormData();
   //     selectedFiles.forEach((file) => {
-  //       formData.append('files', file);
+  //       if (file && file.name) {
+  //         formData.append('files', file); // Ensure file is valid
+  //       } else {
+  //         toast.error('Invalid file selected');
+  //       }
   //     });
 
-  //     const token = localStorage.getItem('token'); // Get JWT token
-  //     const response = await axios.post('http://localhost:5000/api/auth/upload-users', formData, {
+  //     const token = localStorage.getItem('token');
+  //     await axios.post('http://localhost:5000/api/auth/upload-users', formData, {
   //       headers: {
   //         Authorization: `Bearer ${token}`,
   //         'Content-Type': 'multipart/form-data',
@@ -119,46 +123,45 @@ const AddUsers = () => {
   //     });
 
   //     toast.success('Users uploaded successfully');
+  //     console.log(formData.getAll('files')); // To verify file contents
   //     setSelectedFiles([]); // Clear selected files after successful upload
-  //     fetchUsers(); // Refetch users after uploading
+  //     fetchUsers();
   //   } catch (error) {
   //     console.error('Error uploading users: ', error);
   //     toast.error('Failed to upload users. Please try again.');
   //   }
   // };
-  // Update the file upload handling in frontend
-const handleFileUpload = async () => {
-  if (selectedFiles.length === 0) {
-    toast.error('Please select at least one file before uploading.');
-    return;
-  }
 
-  try {
-    const formData = new FormData();
-    selectedFiles.forEach((file) => {
-      formData.append('files', file); // Allow multiple files
-    });
-
-    console.log(formData.getAll('files'));
-
-    const token = localStorage.getItem('token'); // Get JWT token
-    const response = await axios.post('http://localhost:5000/api/auth/upload-users', formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
-    toast.success('Users uploaded successfully');
-    console.log(formData);
-    setSelectedFiles([]); // Clear selected files after successful upload
-    fetchUsers(); // Refetch users after uploading
-  } catch (error) {
-    console.error('Error uploading users: ', error);
-    toast.error('Failed to upload users. Please try again.');
-  } 
-};
-
+  const handleFileUpload = async () => {
+    if (selectedFiles.length === 0) {
+      toast.error('Please select at least one file before uploading.');
+      return;
+    }
+  
+    try {
+      const formData = new FormData();
+      selectedFiles.forEach((file) => {
+        formData.append('files', file); // Ensure that 'files' is used in both front and back
+      });
+  
+      const token = localStorage.getItem('token');
+      const response = await axios.post('http://localhost:5000/api/auth/upload-users', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      toast.success('Users uploaded successfully');
+      console.log(formData.getAll('files'));  // To verify file contents
+      setSelectedFiles([]); // Clear selected files after successful upload
+      fetchUsers();
+    } catch (error) {
+      console.error('Error uploading users: ', error);
+      toast.error('Failed to upload users. Please try again.');
+    }
+  };
+  
 
   return (
     <div className="add-users-container">
