@@ -5,18 +5,16 @@ import Signup from './Signup';
 import Login from './Login';
 import Settings from './Settings';
 import LeftSidebar from './LeftSidebar';
-import RightSidebar from './RightSidebar';
 import Navbar from './Navbar';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddUsers from './AddUsers';
+import ProtectedRoute from './ProtectedRoute';
 
 //manages the application's layout, navigation, and user authentication, rendering different pages and sidebars based on the user's login status and screen size
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
-  const [isRightSidebarOpen, setRightSidebarOpen] = useState(true);
-  const [isRightSidebarCollapsed, setRightSidebarCollapsed] = useState(false);
   const [userInfo, setUserInfo] = useState({ username: '', role: '' });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -27,17 +25,11 @@ function App() {
     setLeftSidebarOpen(!isLeftSidebarOpen);
   };
 
-  const toggleRightSidebar = () => {
-    setRightSidebarOpen(!isRightSidebarOpen);
-  };
-
   const checkScreenSize = () => {
     if (window.innerWidth < 768) {
-      setRightSidebarOpen(false);
-      setRightSidebarCollapsed(true);
+      setLeftSidebarOpen(false);
     } else {
-      setRightSidebarOpen(true);
-      setRightSidebarCollapsed(false);
+      setLeftSidebarOpen(true);
     }
   };
 
@@ -112,8 +104,6 @@ function App() {
         isLoggedIn={isLoggedIn}
         userInfo={userInfo}
         handleLogout={handleLogout}
-        isRightSidebarOpen={isRightSidebarOpen}
-        toggleRightSidebar={toggleRightSidebar}
       />
 
       <div className="content">
@@ -123,17 +113,18 @@ function App() {
 
         <main className="chat-main">
           <Routes>
-            <Route path="/" element={<Chat />} />
+            {/* <Route path="/" element={<Chat />} /> */}
+            <Route path="/" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Chat />
+              </ProtectedRoute>
+            } />
             <Route path="/signup" element={<Signup handleSignupSuccess={handleSignupSuccess} />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} handleLoginSuccess={handleLoginSuccess} />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/addusers" element={<AddUsers/>}/>
           </Routes>
         </main>
-
-        {isChatPath && isRightSidebarOpen && (
-          <RightSidebar isRightSidebarOpen={isRightSidebarOpen} isRightSidebarCollapsed={isRightSidebarCollapsed} />
-        )}
       </div>
       <ToastContainer /> {/* Include the ToastContainer here */}
     </div>
