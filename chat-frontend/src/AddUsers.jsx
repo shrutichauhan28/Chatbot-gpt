@@ -266,17 +266,17 @@ const AddUsers = () => {
       <h3>All Users:</h3>
       <table className="users-table">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Created On</th>
-            <th>Last Accessed On</th>
+          <tr >
+            <th className='tc-tr'>Name</th>
+            <th className='tc-tr'>Email</th>
+            <th className='tc-tr'>Role</th>
+            <th className='tc-tr'>Created On</th>
+            <th className='tc-tr'>Last Accessed On</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='table-content'>
           {allUsers.map((user, index) => (
-            <tr key={index}>
+            <tr key={index} >
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>

@@ -140,4 +140,9 @@
     color: green;
     margin-bottom: 10px;
   }
-  
+.table-content td {
+  color:black;
+}  
+.tc-tr{
+  color:black;
+}
