@@ -8,7 +8,7 @@ function Chat() {
   const [input, setInput] = useState('');
   const [sessionId] = useState('session-id');
   const [isTyping, setIsTyping] = useState(false); // Handle typing state
-  const [currentMessage, setCurrentMessage] = useState(''); // Track the ongoing bot message
+  const [botMessage, setBotMessage] = useState(''); // Track the ongoing bot message for typewriter effect
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -22,19 +22,15 @@ function Chat() {
   // Function to handle typewriter effect
   const typeWriterEffect = (text, index = 0) => {
     if (index < text.length) {
-      setCurrentMessage(text.substring(0, index + 1));
+      setBotMessage((prev) => prev + text.charAt(index)); // Incrementally add the next character
       setTimeout(() => typeWriterEffect(text, index + 1), 30); // Adjust typing speed here
     } else {
-      // When typing is finished, append the complete message to the messages array
-      setIsTyping(false);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: 'bot', text: text }
-      ]);
-      setCurrentMessage(''); // Clear the current message
+      setIsTyping(false); // Stop typing animation
+      setMessages((prevMessages) => [...prevMessages, { sender: 'bot', text: text }]); // Append the full message
+      setBotMessage(''); // Clear the botMessage
     }
   };
-
+//Made UI of response more interactive
   const sendMessage = async () => {
     if (input.trim()) {
       const userMessage = { sender: 'user', text: input };
@@ -42,10 +38,10 @@ function Chat() {
       setInput('');
 
       setIsTyping(true); // Start the typing effect
-
       const response = await queryAPI(sessionId, input);
 
       // Trigger typewriter effect for bot response
+      setBotMessage(''); // Clear any previous bot message before starting typewriter
       typeWriterEffect(response.answer);
     }
   };
@@ -56,7 +52,7 @@ function Chat() {
         {messages.map((msg, index) => (
           <Message key={index} sender={msg.sender} text={msg.text} />
         ))}
-        {isTyping && <Message sender="bot" text={currentMessage} />} {/* Show typing message */}
+        {isTyping && <Message sender="bot" text={botMessage} />} {/* Show typing message only */}
         <div ref={messagesEndRef} />
       </div>
       <div className="encloser">
@@ -75,4 +71,4 @@ function Chat() {
   );
 }
 
-export default Chat
+export default Chat;
