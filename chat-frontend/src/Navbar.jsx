@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineArrowLeft, MdOutlineArrowRight, MdLogout } from 'react-icons/md'; 
 import ProfileDropdown from './ProfileDropdown'; 
+import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import './Navbar.css';
 
 function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, userInfo, handleLogout, isRightSidebarOpen, toggleRightSidebar }) {
@@ -14,7 +15,7 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
         </Link>
         {/* Left Arrow Icon for Left Sidebar */}
         {isChatPath && (
-          <MdOutlineArrowLeft
+          <TbLayoutSidebarLeftCollapseFilled
             className="toggle-left-sidebar-icon"
             size={24}
             onClick={toggleLeftSidebar}
@@ -49,14 +50,7 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
           </>
         )}
         {/* Right Arrow Icon for Right Sidebar */}
-        {isChatPath && (
-          <MdOutlineArrowRight
-            className="toggle-right-sidebar-icon"
-            size={24}
-            onClick={toggleRightSidebar}
-            title={isRightSidebarOpen ? "Hide Right Sidebar" : "Show Right Sidebar"}
-          />
-        )}
+     
       </div>
     </nav>
   );
