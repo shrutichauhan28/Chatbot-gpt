@@ -30,7 +30,7 @@ function Chat() {
       setBotMessage(''); // Clear the botMessage
     }
   };
-
+//Made UI of response more interactive
   const sendMessage = async () => {
     if (input.trim()) {
       const userMessage = { sender: 'user', text: input };
