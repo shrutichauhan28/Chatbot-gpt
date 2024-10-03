@@ -29,7 +29,7 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
       </div>
 
       <div className="navbar-right">
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <>
             <ProfileDropdown userInfo={userInfo} handleLogout={handleLogout} />
             <MdLogout 
@@ -39,18 +39,8 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
               title="Logout"
             />
           </>
-        ) : (
-          <>
-            <Link to="/signup">
-              <button className="btn btn-gradient-border btn-glow">Signup</button>
-            </Link>
-            <Link to="/login">
-              <button className="btn btn-gradient-border btn-glow">Login</button>
-            </Link>
-          </>
         )}
         {/* Right Arrow Icon for Right Sidebar */}
-     
       </div>
     </nav>
   );
