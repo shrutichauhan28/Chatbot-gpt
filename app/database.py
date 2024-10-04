@@ -1,5 +1,5 @@
 from sqlmodel import Field, SQLModel, create_engine
-from typing import Optional
+from typing import List, Optional
 
 
 class QueryDB(SQLModel, table=True):
@@ -11,6 +11,11 @@ class QueryDB(SQLModel, table=True):
     answer: str
     session_id: str
 
+class FileDB(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    file_name: str
+    static_url: str
+    chunks: str
 
 sqlite_file_name = "sqlite.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
