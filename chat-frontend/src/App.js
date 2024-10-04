@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Chat from './Chat';
 import Signup from './Signup';
 import Login from './Login';
@@ -44,17 +44,25 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      fetchUserInfo(token);
+    const queryParams = new URLSearchParams(window.location.search);
+    const oauthToken = queryParams.get('token');
+    
+    if (oauthToken) {
+      localStorage.setItem('token', oauthToken);
+      fetchUserInfo(oauthToken); // Fetch user info with the OAuth token
+      navigate('/'); // Redirect to home or dashboard
+    } else if (token) {
+      fetchUserInfo(token); // Fetch user info with stored token
     } else {
       setUserInfo({ username: '', role: '' });
       setIsLoggedIn(false);
     }
-
+  
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
+  }, [navigate]);
+  
 
   const fetchUserInfo = async (token) => {
     try {
@@ -112,18 +120,18 @@ function App() {
         )}
 
         <main className="chat-main">
-          <Routes>
-            {/* <Route path="/" element={<Chat />} /> */}
-            <Route path="/" element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Chat />
-              </ProtectedRoute>
-            } />
-            <Route path="/signup" element={<Signup handleSignupSuccess={handleSignupSuccess} />} />
-            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} handleLoginSuccess={handleLoginSuccess} />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/addusers" element={<AddUsers/>}/>
-          </Routes>
+        <Routes>
+          <Route path="/" element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Chat />
+            </ProtectedRoute>
+          } />
+          <Route path="/signup" element={<Signup handleSignupSuccess={handleSignupSuccess} />} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} handleLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/addusers" element={<AddUsers />} />
+          <Route path="*" element={<Navigate to="/" />} /> {/* Catch-all route */}
+        </Routes>
         </main>
       </div>
       <ToastContainer /> {/* Include the ToastContainer here */}

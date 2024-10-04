@@ -22,13 +22,18 @@ router.post('/upload-users', authMiddleware, upload, uploadUsers);
 
 
 // Google OAuth routes
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/userinfo.profile'] }));
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    // Successful authentication, redirect to frontend with token.
-    const token = generateToken(req.user._id);
-    res.redirect(`http://localhost:3000?token=${token}`); // Adjust this to your frontend
+    try {
+      const token = generateToken(req.user._id);
+      res.redirect(`http://localhost:3000/success?token=${token}`);
+    } catch (error) {
+      console.error('Error during Google OAuth callback:', error);
+      res.redirect('http://localhost:3000/error');
+    }
   }
 );
+
 module.exports = router;
