@@ -31,29 +31,32 @@
 }
 
 .signup-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 20px;
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(10px); /* Frosted glass for Safari */
+  border-radius: 15px; /* Rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    padding: 12px;
     border-radius: 8px;
-    max-width: 400px;
+    width: 500px;
     margin: 20px auto;
-    color: black;
+    color: white;
   }
   
   .signup-form {
     display: flex;
     flex-direction: column;
-    color: black;
+    color: white;
   }
   
   .form-group {
     margin-bottom: 15px;
-    color: black;
+    color: white;
   }
   
   .form-group label {
     font-weight: bold;
-    color: black;
+    color: white;
   }
   
   .form-group input {
@@ -63,12 +66,7 @@
     border-radius: 4px;
     color: #180424;
   }
-  .signup-container h2{
-    color: black;
-    text-align: center;
-    margin: 8px;
-  }
-  
+
 
   
   

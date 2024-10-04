@@ -62,7 +62,7 @@ const Signup = ({ handleSignupSuccess }) => {
 
   return (
     <div className="signup-container">
-      <h2>Sign Up</h2>
+      
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
       <form onSubmit={handleSubmit} className="signup-form">

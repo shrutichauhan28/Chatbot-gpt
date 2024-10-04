@@ -7,8 +7,10 @@
     border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
     padding: 20px;
     max-width: 400px;
-    margin: 20px auto;
+    height: 400px;
+    margin:  auto;
     color: black;
+    margin-top: 90px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
 }
 
@@ -16,6 +18,17 @@
     color: black;
     text-align: center;
     margin-bottom: 20px;
+}
+
+/* Background image class applied to body during login */
+.login-background {
+    
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    transition: background 0.5s ease-in-out;
+   
 }
 
 .login-form {
@@ -33,11 +46,14 @@
 .form-group label {
     font-weight: bold;
     color: black;
+    padding: 8px;
+    
 }
 
 .form-group input {
     width: 100%;
     padding: 8px;
+    margin: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #180424;
@@ -50,7 +66,9 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
 }
 
 .login-button:hover {
@@ -64,7 +82,7 @@
 }
 
 .success-message {
-    color: green;
+    color: rgb(148, 255, 148);
     font-weight: bold;
 }
 
@@ -77,8 +95,12 @@
 
 .signup-link {
     color: #180424;
+    padding: 8px;
+    margin: 10px;
+    font-weight: bold;
 }
 
 .signup-link Link {
-    color: #180424;
+    color: #00ff80;
+    
 }

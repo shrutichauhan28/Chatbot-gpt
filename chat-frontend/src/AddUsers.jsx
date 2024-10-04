@@ -6,7 +6,7 @@ import './AddUsers.css'; // Ensure you have appropriate styling
 const AddUsers = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
-  const [role, setRole] = useState('user'); // Default role is 'user'
+  const [role, setRole] = useState('user'); 
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
