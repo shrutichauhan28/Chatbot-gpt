@@ -21,6 +21,7 @@ const Signup = ({ handleSignupSuccess }) => {
     });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -54,6 +55,10 @@ const Signup = ({ handleSignupSuccess }) => {
       console.error('Error during signup:', error);
     }
   };
+  const handleGoogleLogin = () => {
+    window.open('http://localhost:5000/api/auth/google', '_self');
+  };
+
 
   return (
     <div className="signup-container">
@@ -106,6 +111,10 @@ const Signup = ({ handleSignupSuccess }) => {
         </div>
 
         <button type="submit" className="btn btn-gradient-border btn-glow">Sign Up</button>
+        <div className="divider">or</div>
+        <button type="button" className="btn-google-login" onClick={handleGoogleLogin}>
+          <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Sign in with Google" />
+        </button>
       </form>
     </div>
   );

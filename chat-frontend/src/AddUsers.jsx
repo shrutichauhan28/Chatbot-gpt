@@ -271,7 +271,7 @@ const AddUsers = () => {
             <th className='tc-tr'>Email</th>
             <th className='tc-tr'>Role</th>
             <th className='tc-tr'>Created On</th>
-            <th className='tc-tr'>Last Accessed On</th>
+           
           </tr>
         </thead>
         <tbody className='table-content'>
@@ -281,7 +281,7 @@ const AddUsers = () => {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-              <td>{user.lastAccessed ? `${user.lastAccessed} ago` : 'N/A'}</td>
+             
             </tr>
           ))}
         </tbody>

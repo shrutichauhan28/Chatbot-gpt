@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
@@ -90,6 +90,10 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
         </div>
         <button type="submit" className="login-button">Login</button>
       </form>
+
+      <p className="signup-link">
+        New User? <Link to="/signup" className='signup-link'>Signup</Link>
+      </p>
     </div>
   );
 };
