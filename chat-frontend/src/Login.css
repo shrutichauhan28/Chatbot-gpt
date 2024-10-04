@@ -1,14 +1,15 @@
-/* Login.css */
-
-/* Container for the login form, reusing similar styles from Signup */
+/* Glassmorphism Effect for Login Container */
 .login-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.2); /* semi-transparent background */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* Frosted glass for Safari */
+    border-radius: 15px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
     padding: 20px;
-    border-radius: 8px;
     max-width: 400px;
     margin: 20px auto;
     color: black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
 }
 
 .login-container h2 {
@@ -42,7 +43,6 @@
     color: #180424;
 }
 
-
 .login-button {
     background-color: #6a1b9a;
     color: white;
@@ -74,9 +74,11 @@
         padding: 10px;
     }
 }
+
 .signup-link {
-    color:#180424
+    color: #180424;
 }
-.signup-link Link{
+
+.signup-link Link {
     color: #180424;
 }

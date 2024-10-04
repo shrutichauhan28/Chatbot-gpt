@@ -3,6 +3,7 @@ const { login, signup, getUserInfo, addUser, getAllUsers, uploadUsers } = requir
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 const multer = require('multer');
+const passport = require('passport');
 
 // Set up multer for file uploads
 // const upload = multer({ dest: 'uploads/' });
@@ -20,4 +21,14 @@ router.get('/users', authMiddleware, getAllUsers);
 router.post('/upload-users', authMiddleware, upload, uploadUsers);
 
 
+// Google OAuth routes
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    // Successful authentication, redirect to frontend with token.
+    const token = generateToken(req.user._id);
+    res.redirect(`http://localhost:3000?token=${token}`); // Adjust this to your frontend
+  }
+);
 module.exports = router;
