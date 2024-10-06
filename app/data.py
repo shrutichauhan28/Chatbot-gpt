@@ -1,11 +1,11 @@
 from typing import List, Optional
 from langchain.docstore.document import Document
 from langchain.document_loaders import DirectoryLoader, TextLoader
-from langchain.text_splitter import TokenTextSplitter
 from pdfplumber import open as pdf_open
 from docx import Document as DocxDocument
 import pandas as pd
 import os
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 class CleanTextLoader(TextLoader):
     """Load text files."""
@@ -86,7 +86,7 @@ class ExcelLoader:
         return [Document(page_content=text, metadata=metadata)]
 
 # Updated function to load different file types
-def load_n_split(path, splitter="token"):
+def load_n_split(path: str) -> List[Document]:
     """
     path: directory path having files (text, pdf, csv, docx, xlsx).
     This function reads files, cleans them, and splits them into chunks.
@@ -95,25 +95,32 @@ def load_n_split(path, splitter="token"):
     for root, dirs, files in os.walk(path):
         for file in files:
             file_path = os.path.join(root, file)
-            if file.endswith('.txt'):
-                loader = CleanTextLoader(file_path)
-            elif file.endswith('.pdf'):
-                loader = PDFLoader(file_path)
-            elif file.endswith('.docx'):
-                loader = DocxLoader(file_path)
-            elif file.endswith('.csv'):
-                loader = CSVLoader(file_path)
-            elif file.endswith('.xlsx'):
-                loader = ExcelLoader(file_path)
-            else:
-                print(f"Unsupported file format: {file}")
-                continue
-            documents.extend(loader.load())
+            try:
+                if file.endswith('.txt'):
+                    loader = CleanTextLoader(file_path)
+                elif file.endswith('.pdf'):
+                    loader = PDFLoader(file_path)
+                elif file.endswith('.docx'):
+                    loader = DocxLoader(file_path)
+                elif file.endswith('.csv'):
+                    loader = CSVLoader(file_path)
+                elif file.endswith('.xlsx'):
+                    loader = ExcelLoader(file_path)
+                else:
+                    print(f"Unsupported file type: {file}")
+                    continue
 
-    if splitter == "token":
-        text_splitter = TokenTextSplitter(chunk_size=80, chunk_overlap=20)
-    else:
-        raise ValueError('Invalid splitter')
+                # Load the document
+                docs = loader.load()
+                documents.extend(docs)
+            except Exception as e:
+                print(f"Error loading file {file_path}: {e}")
 
-    doct_text = text_splitter.split_documents(documents)
-    return doct_text
+    # Use RecursiveCharacterTextSplitter to split the documents
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+
+    split_docs = []
+    for doc in documents:
+        split_docs.extend(splitter.split_documents([doc]))
+
+    return split_docs

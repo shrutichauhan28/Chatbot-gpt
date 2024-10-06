@@ -36,8 +36,8 @@ class DocModel(BaseModel):
     embeddings_name: Optional[Literal['openai', 'sentence']] = 'openai'
     collection_name: Optional[str] = 'LangChainCollection'
     drop_existing_embeddings: Optional[bool] = False
-    chunk_size: Optional[int] = 500  # Optimized chunk size for precision
-    chunk_overlap: Optional[int] = 50  # Small overlap to maintain context without redundancy
+    chunk_size: Optional[int] = 1000  # Optimized chunk size for precision
+    chunk_overlap: Optional[int] = 200  # Small overlap to maintain context without redundancy
 
     @validator('dir_path')
     def validate_dir_path(cls, dir_path):
@@ -69,7 +69,7 @@ class QueryModel(BaseModel):
     session_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     llm_name: Optional[Literal['openai', 'llamacpp', 'gpt4all']] = 'openai'
     collection_name: Optional[str] = 'LangChainCollection'
-    temperature: Optional[float] = 0.8  # Set to zero to prevent creative generation
+    temperature: Optional[float] = 0.3  # Set to zero to prevent creative generation
 
     @validator('text')
     def validate_text(cls, text):

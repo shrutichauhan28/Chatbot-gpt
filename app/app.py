@@ -149,13 +149,26 @@ async def upload_file(file: UploadFile, folder: str = Form(...), create_new_fold
         return JSONResponse(status_code=500, content={"error": str(e)})
 
 async def add_documents(doc: DocModel):
-    docs = load_n_split(doc.dir_path)
+    # doc.dir_path should be a string path to the directory containing documents
+    if isinstance(doc.dir_path, str):
+        docs = load_n_split(doc.dir_path)  # Use the directory path directly
+    else:
+        return {"message": "Invalid directory path"}
+    
     vector_database(
-        doc_text=docs,
+        doc_text=docs,  # This should be appropriate type for vector_database
         collection_name=doc.collection_name,
         embeddings_name=doc.embeddings_name
     )
     return {"message": "Documents added successfully"}
+
+
+
+@app.post("/doc_ingestion")
+async def doc_ingestion(doc: DocModel):
+    return await add_documents(doc)
+
+
 
 def convert_file(file_path: str, file_extension: str):
     """
@@ -248,10 +261,6 @@ def on_startup():
     # Convert existing files to the supported formats
     convert_existing_files()
 
-
-@app.post("/doc_ingestion")
-async def doc_ingestion(doc: DocModel):
-    return await add_documents(doc)
 
 
 @app.post("/query")
