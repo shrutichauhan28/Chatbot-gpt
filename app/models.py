@@ -80,6 +80,7 @@ class QueryModel(BaseModel):
             raise ValueError('Text must be provided')
         return text
 
+# manage session id
     @validator('session_id')
     def validate_session_id(cls, session_id):
         """

@@ -1,10 +1,11 @@
-from fastapi import Body, FastAPI, HTTPException, File, UploadFile
+import json
+from fastapi import Body, FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.responses import JSONResponse, FileResponse
 import os
 import uuid
 from dotenv import load_dotenv
 from models import DocModel, QueryModel, DeleteSession
-from database import create_db_and_tables
+from database import FileDB, create_db_and_tables, engine, create_engine
 from vector_database import vector_database, db_conversation_chain
 from data import load_n_split
 from chat_session import ChatSession
@@ -21,6 +22,8 @@ import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 from fastapi.responses import HTMLResponse
+from sqlmodel import Session, select
+from uuid import uuid4
 
 load_dotenv()
 
@@ -47,23 +50,15 @@ CONVERTED_FILES_DIR: str = "../converted_files"
 # Serve static files from the directory
 app.mount("/static", StaticFiles(directory=dir_path), name="static")
 
-@app.get("/static/{folder}/{file_name}")
-async def serve_file(folder: str, file_name: str):
-    file_path = os.path.join(dir_path, folder, file_name)
-    
-    if not os.path.exists(file_path):
-        return JSONResponse(status_code=404, content={"error": "File not found"})
-    
-    # Check and register .docx MIME type if necessary
-    mimetypes.add_type('application/vnd.openxmlformats-officedocument.wordprocessingml.document', '.docx')
-    
-    mime_type, _ = mimetypes.guess_type(file_path)
-    
-    # If MIME type is not found, default to application/octet-stream
-    if mime_type is None:
-        mime_type = "application/octet-stream"
-
-    return FileResponse(file_path, media_type=mime_type)
+@app.get("/files/{file_id}")
+async def get_file(file_id: int):
+    with Session(engine) as session:
+        file_record = session.get(FileDB, file_id)
+        if file_record:
+            chunks = json.loads(file_record.chunks)  # Convert back to list
+            return {"file_name": file_record.file_name, "chunks": chunks}
+        else:
+            return JSONResponse(status_code=404, content={"error": "File not found"})
 
 @app.get("/files/{filename}")
 async def get_file(filename: str):
@@ -105,49 +100,42 @@ async def list_files():
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
 
-@app.delete("/files/{file_name}")
-async def delete_file(file_name: str):
-    try:
-        # Construct the full path to the file
-        file_path = os.path.join(dir_path, file_name)
-
-        # Check if the file exists
-        if not os.path.exists(file_path):
-            return JSONResponse(status_code=404, content={"error": "File not found"})
-
-        # Delete the file
-        os.remove(file_path)
-
-        return {"message": f"File '{file_name}' deleted successfully"}
-
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"error": str(e)})
-
-from fastapi import UploadFile, Form
-
 # File upload endpoint with folder creation support
 @app.post("/upload")
 async def upload_file(file: UploadFile, folder: str = Form(...), create_new_folder: bool = Form(False)):
     try:
         folder_path = os.path.join(dir_path, folder)
-        
-        # Create a new folder if specified, otherwise ensure the selected folder exists
+
+        # Create a new folder if specified
         if create_new_folder:
             os.makedirs(folder_path, exist_ok=True)
-        else:
-            if not os.path.exists(folder_path):
-                return JSONResponse(status_code=404, content={"error": "Selected folder does not exist"})
 
         # Save the file to the specified folder
-        file_location = os.path.join(folder_path, file.filename)
-        with open(file_location, "wb") as f:
-            f.write(await file.read())
+        file_path = os.path.join(folder_path, file.filename)
+        with open(file_path, "wb") as f:
+            shutil.copyfileobj(file.file, f)
 
-        return {"message": f"File '{file.filename}' uploaded successfully to {folder}."}
+        # Generate static URL for the file
+        static_url = f"http://127.0.0.1:8000/static/{folder}/{file.filename}"
+
+        # Load and split the document into chunks
+        chunks = load_n_split(file_path)
+
+        # Store file information and chunks in the database
+        with Session(engine) as session:
+            new_file = FileDB(
+                file_name=file.filename,
+                static_url=static_url,
+                chunks=json.dumps([chunk.page_content for chunk in chunks])  # Store as JSON string
+            )
+            session.add(new_file)
+            session.commit()
+
+        return {"message": "File uploaded and processed successfully", "static_url": static_url}
 
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
-
+    
 async def add_documents(doc: DocModel):
     # doc.dir_path should be a string path to the directory containing documents
     if isinstance(doc.dir_path, str):
@@ -275,8 +263,6 @@ def query_response(query: QueryModel):
 
     # Check if there is a conversation history for the session
     stored_memory = None
-    # if len(stored_memory) == 0:
-        # stored_memory = None
 
     # Get conversation chain
     chain = db_conversation_chain(
@@ -291,27 +277,24 @@ def query_response(query: QueryModel):
         result = chain(query.text)
         cost = None
 
+    # Extract sources and the chunks from the result
     sources = list(set([doc.metadata['source'] for doc in result['source_documents']]))
+    chunks_used = [doc.page_content for doc in result['source_documents']]  # Extract chunks
+
     answer = result['answer']
     chat_session.save_sess_db(query.session_id, query.text, answer)
 
-    # sources = list(set([doc.metadata['source'] for doc in result['source_documents']]))
-    
-    # # Generate final answer by appending sources to the AI response
-    # answer = result['answer']
-    # sources_str = "\nSources:\n" + "\n".join(sources)  # Format sources into a string
-    # final_answer = f"{answer}\n\n{sources_str}"  # Append sources to the answer
-    
-    # # Save only the current interaction, if needed
-    # chat_session.save_sess_db(query.session_id, query.text, final_answer)
+    # Print the sources and chunks used for debugging
+    print("Sources used:", sources)
+    print("Chunks used:", chunks_used)
 
     return {
         'answer': answer,
         "cost": cost,
         'source': sources,
+        'chunks': chunks_used,  # Include chunks in the response if needed
         'session_id': query.session_id  # Return the session ID in the response
     }
-
 
 @app.delete("/delete")
 async def delete_file(folder: str = Body(...), fileName: str = Body(...)):
@@ -338,21 +321,5 @@ async def get_folders():
         folders = [f for f in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, f))]
         return {"folders": folders}
     
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"error": str(e)})
-
-
-@app.delete("/files/{folder}/{file_name}")
-async def delete_file(folder: str, file_name: str):
-    try:
-        # Construct the full path to the file
-        file_path = os.path.join(dir_path, folder, file_name)
-
-        if not os.path.exists(file_path):
-            return JSONResponse(status_code=404, content={"error": "File not found"})
-
-        os.remove(file_path)
-        return {"message": f"File '{file_name}' deleted successfully from {folder}."}
-
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})

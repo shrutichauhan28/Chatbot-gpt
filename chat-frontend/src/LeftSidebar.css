@@ -1,6 +1,10 @@
 /* Left Sidebar styles */
 .left-sidebar {
-    background-color: #020411;
+  background: rgba(26, 10, 46, 0.82); /* semi-transparent background */
+  backdrop-filter: blur(6px); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(6px); /* Frosted glass for Safari */
+/* Rounded corners */
+ 
     padding: 15px;
     width: 250px;
     height: 100%;

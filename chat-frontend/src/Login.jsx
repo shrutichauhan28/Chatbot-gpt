@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
@@ -11,6 +11,15 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+
+  // Effect to toggle the background image
+  useEffect(() => {
+    document.body.classList.add('login-background');
+
+    return () => {
+      document.body.classList.remove('login-background');
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -40,8 +49,6 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        console.log(data.token);
-        console.log('Login success');
         localStorage.setItem('user', JSON.stringify(data.user));
 
         setUserInfo({ username: data.user.username, role: data.user.role });
@@ -49,6 +56,10 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
 
         setSuccessMessage('Login successful! Redirecting...');
         handleLoginSuccess(); // Trigger the success toast
+
+        // Remove background class after login
+        document.body.classList.remove('login-background');
+
         setTimeout(() => {
           navigate('/');
         }, 1000);
@@ -62,6 +73,8 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
   };
 
   return (
+    <div className='login-background'>
+    
     <div className="login-container">
       <h2>Login</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -90,6 +103,12 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
         </div>
         <button type="submit" className="login-button">Login</button>
       </form>
+
+      <p className="signup-link">
+        New User? <Link to="/signup" >Signup</Link>
+      </p>
+    </div>
+
     </div>
   );
 };
