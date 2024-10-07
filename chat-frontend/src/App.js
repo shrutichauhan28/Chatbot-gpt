@@ -120,7 +120,7 @@ function App() {
         )}
   
         {/* Only apply chat-main styles when it's the chat page */}
-        <main className={isChatPath ? 'chat-main' : ''}>
+        <main className={`chat-main ${isLeftSidebarOpen ? '' : 'expanded-chat'}`}>
           <Routes>
             <Route path="/" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>

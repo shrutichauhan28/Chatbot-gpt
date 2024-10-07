@@ -58,7 +58,7 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
+      <h2>Login to YUGM</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
       <form onSubmit={handleSubmit} className="login-form">
@@ -85,7 +85,7 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
         <button type="submit" className="login-button">Login</button>
       </form>
       <p className="signup-link">
-        New User? <Link to="/signup">Signup</Link>
+        New User? <Link to="/signup">Create Account</Link>
       </p>
     </div>
   );

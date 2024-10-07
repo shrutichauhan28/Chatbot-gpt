@@ -1,9 +1,21 @@
+@keyframes glowing-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #0E0C15;
+  background-color: #0E0C15; /* Solid black background */
   color: white;
   position: sticky;
   top: 0;
@@ -11,6 +23,15 @@
   height: 90px;
   padding: 2.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /* Border and Gradient Animation */
+  border: 2px solid transparent;
+  background-image: linear-gradient(#0E0C15, #0E0C15), 
+                    linear-gradient(45deg, #aaf9f4, #4dbae5, #71f5fc, #e3f07e, #eaff00, #46f6ca, #a976e0, #9e34ef, #62b1ff); 
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 400%; /* Make the gradient larger to show animation */
+  animation: glowing-border 20s linear infinite;
 }
 
 /* Add styling for the logo */

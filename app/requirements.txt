@@ -15,3 +15,4 @@ python-docx
 python-multipart
 ebooklib
 bs4
+rank-bm25

@@ -25,6 +25,7 @@ from fastapi.responses import HTMLResponse
 from sqlmodel import Session, select
 from uuid import uuid4
 from rerank import rank_chunks_with_bm25
+import logging
 
 load_dotenv()
 
@@ -38,6 +39,12 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+# Set up logging configuration
+logging.basicConfig(
+    filename='query_log.log',  # Log file name
+    level=logging.INFO,  # Log level
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Log format
+)
 
 # Get the OpenAI API key
 openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -295,9 +302,18 @@ def query_response(query: QueryModel):
     answer = result['answer']
     chat_session.save_sess_db(query.session_id, query.text, answer)
 
-    # Print the sources and chunks used for debugging
-    print("Sources used:", sources)
-    print("Ranked Chunks used:", ranked_chunks)
+    # Log the query, response, and ranked chunks with BM25 score
+    log_data = {
+        "session_id": query.session_id,
+        "query": query.text,
+        "response": answer,
+        "ranked_chunks": ranked_chunks,
+        "bm25_scores": [chunk['bm25_score'] for chunk in ranked_chunks],
+        "sources": sources
+    }
+    
+    # Log the data to the log file
+    logging.info(f"Query Log: {json.dumps(log_data, indent=2)}")
 
     return {
         'answer': answer,

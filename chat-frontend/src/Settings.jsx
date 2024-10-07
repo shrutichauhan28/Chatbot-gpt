@@ -219,7 +219,7 @@ const Settings = () => {
                     <a href={fileObj.url} target="_blank" rel="noopener noreferrer">
                         {fileObj.file}
                     </a>
-                          <button onClick={() => handleFileDeleteClick(fileObj.file, folder)}>Delete</button>
+                          <button className="trash-icon" onClick={() => handleFileDeleteClick(fileObj.file, folder)}>Delete</button>
                       </li>
                   ))}
               </ul>

@@ -230,7 +230,7 @@ const AddUsers = () => {
       </form>
 
       <div className="user-queue">
-        <h3>Users in Queue:</h3>
+        <h3>Upload through CSV:</h3>
         <ul>
           {userQueue.map((user, index) => (
             <li key={index}>{user.username} - {user.email} ({user.role})</li>
