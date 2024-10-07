@@ -2,6 +2,7 @@ from langchain.vectorstores import Milvus
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
 from langchain.chat_models import ChatOpenAI
+from data import load_n_split
 from utils import get_settings
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.memory import ConversationBufferMemory
@@ -19,31 +20,11 @@ load_dotenv()
 
 # Get the OpenAI API key
 openai_api_key = os.getenv('OPENAI_API_KEY')
+# Directory containing the files
+directory_path = '../data'
 
 
-def chunk_document(doc_text, chunk_size=1000, chunk_overlap=200):
-    """
-    Splits the document text into chunks.
-    
-    Args:
-        doc_text (str): The document text to be chunked.
-        chunk_size (int): The number of characters per chunk.
-        chunk_overlap (int): The overlap size between chunks.
-    
-    Returns:
-        List of text chunks.
-    """
-    # Use a recursive character splitter for chunking based on character size
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap,
-    )
-    chunks = text_splitter.split_text(doc_text)
-    return chunks
-
-
-def vector_database(collection_name, doc_text=None, drop_existing_embeddings=False, embeddings_name='sentence',
-                    chunk_size=1000, chunk_overlap=200):
+def vector_database(collection_name, doc_text=None, drop_existing_embeddings=False, embeddings_name='sentence'):
     """
     Creates and returns a Milvus database based on the specified parameters.
     
@@ -73,16 +54,15 @@ def vector_database(collection_name, doc_text=None, drop_existing_embeddings=Fal
         raise ValueError('Invalid embeddings option. Choose either "openai" or "sentence".')
 
     if doc_text:
-        # Chunk the document text before embedding
-        doc_chunks = chunk_document(doc_text, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
-        
         try:
             vector_db = Milvus.from_documents(
-                doc_chunks,  # Use the chunks here
+                doc_text,  
                 embeddings,
                 collection_name=collection_name,
                 drop_old=drop_existing_embeddings,
                 connection_args={"host": "localhost", "port": "19530", "timeout": 60},
+                # change localhost to get.settings().milvus_host when using docker
+                
             )
         except pymilvus.exceptions.ParamError as e:
             raise HTTPException(

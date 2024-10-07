@@ -36,8 +36,8 @@ class DocModel(BaseModel):
     embeddings_name: Optional[Literal['openai', 'sentence']] = 'openai'
     collection_name: Optional[str] = 'LangChainCollection'
     drop_existing_embeddings: Optional[bool] = False
-    chunk_size: Optional[int] = 500  # Optimized chunk size for precision
-    chunk_overlap: Optional[int] = 50  # Small overlap to maintain context without redundancy
+    chunk_size: Optional[int] = 1000  # Optimized chunk size for precision
+    chunk_overlap: Optional[int] = 200  # Small overlap to maintain context without redundancy
 
     @validator('dir_path')
     def validate_dir_path(cls, dir_path):

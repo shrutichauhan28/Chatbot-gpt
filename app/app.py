@@ -24,6 +24,7 @@ from bs4 import BeautifulSoup
 from fastapi.responses import HTMLResponse
 from sqlmodel import Session, select
 from uuid import uuid4
+from rerank import rank_chunks_with_bm25
 
 load_dotenv()
 
@@ -137,13 +138,26 @@ async def upload_file(file: UploadFile, folder: str = Form(...), create_new_fold
         return JSONResponse(status_code=500, content={"error": str(e)})
     
 async def add_documents(doc: DocModel):
-    docs = load_n_split(doc.dir_path)
+    # doc.dir_path should be a string path to the directory containing documents
+    if isinstance(doc.dir_path, str):
+        docs = load_n_split(doc.dir_path)  # Use the directory path directly
+    else:
+        return {"message": "Invalid directory path"}
+    
     vector_database(
-        doc_text=docs,
+        doc_text=docs,  # This should be appropriate type for vector_database
         collection_name=doc.collection_name,
         embeddings_name=doc.embeddings_name
     )
     return {"message": "Documents added successfully"}
+
+
+
+@app.post("/doc_ingestion")
+async def doc_ingestion(doc: DocModel):
+    return await add_documents(doc)
+
+
 
 def convert_file(file_path: str, file_extension: str):
     """
@@ -237,10 +251,6 @@ def on_startup():
     convert_existing_files()
 
 
-@app.post("/doc_ingestion")
-async def doc_ingestion(doc: DocModel):
-    return await add_documents(doc)
-
 
 @app.post("/query")
 def query_response(query: QueryModel):
@@ -269,21 +279,31 @@ def query_response(query: QueryModel):
         cost = None
 
     # Extract sources and the chunks from the result
-    sources = list(set([doc.metadata['source'] for doc in result['source_documents']]))
-    chunks_used = [doc.page_content for doc in result['source_documents']]  # Extract chunks
+    source_documents = result['source_documents']
+    sources = list(set([doc.metadata['source'] for doc in source_documents]))
+    chunks = [doc for doc in source_documents]  # Extract the Document objects (chunks)
+
+    # Use BM25 to rerank the chunks based on relevance to the query
+    reranked_chunks = rank_chunks_with_bm25(chunks, query.text)
+
+    # Extract chunk text and BM25 score
+    ranked_chunks = [
+        {"text": chunk.page_content, "bm25_score": score}
+        for chunk, score in reranked_chunks
+    ]
 
     answer = result['answer']
     chat_session.save_sess_db(query.session_id, query.text, answer)
 
     # Print the sources and chunks used for debugging
     print("Sources used:", sources)
-    print("Chunks used:", chunks_used)
+    print("Ranked Chunks used:", ranked_chunks)
 
     return {
         'answer': answer,
         "cost": cost,
         'source': sources,
-        'chunks': chunks_used,  # Include chunks in the response if needed
+        'ranked_chunks': ranked_chunks,  # Return the ranked chunks with BM25 scores
         'session_id': query.session_id  # Return the session ID in the response
     }
 
