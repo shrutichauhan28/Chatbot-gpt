@@ -6,6 +6,7 @@ from docx import Document as DocxDocument
 import pandas as pd
 import os
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from rerank import rank_chunks_with_bm25
 
 class CleanTextLoader(TextLoader):
     """Load text files."""
@@ -117,10 +118,31 @@ def load_n_split(path: str) -> List[Document]:
                 print(f"Error loading file {file_path}: {e}")
 
     # Use RecursiveCharacterTextSplitter to split the documents
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=80)
 
     split_docs = []
     for doc in documents:
         split_docs.extend(splitter.split_documents([doc]))
 
     return split_docs
+
+# Example of updated load_n_split function using BM25 reranking
+def load_n_split_and_rerank(path: str, query: str) -> List[Document]:
+    """
+    Load files from the directory, split them into chunks, and rerank them based on the BM25 algorithm.
+
+    Args:
+        path (str): The path to the directory containing the files.
+        query (str): The query to use for ranking the chunks.
+
+    Returns:
+        List[Document]: The reranked chunks based on relevance to the query.
+    """
+    # Load and split the documents as usual
+    documents = load_n_split(path)
+    
+    # Rerank the chunks using BM25
+    reranked_chunks = rank_chunks_with_bm25(documents, query)
+    
+    # Optionally return only the reranked chunks (without the BM25 score)
+    return [chunk for chunk, score in reranked_chunks]

@@ -24,6 +24,7 @@ from bs4 import BeautifulSoup
 from fastapi.responses import HTMLResponse
 from sqlmodel import Session, select
 from uuid import uuid4
+from rerank import rank_chunks_with_bm25
 
 load_dotenv()
 
@@ -278,21 +279,31 @@ def query_response(query: QueryModel):
         cost = None
 
     # Extract sources and the chunks from the result
-    sources = list(set([doc.metadata['source'] for doc in result['source_documents']]))
-    chunks_used = [doc.page_content for doc in result['source_documents']]  # Extract chunks
+    source_documents = result['source_documents']
+    sources = list(set([doc.metadata['source'] for doc in source_documents]))
+    chunks = [doc for doc in source_documents]  # Extract the Document objects (chunks)
+
+    # Use BM25 to rerank the chunks based on relevance to the query
+    reranked_chunks = rank_chunks_with_bm25(chunks, query.text)
+
+    # Extract chunk text and BM25 score
+    ranked_chunks = [
+        {"text": chunk.page_content, "bm25_score": score}
+        for chunk, score in reranked_chunks
+    ]
 
     answer = result['answer']
     chat_session.save_sess_db(query.session_id, query.text, answer)
 
     # Print the sources and chunks used for debugging
     print("Sources used:", sources)
-    print("Chunks used:", chunks_used)
+    print("Ranked Chunks used:", ranked_chunks)
 
     return {
         'answer': answer,
         "cost": cost,
         'source': sources,
-        'chunks': chunks_used,  # Include chunks in the response if needed
+        'ranked_chunks': ranked_chunks,  # Return the ranked chunks with BM25 scores
         'session_id': query.session_id  # Return the session ID in the response
     }
 
