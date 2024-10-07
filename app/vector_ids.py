@@ -4,7 +4,7 @@ from pymilvus import connections, Collection, utility
 connections.connect("default", host='localhost', port='19530')
 
 # Define your collection name
-collection_name = "LangChainCollection"  # Replace with your actual collection name
+collection_name = "LangChainCollection"
 
 # Check if the collection exists
 if collection_name in utility.list_collections():

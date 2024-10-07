@@ -57,7 +57,85 @@ h1 {
   font-size: 120px;
   margin: 10px 0;
 }
-/* styling my button */
+
+/* General content layout for the chat page */
+.chat-content {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden; /* Prevents scroll on the entire page */
+  background-color: #262D3D;
+}
+
+/* Login/Signup page layout */
+.login-signup-content {
+  display: block; /* Ensures the content is laid out as a block */
+  height: 100vh; /* Ensure the height spans the full viewport */
+  overflow: auto; /* Allows scrolling if the content overflows */
+}
+
+/* For login and signup pages, reset the flexbox layout */
+.login-page-content {
+  display: block;
+  height: 100vh; /* Ensure it takes up the full viewport height */
+  overflow: auto; /* Allow scrolling if needed */
+}
+
+/* Center the login form and apply a background */
+.login-page {
+  background: url('../public/images/space2.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 2s ease-in-out;
+}
+
+.login-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Login form styling */
+form {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure content and chat are hidden when on the login page */
+.app-container.login-page .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-container.login-page .navbar,
+.app-container.login-page .left-sidebar {
+  display: none;
+}
+
+/* Additional styling for the login form */
+form input, form button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+form button {
+  background-color: #784c79;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+
+
 
 .white-mode {
   text-decoration: none;
@@ -112,7 +190,7 @@ h1 {
   flex-grow: 1;
   position: relative;
   overflow: hidden; /* Prevents scroll on the entire page */
-  background-color: #262D3D;
+  /* background-color: #262D3D; */
 }
 
 /* Chat main container */
@@ -131,10 +209,10 @@ h1 {
 
 .chat-container {
   display: flex;
-  flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto;
-  max-height: 100%;
+  position: relative;
+  overflow: hidden; /* Prevents scroll on the entire page */
+  background-color: #262D3D;
 }
 
 .messages {

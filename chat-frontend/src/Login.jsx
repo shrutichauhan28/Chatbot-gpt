@@ -3,16 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
-  // Effect to toggle the background image
+  // Effect to add background only on login page
   useEffect(() => {
     document.body.classList.add('login-background');
 
@@ -22,15 +18,11 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!formData.email || !formData.password) {
       setErrorMessage('Email and Password are required.');
       return;
@@ -39,9 +31,7 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
     try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -50,15 +40,10 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-
         setUserInfo({ username: data.user.username, role: data.user.role });
         setIsLoggedIn(true);
-
         setSuccessMessage('Login successful! Redirecting...');
-        handleLoginSuccess(); // Trigger the success toast
-
-        // Remove background class after login
-        document.body.classList.remove('login-background');
+        handleLoginSuccess();
 
         setTimeout(() => {
           navigate('/');
@@ -68,13 +53,10 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
       }
     } catch (error) {
       setErrorMessage('An error occurred. Please try again.');
-      console.error('Error during login:', error);
     }
   };
 
   return (
-    <div className='login-background'>
-    
     <div className="login-container">
       <h2>Login</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -90,7 +72,6 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
             placeholder="Enter email"
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
@@ -103,12 +84,9 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
         </div>
         <button type="submit" className="login-button">Login</button>
       </form>
-
       <p className="signup-link">
-        New User? <Link to="/signup" >Signup</Link>
+        New User? <Link to="/signup">Signup</Link>
       </p>
-    </div>
-
     </div>
   );
 };

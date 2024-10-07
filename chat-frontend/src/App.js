@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AddUsers from './AddUsers';
 import ProtectedRoute from './ProtectedRoute';
 
-//manages the application's layout, navigation, and user authentication, rendering different pages and sidebars based on the user's login status and screen size
+// Manages the application's layout, navigation, and user authentication, rendering different pages and sidebars based on the user's login status and screen size
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [userInfo, setUserInfo] = useState({ username: '', role: '' });
@@ -62,7 +62,6 @@ function App() {
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
   }, [navigate]);
-  
 
   const fetchUserInfo = async (token) => {
     try {
@@ -102,9 +101,10 @@ function App() {
   };
 
   const isChatPath = location.pathname === '/';
+  const isLoginPage = location.pathname === '/login' || location.pathname === '/signup';
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${isLoginPage ? 'login-page' : ''}`}>
       <Navbar 
         isChatPath={isChatPath}
         isLeftSidebarOpen={isLeftSidebarOpen}
@@ -113,30 +113,31 @@ function App() {
         userInfo={userInfo}
         handleLogout={handleLogout}
       />
-
+  
       <div className="content">
         {isChatPath && isLeftSidebarOpen && (
           <LeftSidebar isLeftSidebarOpen={isLeftSidebarOpen} />
         )}
-
-        <main className="chat-main">
-        <Routes>
-          <Route path="/" element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <Chat />
-            </ProtectedRoute>
-          } />
-          <Route path="/signup" element={<Signup handleSignupSuccess={handleSignupSuccess} />} />
-          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} handleLoginSuccess={handleLoginSuccess} />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/addusers" element={<AddUsers />} />
-          <Route path="*" element={<Navigate to="/" />} /> {/* Catch-all route */}
-        </Routes>
+  
+        {/* Only apply chat-main styles when it's the chat page */}
+        <main className={isChatPath ? 'chat-main' : ''}>
+          <Routes>
+            <Route path="/" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Chat />
+              </ProtectedRoute>
+            } />
+            <Route path="/signup" element={<Signup handleSignupSuccess={handleSignupSuccess} />} />
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} handleLoginSuccess={handleLoginSuccess} />} />
+            <Route path="/settings" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Settings /></ProtectedRoute>} />
+            <Route path="/addusers" element={<ProtectedRoute isLoggedIn={isLoggedIn}><AddUsers /></ProtectedRoute>} />
+            <Route path="*" element={<Navigate to="/" />} /> {/* Catch-all route */}
+          </Routes>
         </main>
       </div>
       <ToastContainer /> {/* Include the ToastContainer here */}
     </div>
-  );
+  );  
 }
 
 export default App;

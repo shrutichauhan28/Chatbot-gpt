@@ -1,106 +1,114 @@
-/* Glassmorphism Effect for Login Container */
-.login-container {
-    background: rgba(255, 255, 255, 0.2); /* semi-transparent background */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(10px); /* Frosted glass for Safari */
-    border-radius: 15px; /* Rounded corners */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
-    padding: 20px;
-    max-width: 400px;
-    height: 400px;
-    margin:  auto;
-    color: black;
-    margin-top: 90px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-}
-
-.login-container h2 {
-    color: black;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 /* Background image class applied to body during login */
 .login-background {
-    
+    background-image: url('../public/images/space2.jpg'); /* Update with your image path */
     background-size: cover;
     background-position: center;
     height: 100vh;
     width: 100%;
-    transition: background 0.5s ease-in-out;
-   
-}
-
-.login-form {
+    transition: background 2s ease-in-out;
     display: flex;
-    flex-direction: column;
-    color: black;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Form group styling */
-.form-group {
-    margin-bottom: 15px;
-    color: black;
-}
-
-.form-group label {
-    font-weight: bold;
-    color: black;
-    padding: 8px;
-    
-}
-
-.form-group input {
+/* Login container styling */
+.login-container {
+    background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    border-radius: 15px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+    padding: 40px 30px;
+    max-width: 400px;
     width: 100%;
-    padding: 8px;
-    margin: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #180424;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* Deeper shadow for contrast */
+    text-align: center;
 }
 
-.login-button {
-    background-color: #6a1b9a;
-    color: white;
+/* Heading */
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Form input styling */
+.login-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.login-form .form-group input {
+    width: 100%;
     padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+}
+
+.login-form .form-group input:focus {
+    outline: none;
+    border-color: #7e57c2;
+}
+
+/* Login button styling */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #7e57c2, #9575cd);
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
     cursor: pointer;
-    width: 80%;
-    margin: auto;
-    margin-top: 20px;
+    transition: background 0.3s ease;
 }
 
 .login-button:hover {
-    background-color: #53127b;
+    background: linear-gradient(45deg, #9575cd, #b39ddb);
+}
+
+/* Signup link styling */
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.signup-link a {
+    color: #7e57c2;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    color: #9575cd;
 }
 
 /* Error and success message styling */
 .error-message {
     color: red;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .success-message {
     color: rgb(148, 255, 148);
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
-/* Responsive design for smaller screens */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .login-container {
-        padding: 10px;
+        padding: 20px;
     }
-}
-
-.signup-link {
-    color: #180424;
-    padding: 8px;
-    margin: 10px;
-    font-weight: bold;
-}
-
-.signup-link Link {
-    color: #00ff80;
-    
 }
