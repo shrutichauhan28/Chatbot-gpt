@@ -191,14 +191,12 @@ form button {
   flex-grow: 1;
   position: relative;
   overflow: hidden; /* Prevents scroll on the entire page */
-  /* background-color: #262D3D; */
 }
 
 /* Chat main container */
 .chat-main {
   flex-grow: 1;
   padding: 15px; /* Add padding around the chat container */
-  /* background-color: #00000c; */
   display: flex;
   flex-direction: column;
   transition: margin-left 0.3s, margin-right 0.3s;
@@ -209,6 +207,7 @@ form button {
 /* Chat container to manage the left sidebar space */
 .chat-container {
   display: flex;
+  flex-direction: column; /* Change to column for vertical stacking */
   flex-grow: 1;
   position: relative;
   padding-right: 20px;
@@ -348,6 +347,48 @@ form button {
     width: 15px; /* Smaller contracted size */
     aspect-ratio: 1;
   }
+}
+
+/* Ensure the placeholder appears properly in relation to the messages */
+.start-conversation {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: auto; /* Adjust height to fit content */
+  margin-bottom: 20px; /* Space between placeholder and messages */
+}
+
+.placeholder-text {
+  font-size: 24px;
+  color: #ccc; /* Light color for placeholder */
+  margin-bottom: 20px;
+  opacity: 1; /* Make sure it's visible */
+  transition: opacity 0.5s ease-in-out;
+}
+
+.start-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #0056b3;
+}
+
+.encloser {
+  opacity: 0; /* Start invisible for animation */
+  transition: opacity 0.5s ease-in-out; /* Smooth transition */
+}
+
+.fade-in {
+  opacity: 1; /* Make it visible when conversation starts */
 }
 
 /* Message Styles */

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { queryAPI } from './api';
 import Message from './Message';
-import Skull from './Skull'; // Import your skeleton loader
+import Skull from './Skull';
 import { IoSend } from "react-icons/io5";
 
 function Chat() {
@@ -9,6 +9,7 @@ function Chat() {
   const [input, setInput] = useState('');
   const [sessionId] = useState('session-id');
   const [isLoading, setIsLoading] = useState(false); // Handle loading state
+  const [conversationStarted, setConversationStarted] = useState(false); // Track if the conversation has started
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,6 +20,13 @@ function Chat() {
     scrollToBottom();
   }, [messages]);
 
+  // Start the conversation and show the initial bot message
+  const startConversation = () => {
+    const initialBotMessage = { sender: 'bot', text: "Hello and welcome to Yugm 🚀 I'm here to collaborate and help you with anything related to the company. Let us work together to find the information you need!" };
+    setMessages([initialBotMessage]); // Initialize with the bot's message
+    setConversationStarted(true); // Mark conversation as started
+  };
+
   // Trigger send message
   const sendMessage = async () => {
     if (input.trim() && !isLoading) {
@@ -27,8 +35,10 @@ function Chat() {
       setInput(''); // Clear input after sending
       setIsLoading(true); // Start skeleton loader
 
+      // Send user message to API
       const response = await queryAPI(sessionId, input);
 
+      // Append bot's response after user's message
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'bot', text: response.answer }, // Append bot response
@@ -47,25 +57,38 @@ function Chat() {
         {isLoading && <Skull />} {/* Show skull skeleton loader when loading */}
         <div ref={messagesEndRef} />
       </div>
-      <div className="encloser">
-        <div className="input-container">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={isLoading ? "Generating Response..." : "Ask a Question..."} // Conditional placeholder
-            onKeyPress={(e) => e.key === 'Enter' && !isLoading ? sendMessage() : null}
-            disabled={isLoading} // Disable input while loading
-          />
-          <button onClick={sendMessage} disabled={isLoading}>
-            {isLoading ? (
-              <div className="loader"></div> // Loader while sending
-            ) : (
-              <IoSend className="send-icon" />
-            )}
+
+      {!conversationStarted ? (
+        <div className="start-conversation">
+          
+          <div className="placeholder-text">
+            Ask YUGM about the Knowledge Base
+          </div>
+          <button onClick={startConversation} className="start-button">
+            Start Conversation
           </button>
         </div>
-      </div>
+      ) : (
+        <div className="encloser fade-in">
+          <div className="input-container">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={isLoading ? "Generating Response..." : "Ask a Question..."} // Conditional placeholder
+              onKeyPress={(e) => e.key === 'Enter' && !isLoading ? sendMessage() : null}
+              disabled={isLoading} // Disable input while loading
+            />
+            <button onClick={sendMessage} disabled={isLoading}>
+              {isLoading ? (
+                <div className="loader"></div> // Loader while sending
+              ) : (
+                <IoSend className="send-icon" />
+              )}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
