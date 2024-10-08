@@ -269,10 +269,10 @@ def query_response(query: QueryModel):
     if not query.session_id:
         query.session_id = str(uuid.uuid4())
 
-    # Check if there is a conversation history for the session
-    stored_memory = None
+    # Load previous conversation history if it exists
+    stored_memory = chat_session.load_history(query.session_id)
 
-    # Get conversation chain
+    # Get conversation chain with stored memory
     chain = db_conversation_chain(
         stored_memory=stored_memory,
         llm_name=query.llm_name,
@@ -322,6 +322,7 @@ def query_response(query: QueryModel):
         'ranked_chunks': ranked_chunks,  # Return the ranked chunks with BM25 scores
         'session_id': query.session_id  # Return the session ID in the response
     }
+
 
 @app.delete("/delete")
 async def delete_file(folder: str = Body(...), fileName: str = Body(...)):
