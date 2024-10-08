@@ -1,6 +1,6 @@
 import uuid
 from pydantic import BaseModel, Field, validator
-from typing import Optional, Literal
+from typing import Optional, Literal, List
 import os
 import re
 from fastapi import HTTPException
@@ -34,7 +34,7 @@ class DocModel(BaseModel):
     """
     dir_path: str = Field("../data", const=True)
     embeddings_name: Optional[Literal['openai', 'sentence']] = 'openai'
-    collection_name: Optional[str] = 'LangChainCollection'
+    collection_name: Optional[str] = 'TestCollection'
     drop_existing_embeddings: Optional[bool] = False
     chunk_size: Optional[int] = 1000  # Optimized chunk size for precision
     chunk_overlap: Optional[int] = 200  # Small overlap to maintain context without redundancy
@@ -68,7 +68,7 @@ class QueryModel(BaseModel):
     text: str
     session_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     llm_name: Optional[Literal['openai', 'llamacpp', 'gpt4all']] = 'openai'
-    collection_name: Optional[str] = 'LangChainCollection'
+    collection_name: Optional[str] = 'TestCollection'
     temperature: Optional[float] = 0.3  # Set to zero to prevent creative generation
 
     @validator('text')
@@ -79,6 +79,12 @@ class QueryModel(BaseModel):
         if not text:
             raise ValueError('Text must be provided')
         return text
+
+    # This function can limit the chat history to the last 10 interactions
+    def add_to_history(self, query: str, response: str):
+        self.history.append(f"Q: {query}\nA: {response}")
+        if len(self.history) > 10:
+            self.history = self.history[-10:]
 
 # manage session id
     @validator('session_id')

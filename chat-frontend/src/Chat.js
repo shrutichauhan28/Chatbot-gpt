@@ -22,7 +22,7 @@ function Chat() {
 
   // Start the conversation and show the initial bot message
   const startConversation = () => {
-    const initialBotMessage = { sender: 'bot', text: "Hello and welcome to Yugm 🚀 I'm here to collaborate and help you with anything related to the company. Let us work together to find the information you need!" };
+    const initialBotMessage = { sender: 'bot', text: "Hello and welcome to Yugm 🚀 I'm here to answer and help you with anything related to the company. Let us work together to find the information you need!" };
     setMessages([initialBotMessage]); // Initialize with the bot's message
     setConversationStarted(true); // Mark conversation as started
   };

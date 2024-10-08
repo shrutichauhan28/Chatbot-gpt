@@ -226,7 +226,7 @@ const AddUsers = () => {
           />
         </div>
 
-        <button type="submit" className="submit-button">Add User</button>
+        <button type="submit" className="submit-button">+ Add User</button>
       </form>
 
       <div className="user-queue">

@@ -10,20 +10,19 @@ tokenizer = AutoTokenizer.from_pretrained("BAAI/bge-large-en")
 model = AutoModel.from_pretrained("BAAI/bge-large-en")
 
 def get_embeddings(texts):
-    """
-    Generate embeddings for the given texts using BAAI model.
-
-    Args:
-        texts (list): List of texts for which embeddings are to be generated.
-
-    Returns:
-        numpy.ndarray: Array of embeddings.
-    """
+    # Tokenize the input texts
     inputs = tokenizer(texts, padding=True, truncation=True, return_tensors="pt")
+    if not inputs.input_ids.shape[0]:
+        raise ValueError("Tokenization failed, resulting in empty input.")
+
     with torch.no_grad():
         outputs = model(**inputs)
-    # We use the pooled output (which represents [CLS] token) as the sentence embedding
     embeddings = outputs.last_hidden_state.mean(dim=1)
+    
+    # Check if embeddings are empty
+    if embeddings.shape[0] == 0:
+        raise ValueError("No embeddings generated for input texts.")
+    
     return embeddings
 
 def rank_chunks_with_bm25(chunks, query):
@@ -38,6 +37,16 @@ def rank_chunks_with_bm25(chunks, query):
     Returns:
         List of tuples (chunk, score) sorted by BM25 relevance.
     """
+    # Check if chunks are empty
+    if not chunks:
+        raise ValueError("No chunks provided for ranking.")
+
+    chunk_texts = [chunk.page_content for chunk in chunks]
+
+    # Check if any chunk_texts are empty
+    if any(len(text.strip()) == 0 for text in chunk_texts):
+        raise ValueError("Some chunks have empty content.")
+    
     # Get the chunk texts
     chunk_texts = [chunk.page_content for chunk in chunks]
 
@@ -45,6 +54,12 @@ def rank_chunks_with_bm25(chunks, query):
     chunk_embeddings = get_embeddings(chunk_texts)
     query_embedding = get_embeddings([query])
     
+    # Check for empty embeddings
+    if chunk_embeddings.shape[0] == 0:
+        raise ValueError("No chunk embeddings generated.")
+    if query_embedding.shape[0] == 0:
+        raise ValueError("No query embedding generated.")
+
     # Compute cosine similarity between query and each chunk
     similarity_scores = cosine_similarity(query_embedding, chunk_embeddings)[0]
 
