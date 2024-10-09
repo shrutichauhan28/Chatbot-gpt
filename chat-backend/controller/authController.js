@@ -10,6 +10,9 @@ const fs = require('fs');
 // Signup
 exports.signup = async (req, res) => {
   const { email, username, role, password } = req.body;
+      
+  console.log("user  hu jbvdbv" ,  pasword);
+
 
   try {
     // Check if user already exists
@@ -20,13 +23,13 @@ exports.signup = async (req, res) => {
 
     // Create new user
     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+    console.log(hashedPassword);
     const user = new User({ email, username, role, password: hashedPassword });
     await user.save();
 
     // Generate token and respond
     const token = generateToken(user._id);
-    user.sessionId = token;
-    await user.save(); // Save the sessionId in the database
+   
     res.status(201).json({ token, user });
   } catch (error) {
     console.error('Signup error:', error); // Log error for debugging
@@ -36,21 +39,46 @@ exports.signup = async (req, res) => {
 
 // Login
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
+
+  console.log("hihib")
+  console.log("hi" )
+  
+
+  const  password  = req.body.password;
+  const email = req.body.email;
+
 
   try {
     // Find user by email
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Invalid email or password' });
 
+    console.log("above ")
+    const user = await User.findOne({ email });
+    // console.log('Searching for user with email:', email.toLowerCase());
+    if (!user) return res.status(400).json({ message: `Invalid email or  ${password}` });
+    
+    
     // Compare passwords
+    console.log('User found:', user);
+
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
+
+
+   
+    console.log('Password match:', isMatch); 
+    
+   
+
+     
+
+    if (!isMatch) {
+      console.log(`Password mismatch for email: ${email}`);  // Add this log
+      return res.status(400).json({ message: 'Invalid emailopppppppr password' });}
 
     // Generate token and respond
     const token = generateToken(user._id);
-    user.sessionId = token;
-    await user.save(); // Save the sessionId in the database
+
+    // user.sessionId = token;
+    // await user.save(); // Save the sessionId in the database
     res.json({ token, user });
   } catch (error) {
     console.error('Login error:', error); // Log error for debugging
@@ -152,38 +180,6 @@ exports.uploadUsers = async (req, res) => {
   }
 };
 
-// Helper function to save users from parsed data
-// const saveUsersFromData = async (data, res) => {
-//   try {
-//     const usersToSave = [];
-
-//     for (const userData of data) {
-//       const { email, username, role } = userData;
-
-//       if (!email.endsWith('@valuebound.com')) {
-//         // Skip users with invalid email domains
-//         continue;
-//       }
-
-//       const userExists = await User.findOne({ email });
-//       if (!userExists) {
-//         // If user doesn't exist, hash password and prepare to save
-//         const hashedPassword = await bcrypt.hash('defaultPassword123', 10); // Default password
-//         usersToSave.push({ email, username, role, password: hashedPassword });
-//       }
-//     }
-
-//     if (usersToSave.length > 0) {
-//       await User.insertMany(usersToSave); // Save all users at once
-//       res.status(201).json({ message: 'Users uploaded successfully' });
-//     } else {
-//       res.status(400).json({ message: 'No valid users to upload' });
-//     }
-//   } catch (error) {
-//     console.error('Error saving users from data:', error);
-//     res.status(500).json({ message: 'Failed to save users', error: error.message || error });
-//   }
-// };
 const saveUsersFromData = async (data, res) => {
   try {
     const usersToSave = [];

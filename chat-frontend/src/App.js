@@ -92,11 +92,11 @@ function App() {
   };
 
   // Handle starting a new chat session
-  const handleNewChat = () => {
-    const newSessionId = uuidv4(); // Generate a new session ID
-    setChatSessions([...chatSessions, newSessionId]); // Add session to state
-    navigate(`/chat/${newSessionId}`); // Navigate to the new chat
-  };
+  // const handleNewChat = () => {
+  //   const newSessionId = uuidv4(); // Generate a new session ID
+  //   setChatSessions([...chatSessions, newSessionId]); // Add session to state
+  //   navigate(`/chat/${newSessionId}`); // Navigate to the new chat
+  // };
 
   const handleSignupSuccess = () => {
     toast.success("Successfully registered! Please log in.");
@@ -122,7 +122,7 @@ function App() {
   
       <div className="content">
         {isChatPath && isLeftSidebarOpen && (
-          <LeftSidebar isLeftSidebarOpen={isLeftSidebarOpen} handleNewChat={handleNewChat} />
+          <LeftSidebar isLeftSidebarOpen={isLeftSidebarOpen}  />
         )}
   
         <main className={`chat-main ${isLeftSidebarOpen ? '' : 'expanded-chat'}`}>
