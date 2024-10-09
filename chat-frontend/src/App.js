@@ -11,12 +11,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddUsers from './AddUsers';
 import ProtectedRoute from './ProtectedRoute';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID for generating session IDs
 
-// Manages the application's layout, navigation, and user authentication, rendering different pages and sidebars based on the user's login status and screen size
 function App() {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [userInfo, setUserInfo] = useState({ username: '', role: '' });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [chatSessions, setChatSessions] = useState([]); // Track all chat sessions
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -90,17 +91,22 @@ function App() {
     }
   };
 
-  // Define handleSignupSuccess function
+  // Handle starting a new chat session
+  const handleNewChat = () => {
+    const newSessionId = uuidv4(); // Generate a new session ID
+    setChatSessions([...chatSessions, newSessionId]); // Add session to state
+    navigate(`/chat/${newSessionId}`); // Navigate to the new chat
+  };
+
   const handleSignupSuccess = () => {
     toast.success("Successfully registered! Please log in.");
   };
 
-  // Define handleLoginSuccess function
   const handleLoginSuccess = () => {
     toast.success("Successfully logged in!");
   };
 
-  const isChatPath = location.pathname === '/';
+  const isChatPath = location.pathname.startsWith('/chat');
   const isLoginPage = location.pathname === '/login' || location.pathname === '/signup';
 
   return (
@@ -116,13 +122,17 @@ function App() {
   
       <div className="content">
         {isChatPath && isLeftSidebarOpen && (
-          <LeftSidebar isLeftSidebarOpen={isLeftSidebarOpen} />
+          <LeftSidebar isLeftSidebarOpen={isLeftSidebarOpen} handleNewChat={handleNewChat} />
         )}
   
-        {/* Only apply chat-main styles when it's the chat page */}
         <main className={`chat-main ${isLeftSidebarOpen ? '' : 'expanded-chat'}`}>
           <Routes>
             <Route path="/" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Navigate to={`/chat/${uuidv4()}`} /> {/* Redirect to a new chat */}
+              </ProtectedRoute>
+            } />
+            <Route path="/chat/:sessionId" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Chat />
               </ProtectedRoute>
@@ -135,7 +145,7 @@ function App() {
           </Routes>
         </main>
       </div>
-      <ToastContainer /> {/* Include the ToastContainer here */}
+      <ToastContainer />
     </div>
   );  
 }

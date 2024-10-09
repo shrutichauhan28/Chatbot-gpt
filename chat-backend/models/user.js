@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sessionId: { // Add sessionId field to store session or token
+    type: String,
+  },
 }, {
   timestamps: true,
 });

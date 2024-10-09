@@ -14,6 +14,9 @@ const authMiddleware = async (req, res, next) => {
     console.log('Decoded Token:', decoded); // Log the decoded token
     req.user = await User.findById(decoded.id).select('-password');
     console.log('Authenticated User:', req.user); // Log the user
+
+    req.sessionID = req.sessionID || req.session.id;
+    console.log('Session ID:', req.sessionID); // Log session ID
     next();
   } catch (error) {
     console.error('Token verification failed:', error);

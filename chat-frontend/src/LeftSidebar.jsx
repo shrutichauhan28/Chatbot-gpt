@@ -5,10 +5,10 @@ import { BiMessageAlt, BiBookmark } from "react-icons/bi";
 import { BsClockHistory } from "react-icons/bs";
 import './LeftSidebar.css';
 
-const LeftSidebar = ({ isLeftSidebarOpen }) => {
+const LeftSidebar = ({ isLeftSidebarOpen,handleNewChat }) => {
   return (
     <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
-      <button className="glow-on-hover">
+      <button className="glow-on-hover" onClick={handleNewChat}>
         <BiMessageAlt /> New Chat
       </button>
       <button className="glow-on-hover">
@@ -22,3 +22,35 @@ const LeftSidebar = ({ isLeftSidebarOpen }) => {
 };
 
 export default LeftSidebar;
+
+
+
+
+// import React from 'react';
+// import './LeftSidebar.css';
+
+// // Sidebar component for managing chat sessions and other sidebar functionalities
+// const LeftSidebar = ({ isLeftSidebarOpen, handleNewChat }) => {
+//   return (
+//     <div className={`left-sidebar ${isLeftSidebarOpen ? 'open' : ''}`}>
+//       <button className="new-chat-button" onClick={handleNewChat}>
+//         New Chat
+//       </button>
+      
+//       {/* Add any additional sidebar functionalities here, like a list of past chat sessions */}
+//       <div className="chat-sessions">
+//         <h4>Recent Chats</h4>
+//         {/* Map through chat sessions if you want to list them */}
+//         {/* Example: 
+//         chatSessions.map((sessionId) => (
+//           <div key={sessionId} className="chat-session-item">
+//             <Link to={`/chat/${sessionId}`}>Chat {sessionId}</Link>
+//           </div>
+//         ))
+//         */}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default LeftSidebar;

@@ -25,6 +25,8 @@ exports.signup = async (req, res) => {
 
     // Generate token and respond
     const token = generateToken(user._id);
+    user.sessionId = token;
+    await user.save(); // Save the sessionId in the database
     res.status(201).json({ token, user });
   } catch (error) {
     console.error('Signup error:', error); // Log error for debugging
@@ -47,6 +49,8 @@ exports.login = async (req, res) => {
 
     // Generate token and respond
     const token = generateToken(user._id);
+    user.sessionId = token;
+    await user.save(); // Save the sessionId in the database
     res.json({ token, user });
   } catch (error) {
     console.error('Login error:', error); // Log error for debugging

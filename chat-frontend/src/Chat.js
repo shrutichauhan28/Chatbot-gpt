@@ -3,13 +3,13 @@ import { queryAPI } from './api';
 import Message from './Message';
 import Skull from './Skull';
 import { IoSend } from "react-icons/io5";
+import StarCanvas from './StarCanvas';
 
-function Chat() {
+function Chat({ sessionId }) {  // Accept sessionId as a prop
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [sessionId] = useState('session-id');
-  const [isLoading, setIsLoading] = useState(false); // Handle loading state
-  const [conversationStarted, setConversationStarted] = useState(false); // Track if the conversation has started
+  const [isLoading, setIsLoading] = useState(false);  // Handle loading state
+  const [conversationStarted, setConversationStarted] = useState(false);  // Track if the conversation has started
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -22,18 +22,29 @@ function Chat() {
 
   // Start the conversation and show the initial bot message
   const startConversation = () => {
-    const initialBotMessage = { sender: 'bot', text: "Hello and welcome to Yugm 🚀 I'm here to answer and help you with anything related to the company. Let us work together to find the information you need!" };
-    setMessages([initialBotMessage]); // Initialize with the bot's message
-    setConversationStarted(true); // Mark conversation as started
+    const initialBotMessage = {
+      sender: 'bot',
+      text: "Hello and welcome to Yugm 🚀 I'm here to answer and help you with anything related to the company. Let us work together to find the information you need!"
+    };
+    setMessages([initialBotMessage]);  // Initialize with the bot's message
+    setConversationStarted(true);  // Mark conversation as started
   };
+
+  // This effect is triggered when the sessionId changes, resetting the messages
+  useEffect(() => {
+    if (sessionId) {
+      setMessages([]);  // Clear messages when a new session starts
+      setConversationStarted(false);  // Reset conversation state
+    }
+  }, [sessionId]);
 
   // Trigger send message
   const sendMessage = async () => {
     if (input.trim() && !isLoading) {
       const userMessage = { sender: 'user', text: input };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
-      setInput(''); // Clear input after sending
-      setIsLoading(true); // Start skeleton loader
+      setInput('');  // Clear input after sending
+      setIsLoading(true);  // Start skeleton loader
 
       // Send user message to API
       const response = await queryAPI(sessionId, input);
@@ -41,10 +52,10 @@ function Chat() {
       // Append bot's response after user's message
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'bot', text: response.answer }, // Append bot response
+        { sender: 'bot', text: response.answer },  // Append bot response
       ]);
 
-      setIsLoading(false); // Stop skeleton loader
+      setIsLoading(false);  // Stop skeleton loader
     }
   };
 
@@ -54,13 +65,15 @@ function Chat() {
         {messages.map((msg, index) => (
           <Message key={index} sender={msg.sender} text={msg.text} />
         ))}
-        {isLoading && <Skull />} {/* Show skull skeleton loader when loading */}
+        {isLoading && <Skull />}  {/* Show skull skeleton loader when loading */}
         <div ref={messagesEndRef} />
       </div>
 
       {!conversationStarted ? (
         <div className="start-conversation">
-          
+          <div>
+            <img src="/images/astro.gif" alt="astro" className='m-auto justify-center' />
+          </div>
           <div className="placeholder-text">
             Ask YUGM about the Knowledge Base
           </div>
@@ -75,13 +88,13 @@ function Chat() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={isLoading ? "Generating Response..." : "Ask a Question..."} // Conditional placeholder
+              placeholder={isLoading ? "Generating Response..." : "Ask a Question..."}  // Conditional placeholder
               onKeyPress={(e) => e.key === 'Enter' && !isLoading ? sendMessage() : null}
-              disabled={isLoading} // Disable input while loading
+              disabled={isLoading}  // Disable input while loading
             />
             <button onClick={sendMessage} disabled={isLoading}>
               {isLoading ? (
-                <div className="loader"></div> // Loader while sending
+                <div className="loader"></div>  // Loader while sending
               ) : (
                 <IoSend className="send-icon" />
               )}
