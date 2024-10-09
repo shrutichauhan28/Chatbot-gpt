@@ -3,7 +3,6 @@ import { queryAPI } from './api';
 import Message from './Message';
 import Skull from './Skull';
 import { IoSend } from "react-icons/io5";
-import StarCanvas from './StarCanvas';
 
 function Chat({ sessionId }) {  // Accept sessionId as a prop
   const [messages, setMessages] = useState([]);
