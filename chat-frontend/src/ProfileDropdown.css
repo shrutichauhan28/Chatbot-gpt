@@ -1,50 +1,65 @@
-/* ProfileDropdown.css */
 .profile-section {
-    position: relative;
-  }
-  
-  .profile-button {
-    background-color: #6a1b9a; /* Circle background color */
-    color: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .profile-dropdown {
-    position: absolute;
-    top: 50px; /* Adjust for position below the button */
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    color: black;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    z-index: 100;
-  }
-  
-  .profile-dropdown ul {
-    list-style: none;
-    padding: 10px;
-    margin: 0;
-    color: black;
-  }
-  
-  .profile-dropdown li {
-    padding: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    color: black;
-  }
-  
-  .profile-dropdown li:hover {
-    background-color: #f0f0f0;
-  }
-  
+  position: relative;
+}
+
+.profile-button {
+  background-color: #6a1b9a; /* Circle background color */
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 60px !important; /* Adjust for position below the button */
+  right: 0;
+  background-color: #252235 !important; /* Ensure the background is black */
+  border: 1px solid grey !important;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 100;
+}
+
+.profile-info {
+  padding: 10px;
+  text-align: center; /* Center username and role */
+  border-bottom: 1px solid grey !important; /* Separator line */
+}
+
+.username {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.role {
+  font-size: 14px;
+  color: rgb(169, 174, 176);
+}
+
+.profile-dropdown ul {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  color: white;
+}
+
+.profile-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+}
+
+.profile-dropdown li:hover {
+  background-color: rgb(123, 106, 135) !important; /* Change hover color to dark gray */
+}

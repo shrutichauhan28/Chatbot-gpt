@@ -143,43 +143,47 @@ const Settings = () => {
 
   return (
     <div className="settings-page">
-      <ToastContainer />
+    <ToastContainer />
+
+    <div className="drag-and-folder-container">
+      {/* Folder select area */}
       <div className="folder-select">
-  <label htmlFor="folder">Select Folder:</label>
-  <select
-    id="folder"
-    value={createNewFolder ? '' : selectedFolder}
-    onChange={(e) => setSelectedFolder(e.target.value)}
-    disabled={createNewFolder}
-  >
-    <option value="" disabled>Select a folder</option>
-    {folders.map((folder) => (
-      <option key={folder} value={folder}>
-        {folder}
-      </option>
-    ))}
-  </select>
+        <label htmlFor="folder">Select a Category :</label>
+        <select
+          id="folder"
+          value={createNewFolder ? '' : selectedFolder}
+          onChange={(e) => setSelectedFolder(e.target.value)}
+          disabled={createNewFolder}
+        >
+          <option value="" disabled>Select a Category</option>
+          {folders.map((folder) => (
+            <option key={folder} value={folder}>
+              {folder}
+            </option>
+          ))}
+        </select>
 
-  <div className="new-folder">
-    <input 
-      type="checkbox" 
-      id="createNewFolder" 
-      checked={createNewFolder} 
-      onChange={(e) => setCreateNewFolder(e.target.checked)} 
-    />
-    <label htmlFor="createNewFolder">Create New Folder</label>
-  </div>
+        <div className="new-folder">
+          <input 
+            type="checkbox" 
+            id="createNewFolder" 
+            checked={createNewFolder} 
+            onChange={(e) => setCreateNewFolder(e.target.checked)} 
+          />
+          <label htmlFor="createNewFolder">Create New Category</label>
+        </div>
 
-  {createNewFolder && (
-    <input 
-      type="text" 
-      placeholder="Enter new folder name"
-      value={newFolder}
-      onChange={(e) => setNewFolder(e.target.value)} 
-    />
-  )}
-</div>
+        {createNewFolder && (
+          <input 
+            type="text" 
+            placeholder="Enter new Category name"
+            value={newFolder}
+            onChange={(e) => setNewFolder(e.target.value)} 
+          />
+        )}
+      </div>
 
+      {/* Drag and Drop Area */}
       <div
         className={`upload-area ${isDragging ? 'dragging' : ''}`}
         onDragOver={handleDragOver}
@@ -199,13 +203,14 @@ const Settings = () => {
           onChange={handleFileChange}
         />
       </div>
+    </div>
 
-      <div className="button-group">
-        <button onClick={handleFileUpload}>Upload</button>
-        {selectedFiles.length > 0 && (
-          <button onClick={handleCancelUpload}>Cancel Upload</button>
-        )}
-      </div>
+    <div className="button-group">
+      <button onClick={handleFileUpload}>Upload</button>
+      {selectedFiles.length > 0 && (
+        <button onClick={handleCancelUpload}>Cancel Upload</button>
+      )}
+    </div>
 
       <h2>Knowledge Base</h2>
       <div className="file-list-container"> {/* Scrollable container */}

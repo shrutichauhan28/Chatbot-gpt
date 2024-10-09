@@ -170,3 +170,83 @@ def db_conversation_chain(llm_name, stored_memory, collection_name):
         combine_docs_chain_kwargs={"prompt": prompt_doc}
     )
     return chain
+
+
+def db_conversation_chain(llm_name, stored_memory, collection_name):
+    """
+    Creates and returns a ConversationalRetrievalChain based on the specified parameters.
+    
+    Args:
+        llm_name: The name of the language model ('openai', 'gpt4all', or 'llamacpp').
+        stored_memory: Existing conversation.
+        collection_name: The name of the collection (optional).
+    
+    Returns:
+        The ConversationalRetrievalChain.
+    """
+    if llm_name == 'openai':
+        llm = ChatOpenAI(
+            model_name='gpt-3.5-turbo',
+            openai_api_key=get_settings().openai_api_key,
+            temperature=0.3,
+            verbose=False
+        )
+        embeddings_name = 'openai'
+
+    elif llm_name == 'gpt4all':
+        llm = GPT4All(
+            model='llms/ggml-gpt4all-j.bin',
+            n_ctx=1000,
+            verbose=True
+        )
+        embeddings_name = "sentence"
+
+    elif llm_name == 'llamacpp':
+        llm = GPT4All(
+            model='llms/ggml-gpt4all-l13b-snoozy.bin',
+            n_ctx=1000,
+            verbose=True
+        )
+        embeddings_name = "sentence"
+
+    else:
+        raise ValueError('Invalid LLM name.')
+
+    # Initialize the vector database
+    vector_db = vector_database(
+        collection_name=collection_name,
+        embeddings_name=embeddings_name
+    )
+
+    # Initialize chat history memory
+    if stored_memory:
+        try:
+            retrieved_messages = messages_from_dict(stored_memory)
+            chat_history = ChatMessageHistory(messages=retrieved_messages)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error processing chat history: {e}")
+    else:
+        chat_history = ChatMessageHistory()
+
+    # Initialize memory
+    memory = ConversationBufferMemory(
+        memory_key="chat_history",
+        return_messages=True,
+        output_key='answer',
+        chat_memory=chat_history
+    )
+
+    # Create and return the ConversationalRetrievalChain
+    chain = ConversationalRetrievalChain.from_llm(
+        llm,
+        retriever=vector_db.as_retriever(),
+        memory=memory,
+        chain_type="stuff",
+        return_source_documents=True,
+        verbose=True,
+        condense_question_prompt=prompt_chat,
+        return_generated_question=True,
+        get_chat_history=get_chat_history,
+        combine_docs_chain_kwargs={"prompt": prompt_doc}
+    )
+    return chain
