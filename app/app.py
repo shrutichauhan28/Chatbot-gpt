@@ -112,13 +112,12 @@ async def list_files():
 @app.post("/upload")
 async def upload_file(file: UploadFile, folder: str = Form(...), create_new_folder: bool = Form(False)):
     try:
+        # Define folder path and create it if necessary
         folder_path = os.path.join(dir_path, folder)
-
-        # Create a new folder if specified
         if create_new_folder:
             os.makedirs(folder_path, exist_ok=True)
 
-        # Save the file to the specified folder
+        # Save the uploaded file
         file_path = os.path.join(folder_path, file.filename)
         with open(file_path, "wb") as f:
             shutil.copyfileobj(file.file, f)
@@ -134,16 +133,23 @@ async def upload_file(file: UploadFile, folder: str = Form(...), create_new_fold
             new_file = FileDB(
                 file_name=file.filename,
                 static_url=static_url,
-                chunks=json.dumps([chunk.page_content for chunk in chunks])  # Store as JSON string
+                chunks=json.dumps([chunk.page_content for chunk in chunks])  # Store chunks as JSON string
             )
             session.add(new_file)
             session.commit()
 
-        return {"message": "File uploaded and processed successfully", "static_url": static_url}
+        # Ingest the document chunks into the vector database
+        vector_database(
+            doc_text=chunks,  # Pass the chunks to be indexed
+            collection_name="your_collection_name",  # Replace with your actual collection name
+            embeddings_name="your_embeddings_name"   # Replace with the embeddings model you are using
+        )
+
+        return {"message": "File uploaded, processed, and ingested successfully", "static_url": static_url}
 
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
-    
+
 async def add_documents(doc: DocModel):
     # doc.dir_path should be a string path to the directory containing documents
     if isinstance(doc.dir_path, str):
