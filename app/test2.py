@@ -35,11 +35,11 @@ if st.button("Submit Query"):
 
         if response.status_code == 200:
             result = response.json()
-            st.subheader("Response")
+            st.subheader("Response and Sources")
             st.write(result['answer'])
 
-            st.subheader("Sources")
-            st.write(result['source'])
+            # st.subheader("Sources")
+            # st.write(result['sources'])
 
             st.subheader("Ranked Chunks")
             for chunk in result['ranked_chunks']:

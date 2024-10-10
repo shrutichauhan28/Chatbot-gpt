@@ -258,7 +258,6 @@ def on_startup():
     convert_existing_files()
 
 
-
 @app.post("/query")
 def query_response(query: QueryModel):
     """
@@ -299,29 +298,25 @@ def query_response(query: QueryModel):
         for chunk, score in reranked_chunks
     ]
 
+    # Prepare the final response, adding sources in the next line
     answer = result['answer']
-    chat_session.save_sess_db(query.session_id, query.text, answer)
+    formatted_sources = "\nSources:\n" + "\n".join(sources)
+    final_answer_with_sources = f"{answer}\n{formatted_sources}"
+
+    # Save the session information in the database
+    chat_session.save_sess_db(query.session_id, query.text, final_answer_with_sources)
 
     # Log the query, response, and ranked chunks with BM25 score
     log_data = {
         "session_id": query.session_id,
         "query": query.text,
-        "response": answer,
+        "response": final_answer_with_sources,
         "ranked_chunks": ranked_chunks,
         "bm25_scores": [chunk['bm25_score'] for chunk in ranked_chunks],
         "sources": sources
     }
     
-    # Log the data to the log file
-    logging.info(f"Query Log: {json.dumps(log_data, indent=2)}")
-
-    return {
-        'answer': answer,
-        "cost": cost,
-        'source': sources,
-        'ranked_chunks': ranked_chunks,  # Return the ranked chunks with BM25 scores
-        'session_id': query.session_id  # Return the session ID in the response
-    }
+    return {"answer": final_answer_with_sources, "cost": cost, "ranked_chunks": ranked_chunks, "sources": sources}
 
 
 @app.delete("/delete")
