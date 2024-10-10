@@ -22,6 +22,8 @@ def get_embeddings(texts):
     # Check if embeddings are empty
     if embeddings.shape[0] == 0:
         raise ValueError("No embeddings generated for input texts.")
+
+        
     
     return embeddings
 
