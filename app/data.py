@@ -94,6 +94,25 @@ class DocxLoader:
         metadata = {"source": self.file_path}
         return [Document(page_content=text, metadata=metadata)]
 
+class ImageLoader:
+    """Load image files and extract text using OCR."""
+
+    def __init__(self, file_path: str):
+        self.file_path = file_path
+
+    def load(self) -> List[Document]:
+        """Extract text from image using pytesseract."""
+        try:
+            image = Image.open(self.file_path)
+            text = pytesseract.image_to_string(image)
+            text = CleanTextLoader.clean_text(self, text)
+        except Exception as e:
+            print(f"Error loading image {self.file_path}: {e}")
+            text = ""
+
+        metadata = {"source": self.file_path}
+        return [Document(page_content=text, metadata=metadata)]
+
 class CSVLoader:
     """Load CSV files."""
 
@@ -174,15 +193,6 @@ class VideoLoader:
 
 # Updated function to load different file types including video files
 def load_n_split(path: str) -> List[Document]:
-    """
-    Load files from the specified directory, clean the text, and split them into chunks.
-
-    Args:
-        path: Directory path containing text, PDF, CSV, DOCX, XLSX, or video files.
-    
-    Returns:
-        List of split and cleaned documents.
-    """
     documents = []
     for root, dirs, files in os.walk(path):
         for file in files:
@@ -198,8 +208,10 @@ def load_n_split(path: str) -> List[Document]:
                     loader = CSVLoader(file_path)
                 elif file.endswith('.xlsx'):
                     loader = ExcelLoader(file_path)
-                elif file.endswith('.mp4') or file.endswith('.avi'):  # Check for video files
+                elif file.endswith('.mp4') or file.endswith('.avi'):
                     loader = VideoLoader(file_path)
+                elif file.endswith(('.png', '.jpg', '.jpeg')):  # Image files
+                    loader = ImageLoader(file_path)
                 else:
                     print(f"Unsupported file type: {file}")
                     continue
@@ -210,7 +222,7 @@ def load_n_split(path: str) -> List[Document]:
             except Exception as e:
                 print(f"Error loading file {file_path}: {e}")
 
-    # Use RecursiveCharacterTextSplitter to split the documents
+    # Split the documents into chunks
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=80)
     split_docs = []
     for doc in documents:
