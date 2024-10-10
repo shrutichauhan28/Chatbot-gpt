@@ -250,8 +250,8 @@ def load_n_split(path: str) -> List[Document]:
                     loader = CSVLoader(file_path)
                 elif file.endswith('.xlsx'):
                     loader = ExcelLoader(file_path)
-                elif file.endswith(('.png', '.jpg', '.jpeg')):
-                    loader = ImageLoader(file_path)  # Use ImageLoader for image files
+                # elif file.endswith(('.png', '.jpg', '.jpeg')):
+                    # loader = ImageLoader(file_path)  # Use ImageLoader for image files
                 elif file.endswith('.mp4') or file.endswith('.avi'):
                     loader = VideoLoader(file_path)
                 else:

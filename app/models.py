@@ -34,7 +34,7 @@ class DocModel(BaseModel):
     """
     dir_path: str = Field("../data", const=True)
     embeddings_name: Optional[Literal['openai', 'sentence']] = 'openai'
-    collection_name: Optional[str] = 'TestCollection'
+    collection_name: Optional[str] = 'betaCollection'
     drop_existing_embeddings: Optional[bool] = False
     chunk_size: Optional[int] = 1000  # Optimized chunk size for precision
     chunk_overlap: Optional[int] = 200  # Small overlap to maintain context without redundancy
@@ -68,7 +68,7 @@ class QueryModel(BaseModel):
     text: str
     session_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     llm_name: Optional[Literal['openai', 'llamacpp', 'gpt4all']] = 'openai'
-    collection_name: Optional[str] = 'TestCollection'
+    collection_name: Optional[str] = 'betaCollection'
     temperature: Optional[float] = 0.3  # Set to zero to prevent creative generation
 
     @validator('text')
