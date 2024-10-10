@@ -16,3 +16,10 @@ python-multipart
 ebooklib
 bs4
 rank-bm25
+PyPDF2
+pytesseract
+pdf2image
+pillow
+moviepy
+SpeechRecognition
+pyaudio
