@@ -40,6 +40,7 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
 
 
       const data = await response.json();
+      console.log('Full Response:', response); // Log entire response for status and headers
       console.log('Response:', data); // Log for debugging
 
       if (response.ok) {

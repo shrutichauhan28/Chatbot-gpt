@@ -11,7 +11,7 @@ const fs = require('fs');
 exports.signup = async (req, res) => {
   const { email, username, role, password } = req.body;
       
-  console.log("user  hu jbvdbv" ,  pasword);
+  // console.log("user  hu jbvdbv" ,  pasword);
 
 
   try {
@@ -24,13 +24,17 @@ exports.signup = async (req, res) => {
     // Create new user
     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
     console.log(hashedPassword);
-    const user = new User({ email, username, role, password: hashedPassword });
+    const user = new User({ 
+      email, 
+      username, role,
+       password: hashedPassword });
     await user.save();
 
     // Generate token and respond
     const token = generateToken(user._id);
    
     res.status(201).json({ token, user });
+    // res.status(201).json({ message: 'User registered successfully', user });
   } catch (error) {
     console.error('Signup error:', error); // Log error for debugging
     res.status(400).json({ message: 'Signup failed', error: error.message || error });
@@ -40,45 +44,42 @@ exports.signup = async (req, res) => {
 // Login
 exports.login = async (req, res) => {
 
-  console.log("hihib")
-  console.log("hi" )
-  
-
+  // console.log("hihib")
+  // console.log("hi" )
+  console.log(req.body);
   const  password  = req.body.password;
   const email = req.body.email;
 
+  console.log(password);
+  console.log(email);
 
   try {
     // Find user by email
-
-    console.log("above ")
+   // console.log("above ")
     const user = await User.findOne({ email });
     // console.log('Searching for user with email:', email.toLowerCase());
-    if (!user) return res.status(400).json({ message: `Invalid email or  ${password}` });
+    if (!user){
+      console.log('User not found with email:', email);
+      return res.status(400).json({ message: `Invalid email or  ${password}` });}
     
-    
+    console.log(user.password);
     // Compare passwords
-    console.log('User found:', user);
+    //console.log('User found:', user);
 
-    const isMatch = await bcrypt.compare(password, user.password);
+     const isMatch = await bcrypt.compare(password, user.password);
+  //  //console.log(isMatch);
 
-
-   
+  //const isMatch = true;
     console.log('Password match:', isMatch); 
-    
-   
-
      
-
     if (!isMatch) {
       console.log(`Password mismatch for email: ${email}`);  // Add this log
-      return res.status(400).json({ message: 'Invalid emailopppppppr password' });}
+      return res.status(400).json({ message: 'Invalid email or password---' });}
 
     // Generate token and respond
     const token = generateToken(user._id);
 
-    // user.sessionId = token;
-    // await user.save(); // Save the sessionId in the database
+   
     res.json({ token, user });
   } catch (error) {
     console.error('Login error:', error); // Log error for debugging

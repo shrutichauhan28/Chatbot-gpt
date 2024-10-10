@@ -18,7 +18,7 @@ const LeftSidebar = ({ isLeftSidebarOpen,handleNewChat }) => {
   };
   return (
     <aside className={`left-sidebar ${!isLeftSidebarOpen ? 'collapsed' : ''}`}>
-      <button className="glow-on-hover"  onClick={handleNewChatClick}>
+      <button className="glow-on-hover" onClick={handleNewChatClick} >
         <BiMessageAlt /> New Chat
       </button>
       <button className="glow-on-hover">
