@@ -23,6 +23,7 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('FormData:', formData); 
     if (!formData.email || !formData.password) {
       setErrorMessage('Email and Password are required.');
       return;
@@ -35,7 +36,12 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
         body: JSON.stringify(formData),
       });
 
+      console.log('json form:', JSON.stringify(formData));
+
+
       const data = await response.json();
+      console.log('Full Response:', response); // Log entire response for status and headers
+      console.log('Response:', data); // Log for debugging
 
       if (response.ok) {
         localStorage.setItem('token', data.token);

@@ -36,19 +36,6 @@ router.get('/google/callback',
   }
 );
 
-// Add a route for retrieving chat history by session ID
-router.get('/chat-history', authMiddleware, async (req, res) => {
-  try {
-    // Assuming you have a Chat model to fetch messages
-    const chatHistory = await Chat.find({ sessionId: req.sessionID });
-    if (!chatHistory) {
-      return res.status(404).json({ message: 'No chat history found for this session' });
-    }
-    res.json(chatHistory);
-  } catch (error) {
-    console.error('Error fetching chat history:', error);
-    res.status(500).json({ message: 'Error fetching chat history' });
-  }
-});
+
 
 module.exports = router;
