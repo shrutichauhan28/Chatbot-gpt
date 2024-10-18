@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader";
 
 const Skull = (props) => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('preferredDarkMode') === 'true' ? 'dark' : 'light';

@@ -513,7 +513,7 @@ form button {
 }
 
 .message.user {
-  background-color: #356c7b; /* Slightly different shade for user messages */
+  background-color: #005C4B; /* Slightly different shade for user messages */
   color: #ffffff;
   border-radius: 20px 20px 5px 20px; /* Different border-radius for user */
   padding: 10px 15px;
@@ -523,9 +523,9 @@ form button {
 }
 
 .message.bot {
-  background-color: #2f2f42; /* Dark color for bot messages */
+  background-color: #232333; /* Dark color for bot messages */
   color: #ffffff; /* Text color */
-  border-radius: 20px 20px 20px 5px; /* Customize border-radius for shape */
+  border-radius: 20px 20px 20px 3px; /* Customize border-radius for shape */
   padding: 10px 15px;
   max-width: 60%;
   margin-bottom: 20px;
