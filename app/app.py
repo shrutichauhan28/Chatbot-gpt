@@ -26,7 +26,20 @@ from sqlmodel import Session, select
 from uuid import uuid4
 from rerank import rank_chunks_with_bm25
 import logging
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from urllib.parse import quote
 
+app = FastAPI()
+
+# Get the absolute path of the 'data' folder
+data_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data'))
+
+# Print the path for debugging purposes
+print(f"Serving static files from: {data_folder_path}")
+
+# Mount the 'data' folder
+app.mount("/static", StaticFiles(directory=data_folder_path), name="static")
 load_dotenv()
 
 app = FastAPI()
@@ -263,14 +276,12 @@ def on_startup():
     # Convert existing files to the supported formats
     convert_existing_files()
 
-
 @app.post("/query")
 def query_response(query: QueryModel):
     """
     Endpoint to process user queries.
     Automatically generates a session_id if not provided.
     """
-    # Automatically generate a session ID if none is provided
     if not query.session_id:
         query.session_id = str(uuid.uuid4())
 
@@ -291,9 +302,16 @@ def query_response(query: QueryModel):
         cost = None
 
     # Extract sources and the chunks from the result
+    # Extract sources and the chunks from the result
     source_documents = result['source_documents']
-    sources = list(set([doc.metadata['source'] for doc in source_documents]))
-    chunks = [doc for doc in source_documents]  # Extract the Document objects (chunks)
+    
+    # Correctly handle file paths in sources, ignoring "data/" or "data\"
+    sources = list(set([
+        doc.metadata['source'].replace('\\', '/').replace('data/', '')  # Remove 'data/' from the path
+        for doc in source_documents
+    ]))
+    
+    chunks = [doc for doc in source_documents]
 
     # Use BM25 to rerank the chunks based on relevance to the query
     reranked_chunks = rank_chunks_with_bm25(chunks, query.text)
@@ -304,9 +322,16 @@ def query_response(query: QueryModel):
         for chunk, score in reranked_chunks
     ]
 
-    # Prepare the final response, adding sources in the next line
+    # Prepare the final response, adding sources with Markdown links
     answer = result['answer']
-    formatted_sources = "\nSources:\n" + "\n".join(sources)
+
+    
+    
+      # Assuming the sources are relative paths to files in the `data` folder
+    formatted_sources = "\n\n### Sources:\n" + "\n".join(
+        [f'- <a href="http://127.0.0.1:8000/static/{quote(source.split("/")[-1])}" target="_blank">Source {i+1}</a>' for i, source in enumerate(sources)]
+    )
+
     final_answer_with_sources = f"{answer}\n{formatted_sources}"
 
     # Save the session information in the database
@@ -321,9 +346,13 @@ def query_response(query: QueryModel):
         "bm25_scores": [chunk['bm25_score'] for chunk in ranked_chunks],
         "sources": sources
     }
-    
-    return {"answer": final_answer_with_sources, "cost": cost, "ranked_chunks": ranked_chunks, "sources": sources}
 
+    return {
+        "answer": final_answer_with_sources, 
+        "cost": cost, 
+        "ranked_chunks": ranked_chunks, 
+        "sources": sources
+    }
 
 @app.delete("/delete")
 async def delete_file(folder: str = Body(...), fileName: str = Body(...)):
