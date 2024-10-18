@@ -1,5 +1,5 @@
 import json
-from fastapi import Body, FastAPI, HTTPException, File, UploadFile, Form
+from fastapi import Body, FastAPI, HTTPException, File, UploadFile, Form, BackgroundTasks
 from fastapi.responses import JSONResponse, FileResponse
 import os
 import uuid
@@ -108,9 +108,13 @@ async def list_files():
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
 
-# File upload endpoint with folder creation support
 @app.post("/upload")
-async def upload_file(file: UploadFile, folder: str = Form(...), create_new_folder: bool = Form(False)):
+async def upload_file(
+    background_tasks: BackgroundTasks, 
+    file: UploadFile, 
+    folder: str = Form(...), 
+    create_new_folder: bool = Form(False)
+):
     try:
         # Define folder path and create it if necessary
         folder_path = os.path.join(dir_path, folder)
@@ -125,13 +129,27 @@ async def upload_file(file: UploadFile, folder: str = Form(...), create_new_fold
         # Generate static URL for the file
         static_url = f"http://127.0.0.1:8000/static/{folder}/{file.filename}"
 
+        # Send an immediate response to the frontend
+        response = {"message": "File uploaded successfully", "static_url": static_url}
+
+        # Add the document ingestion task to background
+        background_tasks.add_task(ingest_document, file_path, file.filename, static_url)
+
+        return response
+
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+def ingest_document(file_path: str, filename: str, static_url: str):
+    try:
         # Load and split the document into chunks
         chunks = load_n_split(file_path)
 
         # Store file information and chunks in the database
         with Session(engine) as session:
             new_file = FileDB(
-                file_name=file.filename,
+                file_name=filename,
                 static_url=static_url,
                 chunks=json.dumps([chunk.page_content for chunk in chunks])  # Store chunks as JSON string
             )
@@ -141,14 +159,14 @@ async def upload_file(file: UploadFile, folder: str = Form(...), create_new_fold
         # Ingest the document chunks into the vector database
         vector_database(
             doc_text=chunks,  # Pass the chunks to be indexed
-            collection_name="your_collection_name",  # Replace with your actual collection name
-            embeddings_name="your_embeddings_name"   # Replace with the embeddings model you are using
+            collection_name="betaCollection",  # Replace with your actual collection name
+            embeddings_name="openai"   # Replace with the embeddings model you are using
         )
 
-        return {"message": "File uploaded, processed, and ingested successfully", "static_url": static_url}
+        print(f"File '{filename}' has been ingested successfully.")
 
     except Exception as e:
-        return JSONResponse(status_code=500, content={"error": str(e)})
+        print(f"Error during ingestion: {e}")
 
 async def add_documents(doc: DocModel):
     # doc.dir_path should be a string path to the directory containing documents
