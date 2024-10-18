@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MdOutlineArrowLeft, MdOutlineArrowRight, MdLogout } from 'react-icons/md'; 
+import { MdLogout } from 'react-icons/md'; 
 import ProfileDropdown from './ProfileDropdown'; 
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import './Navbar.css';
 
-function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, userInfo, handleLogout, isRightSidebarOpen, toggleRightSidebar }) {
+function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, userInfo, handleLogout }) {
   return (
     <nav className="navbar">
       <div className="navbar-left">

@@ -78,7 +78,7 @@ function Chat({ sessionId }) {  // Accept sessionId as a prop
             Ask YUGM about the Knowledge Base
           </div>
           <button onClick={startConversation} className="start-button">
-            Start Conversation
+            Start Conversation 🎊
           </button>
         </div>
       ) : (
