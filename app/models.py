@@ -34,7 +34,7 @@ class DocModel(BaseModel):
     """
     dir_path: str = Field("../data", const=True)
     embeddings_name: Optional[Literal['openai', 'sentence']] = 'openai'
-    collection_name: Optional[str] = 'TestCollection'
+    collection_name: Optional[str] = 'NewCollection'
     drop_existing_embeddings: Optional[bool] = False
     chunk_size: Optional[int] = 1000  # Optimized chunk size for precision
     chunk_overlap: Optional[int] = 200  # Small overlap to maintain context without redundancy

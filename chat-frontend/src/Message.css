@@ -1,0 +1,38 @@
+.message-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .response-container {
+    margin-top: 20px;
+  }
+  
+  .sources-container ul {
+    padding-left: 20px;
+  }
+  
+  .sources-container li {
+    list-style: none;
+  }
+  
+  .sources-container a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  

@@ -52,7 +52,7 @@ function Chat({ sessionId }) {  // Accept sessionId as a prop
       // Append bot's response after user's message
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'bot', text: response.answer },  // Append bot response
+        { sender: 'bot', text: response.answer.trim() },  // Append bot response
       ]);
 
       setIsLoading(false);  // Stop skeleton loader

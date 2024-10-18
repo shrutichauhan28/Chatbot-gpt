@@ -15,3 +15,14 @@ collections = utility.list_collections()
 print("Collections in Milvus:")
 for collection in collections:
     print(collection)
+
+# # Specify the collections you want to delete
+# collections_to_delete = ["NewCollection"]
+
+# # Delete the specified collections
+# for collection in collections_to_delete:
+#     if collection in collections:
+#         utility.drop_collection(collection)
+#         print(f"Deleted collection: {collection}")
+#     else:
+#         print(f"Collection not found: {collection}")
