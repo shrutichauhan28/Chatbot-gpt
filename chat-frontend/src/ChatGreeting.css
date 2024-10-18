@@ -1,0 +1,49 @@
+.greeting-container {
+    text-align: center;
+    /* margin-top: 5px; */
+  }
+  
+  .greeting-text {
+    font-size: 4rem; /* Make it larger */
+    font-weight: bold;
+    background: linear-gradient(90deg, #cffa59, #99fa59, #59fa7f, #59fabc, #59faf7, #59faf7, #59c1fa, #8a2be2, #ff69b4, #03a9f4, #ffeb3b, #e4fd80);
+    background-size: 400%; /* Larger size to allow smooth transition */
+    -webkit-background-clip: text;
+    color: transparent; /* Hide text color, only show gradient */
+    animation: gradientMove 14s linear infinite; /* Gradient animation */
+    padding-bottom: 2px; /* Add space to avoid bobbing when subtext changes */
+  }
+  
+  /* Typewriter and caret animation for subtext */
+  .subtext {
+    font-size: 1.2rem;
+    color: #666;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid; /* Caret */
+    display: inline-block;
+    vertical-align: bottom; /* Keep subtext aligned */
+    width: auto;
+    transition: width 0.5s ease-out; /* Ensure smooth transition */
+    animation: blink-caret 1s step-end infinite; /* Caret blinking */
+    
+  }
+  
+  .caret {
+    display: inline-block;
+    border-right: 3px solid #666; /* Caret */
+    animation: blink-caret 1s step-end infinite;
+  }
+  
+  /* Blinking caret animation */
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #666; }
+  }
+  
+  /* Keyframes for the gradient animation in greeting text */
+  @keyframes gradientMove {
+    0% { background-position: 0%; }
+    100% { background-position: 400%; /* Gradually move the background */ }
+  }
+  

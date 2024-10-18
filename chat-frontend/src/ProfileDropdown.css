@@ -3,17 +3,17 @@
 }
 
 .profile-button {
-  background-color: #6a1b9a; /* Circle background color */
+  background-color: #a552d8; /* Circle background color */
   color: white;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 18px;
+  border-radius: 50%; /* Makes the button round */
+  width: 20px; /* Adjusted smaller size */
+  font-size: 14px; /* Reduced font size */
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   cursor: pointer;
+  bottom: 5px;
 }
 
 .profile-dropdown {

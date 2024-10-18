@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ContentLoader  from "react-content-loader";
+import ContentLoader from "react-content-loader";
 
-const ChatGPT = (props) => {
+const Skull = (props) => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
@@ -9,28 +9,22 @@ const ChatGPT = (props) => {
     setTheme(storedTheme);
   }, []);
 
-  const backgroundColor = theme === 'dark' ? '#1e293b ' : '#CCFAF9';
-  const foregroundColor = theme === 'dark' ? '#155e75  ' : '#2C3E50';
+  const backgroundColor = theme === 'dark' ? '#1e293b' : '#CCFAF9';
+  const foregroundColor = theme === 'dark' ? '#155e75' : '#2C3E50';
+  
   return (
     <ContentLoader
-      viewBox="30 0 950 500"
-      backgroundColor={backgroundColor}// Light gray background
-      foregroundColor={foregroundColor} // Custom foreground (loading animation) color
+      viewBox="0 0 400 40" // Set a fixed viewBox size
+      backgroundColor={backgroundColor}
+      foregroundColor={foregroundColor}
       {...props}
+      style={{ width: '100%', height: '40px' }} // Set fixed width and height
     >
-     
-     <circle cx="40" cy="20" r="8"  width="40" height="10"  />
-      <rect x="56" y="12" rx="5" ry="5" width="400" height="10" />
-      <rect x="56" y="29" rx="5" ry="5" width="220" height="10" />
+      <circle cx="20" cy="20" r="8" />
+      <rect x="40" y="12" rx="5" ry="5" width="200" height="10" />
+      <rect x="40" y="29" rx="5" ry="5" width="100" height="10" />
     </ContentLoader>
   );
 };
 
-ChatGPT.metadata = {
-  name: "HAIDER Ali", // My name
-  github: "https://github.com/HaiderAli170", // Github username
-  description: "Chat GPT", // Little tagline
-  filename: "ChatGPT", // filename of your loader
-};
-
-export default ChatGPT;
+export default Skull;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdLogout } from 'react-icons/md'; 
+import { BiMessageAlt, BiBookmark } from "react-icons/bi"; 
+import { BsClockHistory } from "react-icons/bs";
 import ProfileDropdown from './ProfileDropdown'; 
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import './Navbar.css';
@@ -25,22 +27,38 @@ function Navbar({ isChatPath, isLeftSidebarOpen, toggleLeftSidebar, isLoggedIn, 
       </div>
 
       <div className="navbar-center">
-        <h1 className="navbar-title">YUGM</h1>
+        {/* Conditional rendering for title */}
+        {isLeftSidebarOpen && <h1 className="navbar-title">YUGM</h1>}
       </div>
 
       <div className="navbar-right">
-        {isLoggedIn && (
+        {/* Conditionally render icons when sidebar is collapsed */}
+        {!isLeftSidebarOpen && (
           <>
-            <ProfileDropdown userInfo={userInfo} handleLogout={handleLogout} />
-            <MdLogout 
-              className="logout-icon" 
-              size={24} 
-              onClick={handleLogout} 
-              title="Logout"
-            />
+            <BiMessageAlt size={20} className="navbar-icon" />
+            <BsClockHistory size={20} className="navbar-icon" />
+            <BiBookmark size={20} className="navbar-icon" />
           </>
         )}
-        {/* Right Arrow Icon for Right Sidebar */}
+
+        {/* Conditionally render profile and logout button */}
+        {isLoggedIn && (
+          <>
+            <ProfileDropdown 
+              userInfo={userInfo} 
+              handleLogout={handleLogout} 
+              className={`profile-icon ${isLeftSidebarOpen ? "" : "collapsed-profile-icon"}`} 
+            />
+            {isLeftSidebarOpen && (
+              <MdLogout 
+                className="logout-icon" 
+                size={24} 
+                onClick={handleLogout} 
+                title="Logout"
+              />
+            )}
+          </>
+        )}
       </div>
     </nav>
   );
