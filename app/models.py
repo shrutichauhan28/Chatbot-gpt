@@ -68,7 +68,7 @@ class QueryModel(BaseModel):
     text: str
     session_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     llm_name: Optional[Literal['openai', 'llamacpp', 'gpt4all']] = 'openai'
-    collection_name: Optional[str] = 'TestCollection'
+    collection_name: Optional[str] = 'betaCollection'
     temperature: Optional[float] = 0.3  # Set to zero to prevent creative generation
 
     @validator('text')

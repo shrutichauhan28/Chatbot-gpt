@@ -28,7 +28,7 @@ function App() {
   };
 
   const checkScreenSize = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 900) {
       setLeftSidebarOpen(false);
     } else {
       setLeftSidebarOpen(true);
