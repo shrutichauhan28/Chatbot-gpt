@@ -14,14 +14,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
   background-color: #0E0C15; /* Solid black background */
   color: white;
   position: sticky;
   top: 0;
   z-index: 100;
-  height: 90px;
-  padding: 2.5rem;
+  height: 80px;
+  padding: 20px; /* Consistent padding */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   /* Border and Gradient Animation */
@@ -30,14 +29,13 @@
                     linear-gradient(45deg, #aaf9f4, #4dbae5, #71f5fc, #e3f07e, #eaff00, #46f6ca, #a976e0, #9e34ef, #62b1ff); 
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  background-size: 400%; /* Make the gradient larger to show animation */
-  animation: glowing-border 20s linear infinite;
+  background-size: 200% 200%; /* Adjust size for smoother gradient */
+  animation: glowing-border 10s ease-in-out infinite; /* Smoother animation */
 }
 
 /* Add styling for the logo */
 .navbar-logo {
   width: 100px;
-  height: 100px;
   height: auto;
   cursor: pointer;
 }
@@ -65,14 +63,14 @@
   justify-content: flex-end; /* Align icons and buttons to the right */
 }
 
-.toggle-left-sidebar-icon, .toggle-right-sidebar-icon {
+.toggle-left-sidebar-icon {
   cursor: pointer;
   margin-left: 0.5rem;
   color: white;
   transition: color 0.3s ease;
 }
 
-.toggle-left-sidebar-icon:hover, .toggle-right-sidebar-icon:hover {
+.toggle-left-sidebar-icon:hover {
   color: gray;
 }
 
@@ -118,8 +116,16 @@
   background-clip: text;
 }
 
-.icon {
+.navbar-icon {
   font-size: 1.5rem;
   color: #fff;
   transition: fill 0.3s ease-in-out;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* Refine icon hover effect for a smoother transition */
+.icon:hover {
+  color: #ff6a00;
+  fill: #ff6a00;
 }
