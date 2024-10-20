@@ -6,7 +6,7 @@
   background-color: #317d83; /* Circle background color */
   color: white;
   border-radius: 50%; /* Makes the button round */
-  width: 20px; /* Adjusted smaller size */
+  width: 45px; /* Adjusted smaller size */
   font-size: 14px; /* Reduced font size */
   display: flex;
   justify-content: center;

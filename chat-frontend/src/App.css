@@ -227,15 +227,18 @@ form button {
   max-height: 100%; /* Ensure messages don't overflow the entire page */
 }
 
-/* Message Styles */
 @keyframes popUp {
   0% {
     opacity: 0;
-    transform: translateY(20px); /* Starts 20px below */
+    transform: translateY(40px) scale(0.9); /* Moves up and slightly smaller */
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.05); /* Moves a bit past the original position with slight overscale */
   }
   100% {
     opacity: 1;
-    transform: translateY(0); /* Moves to its original position */
+    transform: translateY(0) scale(1); /* Settles back to its original position and size */
   }
 }
 
@@ -527,7 +530,7 @@ form button {
   color: #ffffff; /* Text color */
   border-radius: 20px 20px 20px 3px; /* Customize border-radius for shape */
   padding: 10px 15px;
-  max-width: 60%;
+  max-width: 70%;
   margin-bottom: 20px;
 }
 
