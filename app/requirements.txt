@@ -24,3 +24,5 @@ moviepy
 SpeechRecognition
 pyaudio
 assemblyai
+watchdog
+pymongo
