@@ -61,6 +61,14 @@ const Signup = ({ handleSignupSuccess }) => {
 
   return (
     <div className="signup-container">
+       <video
+      className="video-background"
+      autoPlay
+      loop
+      muted
+      src={`${process.env.PUBLIC_URL}/images/grid4.mp4`} // Use template literal with curly braces
+      type="video/mp4"
+    />
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
       <form onSubmit={handleSubmit} className="signup-form">
@@ -113,10 +121,11 @@ const Signup = ({ handleSignupSuccess }) => {
         <button type="button" className="btn-google-login" onClick={handleGoogleLogin}>
           Sign in with Google
         </button>
-      </form>
-      <p className="signup-link">
+        <p className="signup-link">
         Already a user? <span onClick={() => navigate('/login')} style={{ cursor: 'pointer', color: '#7e57c2' }}>Click here to login</span>
       </p>
+      </form>
+     
     </div>
   );
 };
