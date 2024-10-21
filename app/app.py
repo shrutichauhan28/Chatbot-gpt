@@ -304,10 +304,11 @@ def on_startup():
     # Ensure the data directory exists when the app starts
     os.makedirs(dir_path, exist_ok=True)
     create_db_and_tables()
-
     # Convert existing files to the supported formats
     convert_existing_files()
+    
 
+    
 @app.post("/query")
 def query_response(query: QueryModel):
     """
@@ -327,31 +328,19 @@ def query_response(query: QueryModel):
         collection_name=query.collection_name
     )
 
+    # Call LLM and calculate token cost if using OpenAI
     if query.llm_name == 'openai':
         result, cost = count_tokens(chain, query.text)
     else:
         result = chain(query.text)
         cost = None
 
-    # Extract sources and the chunks from the result
-    # Extract sources and the chunks from the result
-    # Extract sources and the chunks from the result
-    source_documents = result['source_documents']
-    
-    # Correctly handle file paths in sources, ignoring "data/" or "data\"
+    # Extract sources and chunks from the result
+    source_documents = result.get('source_documents', [])
     sources = list(set([
         doc.metadata['source'].replace('\\', '/').replace('data/', '')  # Remove 'data/' from the path
         for doc in source_documents
     ]))
-    
-    chunks = [doc for doc in source_documents]
-    
-    # Correctly handle file paths in sources, ignoring "data/" or "data\"
-    sources = list(set([
-        doc.metadata['source'].replace('\\', '/').replace('data/', '')  # Remove 'data/' from the path
-        for doc in source_documents
-    ]))
-    
     chunks = [doc for doc in source_documents]
 
     # Use BM25 to rerank the chunks based on relevance to the query
@@ -363,26 +352,24 @@ def query_response(query: QueryModel):
         for chunk, score in reranked_chunks
     ]
 
-    # Prepare the final response, adding sources with Markdown links
-    # Prepare the final response, adding sources with Markdown links
-    answer = result['answer']
+    # Prepare the final response
+    answer = result.get('answer', '')
 
-    
-    
-      # Assuming the sources are relative paths to files in the `data` folder
-    formatted_sources = "\n\n### Sources:\n" + "\n".join(
-        [f'- <a href="http://127.0.0.1:8000/static/{quote(source.split("/")[-1])}" target="_blank">Source {i+1}</a>' for i, source in enumerate(sources)]
-    )
+    # List of out-of-context queries to avoid attaching sources
+    out_of_context_queries = ['hi', 'hello', 'hey', 'thank you', 'sorry']
 
-
-    
-    
-      # Assuming the sources are relative paths to files in the `data` folder
-    formatted_sources = "\n\n### Sources:\n" + "\n".join(
-        [f'- <a href="http://127.0.0.1:8000/static/{quote(source.split("/")[-1])}" target="_blank">Source {i+1}</a>' for i, source in enumerate(sources)]
-    )
-
-    final_answer_with_sources = f"{answer}\n{formatted_sources}"
+    # Handle unknown or insufficient knowledge queries
+    if not answer or 'I don’t know' in answer.lower() or 'sorry' in answer.lower():
+        final_answer_with_sources = answer  # No sources for unknown queries
+    elif query.text.lower().strip() not in out_of_context_queries and len(query.text.split()) > 1:
+        # Format sources only if it's a valid query
+        formatted_sources = "\n\n### Sources:\n" + "\n".join(
+            [f'- <a href="http://127.0.0.1:8000/static/{quote(source.split("/")[-1])}" target="_blank">Source {i+1}</a>' for i, source in enumerate(sources)]
+        )
+        final_answer_with_sources = f"{answer}\n{formatted_sources}"
+    else:
+        # No sources for out-of-context queries
+        final_answer_with_sources = answer
 
     # Save the session information in the database
     chat_session.save_sess_db(query.session_id, query.text, final_answer_with_sources)
@@ -394,15 +381,17 @@ def query_response(query: QueryModel):
         "response": final_answer_with_sources,
         "ranked_chunks": ranked_chunks,
         "bm25_scores": [chunk['bm25_score'] for chunk in ranked_chunks],
-        "sources": sources
+        "sources": sources if query.text.lower().strip() not in out_of_context_queries else []
     }
 
+    # Return the response, cost, ranked chunks, and sources (if relevant)
     return {
-        "answer": final_answer_with_sources, 
-        "cost": cost, 
-        "ranked_chunks": ranked_chunks, 
-        "sources": sources
+        "answer": final_answer_with_sources,
+        "cost": cost,
+        "ranked_chunks": ranked_chunks,
+        "sources": sources if query.text.lower().strip() not in out_of_context_queries and len(query.text.split()) > 1 else []
     }
+
 
 
 
