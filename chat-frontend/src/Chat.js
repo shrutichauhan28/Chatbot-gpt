@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { queryAPI } from './api';  // Ensure this sends data to the backend
-import SuggestionCard from './SuggestionCard';
 import ChatGreeting from './ChatGreeting';
 import Message from './Message';
 import Skull from './Skull';
@@ -49,8 +48,8 @@ function Chat({ sessionId, userInfo }) {
         const response = await queryAPI(sessionId, starterMessage);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: response.answer },
-        ]);
+          { sender: 'bot', text: response.answer, sources: response.sources },
+        ]);        
       } catch (error) {
         console.error('Error fetching bot response:', error);
         setMessages((prevMessages) => [
@@ -70,12 +69,12 @@ function Chat({ sessionId, userInfo }) {
       setInput('');
       setIsLoading(true);
       setIsMessageSent(true);
-
+  
       try {
         const response = await queryAPI(sessionId, input);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: response.answer },
+          { sender: 'bot', text: response.answer, sources: response.sources },
         ]);
       } catch (error) {
         console.error('Error fetching bot response:', error);
@@ -94,7 +93,7 @@ function Chat({ sessionId, userInfo }) {
     <div className="chat-container" aria-live="polite" aria-atomic="true">
       <div className={`messages ${isLoading ? 'loading' : ''}`}>
   {messages.map((msg, index) => (
-    <Message key={index} sender={msg.sender} text={msg.text} />
+    <Message key={index} sender={msg.sender} text={msg.text} sources={msg.sources} />
   ))}
   {isLoading && (
     <Message key="loading" sender="bot" text={<Skull />} />

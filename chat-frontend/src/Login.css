@@ -1,27 +1,39 @@
 /* Background image class applied to body during login */
+
 .login-background {
-    background-image: url('../public/images/space2.jpg'); /* Update with your image path */
+   
     background-size: cover;
     background-position: center;
     height: 100vh;
     width: 100%;
-    transition: background 2s ease-in-out;
+    /* background: rgb(14,12,21);
+    background: linear-gradient(90deg, rgba(14,12,21,1) 5%, rgba(59,28,94,1) 49%, rgba(59,28,94,1) 100%, rgba(0,212,255,1) 100%, rgba(47,23,47,1) 100%); */
     display: flex;
     align-items: center;
     justify-content: center;
 }
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    z-index: -1; /* Make sure the video stays behind the content */
+}
 
 /* Login container styling */
 .login-container {
-    background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    background: rgba(0, 0, 0, 0.938);
     border-radius: 15px; /* Rounded corners */
     border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
     padding: 40px 30px;
-    max-width: 400px;
-    width: 100%;
+    width: 500px;
     color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* Deeper shadow for contrast */
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* Heading */
@@ -30,6 +42,9 @@
     font-size: 28px;
     color: #ffffff;
     font-weight: bold;
+}
+.login-form{
+    background-color: black;
 }
 
 /* Form input styling */

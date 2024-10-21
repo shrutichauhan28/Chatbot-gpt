@@ -1,5 +1,5 @@
 import json
-from fastapi import Body, FastAPI, HTTPException, File, UploadFile, Form, BackgroundTasks
+from fastapi import Body, FastAPI, HTTPException, File, UploadFile, Form, BackgroundTasks, Request
 from fastapi.responses import JSONResponse, FileResponse
 import os
 import uuid
@@ -137,6 +137,7 @@ async def list_files():
 
 @app.post("/upload")
 async def upload_file(
+    request: Request,  # Move this to the beginning
     background_tasks: BackgroundTasks, 
     file: UploadFile, 
     folder: str = Form(...), 
@@ -153,8 +154,9 @@ async def upload_file(
         with open(file_path, "wb") as f:
             shutil.copyfileobj(file.file, f)
 
-        # Generate static URL for the file
-        static_url = f"http://127.0.0.1:8000/static/{folder}/{file.filename}"
+        # Generate dynamic static URL using the request object
+        base_url = request.base_url
+        static_url = f"{base_url}static/{folder}/{file.filename}"
 
         # Send an immediate response to the frontend
         response = {"message": "File uploaded successfully", "static_url": static_url}
@@ -166,8 +168,7 @@ async def upload_file(
 
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
-
-
+    
 def ingest_document(file_path: str, filename: str, static_url: str):
     try:
         # Load and split the document into chunks
@@ -338,8 +339,8 @@ def query_response(query: QueryModel):
     # Extract sources and chunks from the result
     source_documents = result.get('source_documents', [])
     sources = list(set([
-        doc.metadata['source'].replace('\\', '/').replace('data/', '')  # Remove 'data/' from the path
-        for doc in source_documents
+        doc.metadata.get('source', '').replace('\\', '/').replace('data/', '')  # Handle missing or incorrect source format
+        for doc in source_documents if isinstance(doc.metadata.get('source', ''), str)
     ]))
     chunks = [doc for doc in source_documents]
 
@@ -362,11 +363,18 @@ def query_response(query: QueryModel):
     if not answer or 'I don’t know' in answer.lower() or 'sorry' in answer.lower():
         final_answer_with_sources = answer  # No sources for unknown queries
     elif query.text.lower().strip() not in out_of_context_queries and len(query.text.split()) > 1:
-        # Format sources only if it's a valid query
-        formatted_sources = "\n\n### Sources:\n" + "\n".join(
-            [f'- <a href="http://127.0.0.1:8000/static/{quote(source.split("/")[-1])}" target="_blank">Source {i+1}</a>' for i, source in enumerate(sources)]
+        # Format the sources properly for rendering as cards
+        formatted_sources = [
+            {
+                "file_name": source.split("/")[-1],  # Extract the file name from the URL
+                "static_url": f"http://127.0.0.1:8000/static/{quote(source.split('/')[-1])}"  # Correct static URL here
+            }
+            for source in sources
+        ]
+        # Attach the formatted sources to the answer once, avoiding duplication
+        final_answer_with_sources = f"{answer}\n\n### Sources:\n" + "\n".join(
+            [f'- <a href="{source["static_url"]}" target="_blank">Source {i+1}: {source["file_name"]}</a>' for i, source in enumerate(formatted_sources)]
         )
-        final_answer_with_sources = f"{answer}\n{formatted_sources}"
     else:
         # No sources for out-of-context queries
         final_answer_with_sources = answer
@@ -381,18 +389,17 @@ def query_response(query: QueryModel):
         "response": final_answer_with_sources,
         "ranked_chunks": ranked_chunks,
         "bm25_scores": [chunk['bm25_score'] for chunk in ranked_chunks],
-        "sources": sources if query.text.lower().strip() not in out_of_context_queries else []
+        "sources": formatted_sources if query.text.lower().strip() not in out_of_context_queries else []
     }
 
-    # Return the response, cost, ranked chunks, and sources (if relevant)
     return {
-        "answer": final_answer_with_sources,
+        "answer": final_answer_with_sources,  # This already includes the answer + formatted sources
         "cost": cost,
         "ranked_chunks": ranked_chunks,
-        "sources": sources if query.text.lower().strip() not in out_of_context_queries and len(query.text.split()) > 1 else []
+        # Optional: return formatted_sources if you need them separately (but avoid duplication in frontend)
+        # If not needed separately, remove the "sources" key entirely
+        # "sources": formatted_sources if query.text.lower().strip() not in out_of_context_queries and len(query.text.split()) > 1 else []
     }
-
-
 
 
 

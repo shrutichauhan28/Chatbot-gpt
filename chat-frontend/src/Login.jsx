@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
+
+
+
 const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,10 +67,20 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
 
   return (
     <div className="login-container">
-      <h2>Login to YUGM</h2>
+      <video
+        className="video-background"
+        autoPlay
+        loop
+        muted
+        src={`${process.env.PUBLIC_URL}/images/grid4.mp4`} // Use template literal with curly braces
+        type="video/mp4"
+      />
+   
+
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
       <form onSubmit={handleSubmit} className="login-form">
+      <h2>Login to YUGM</h2>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -89,10 +102,11 @@ const Login = ({ setIsLoggedIn, setUserInfo, handleLoginSuccess }) => {
           />
         </div>
         <button type="submit" className="login-button">Login</button>
-      </form>
-      <p className="signup-link">
+        <p className="signup-link">
         New User? <Link to="/signup">Create Account</Link>
       </p>
+      </form>
+     
     </div>
   );
 };

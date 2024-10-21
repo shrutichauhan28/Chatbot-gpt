@@ -530,8 +530,47 @@ form button {
   color: #ffffff; /* Text color */
   border-radius: 20px 20px 20px 3px; /* Customize border-radius for shape */
   padding: 10px 15px;
-  max-width: 70%;
+  max-width: 60%;
   margin-bottom: 20px;
+}
+
+/* Styles for the source container */
+.source-container {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f0f4f8; /* Light background */
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight shadow for card effect */
+}
+
+/* Styles for the source list */
+.source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual source card styling */
+.source-card {
+  margin: 10px 0;
+  padding: 12px;
+  background-color: #fff; /* White background for each card */
+  border: 1px solid #e0e0e0; /* Light border */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Slight shadow for depth */
+}
+
+/* Source link styling */
+.source-link {
+  text-decoration: none;
+  color: #007bff; /* Blue text color */
+  font-weight: bold;
+}
+
+/* Hover effect on the source link */
+.source-link:hover {
+  text-decoration: underline;
+  color: #0056b3; /* Darker blue on hover */
 }
 
 /* General Page Scrollbar */

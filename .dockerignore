@@ -1,0 +1,17 @@
+node_modules
+node_modules/*
+node_modules*
+**/node_modules
+
+.env
+.env/*
+.env*
+**/.env
+
+.venv/*
+.venv
+.venv*
+**.venv
+
+.git
+.gitignore
