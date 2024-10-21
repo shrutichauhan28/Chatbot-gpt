@@ -17,7 +17,7 @@ for collection in collections:
     print(collection)
 
 # # Specify the collections you want to delete
-# collections_to_delete = ["NewCollection"]
+# collections_to_delete = ["NewCollection", "TestCollection"]
 
 # # Delete the specified collections
 # for collection in collections_to_delete:
