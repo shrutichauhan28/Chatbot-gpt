@@ -1,0 +1,86 @@
+{
+    "0f173bc6-7499-4ef2-a3b7-7e545e38b491": [
+        {
+            "type": "human",
+            "data": {
+                "content": "hi"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "I'm Yugm.ai, an expert in natural language at Company K. How can I assist you today? If you have any questions or need further help, feel free to ask!"
+            }
+        }
+    ],
+    "a14878ef-ab25-4b88-a0d9-3e73d23951f1": [
+        {
+            "type": "human",
+            "data": {
+                "content": "hi"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "I'm Yugm.ai, here to help you with any questions you may have. How can I assist you today?"
+            }
+        }
+    ],
+    "fe25e015-24cb-40a2-b2c0-bd1049ee65a5": [
+        {
+            "type": "human",
+            "data": {
+                "content": "hi"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "I'm Yugm.ai, here to help you with any questions you may have. How can I assist you today?"
+            }
+        }
+    ],
+    "03af53c8-1031-4f93-b530-2f9a34212b42": [
+        {
+            "type": "human",
+            "data": {
+                "content": "hi"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "I'm Yugm.ai, an expert in natural language, built by AUGUSTIKA, NEHA, SHRUTI, and MAHENDRA. I have been working at this company for over a decade and know every corner of its history, policies, and culture.\n\n- The Internet and smartphones have revolutionized our daily tasks.\n- Java is a high-level programming language enabling these advancements.\n- I'm here to assist you with any questions or help you may need within Company K.\n\nDo you have any other questions or need further assistance?"
+            }
+        }
+    ],
+    "a05cedd2-6b97-4480-8151-11ad643632dc": [
+        {
+            "type": "human",
+            "data": {
+                "content": "hi"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "I'm Yugm.ai, an expert in natural language, built by AUGUSTIKA, NEHA, SHRUTI, and MAHENDRA. I have been working at Company K for over a decade and know every corner of its history, policies, and culture. Here to help you with any questions you may have!\n\n- The Internet and smartphones have revolutionized our daily tasks.\n- Java is a high-level programming language enabling these advancements.\n- Feel free to ask any questions or if you need further assistance!\n\nDo you have any other questions or need help with anything else?"
+            }
+        }
+    ],
+    "55dc9af4-a1ca-4f1b-ae4b-99d98cf5c74a": [
+        {
+            "type": "human",
+            "data": {
+                "content": "yo"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "I'm sorry, I don't have information related to the question \"yo.\" If you have any other questions or need further assistance, feel free to ask!"
+            }
+        }
+    ]
+}

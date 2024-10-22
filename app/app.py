@@ -432,3 +432,19 @@ async def get_folders():
     
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+
+
+@app.post("/chat/session/{session_id}")
+async def save_chat_session(session_id: str, query: str, answer: str):
+    ChatSession.save_sess_db(session_id, query, answer)
+    return {"message": "Chat session saved."}
+
+@app.get("/chat/session/{session_id}")
+async def get_chat_session(session_id: str):
+    return ChatSession.load_history(session_id)
+
+@app.delete("/chat/session/{session_id}")
+async def delete_chat_session(session_id: str):
+    return ChatSession.delete_sess_db(session_id)

@@ -24,7 +24,6 @@
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
-  color: #ececf1;
  
 }
 
@@ -32,7 +31,7 @@ body, html, #root {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #00000c; 
+  background-color: #101524; 
   /* overflow: hidden; Prevents page scroll */
 }
 /* logo design */
@@ -131,7 +130,7 @@ form input, form button {
 form button {
   background-color: #784c79;
   border: none;
-  color: white;
+  color: #e8d5c5;
   cursor: pointer;
 }
 
@@ -214,7 +213,7 @@ form button {
   padding-left: 20px;
   overflow-y: auto;
   max-height: calc(100vh - 140px); /* Ensure the chat stays within bounds */
-  background-color: #000000;
+  background-color: #101524;
 }
 
 /* Messages Container */
@@ -255,25 +254,28 @@ form button {
 }
 
 .input-container {
-  width: 50rem;
+  width: 20rem; /* Smaller width when unfocused */
+  height: 4rem;
   padding: 0.3rem 0.3rem;
   margin: 0 auto;
-  border-radius: 0.5rem;
+  border-radius: 2rem; /* Make the container more rounded */
   display: flex;
   align-items: center;
-  background: black;
+  background: #0e131f;
   position: fixed;
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  border: 2px solid grey;
+  border: 3px solid #282d3e;
   background-clip: padding-box;
-  transition: border 0.3s ease-in-out;
+  transition: width 0.3s ease, height 0.3s ease, border 0.3s ease-in-out;
 }
 
 .input-container:focus-within {
+  width: 40rem; /* Expand width when focused */
+  height: 4rem; /* Slightly increase height on focus */
   border: 2px solid transparent; /* Make the border transparent for the gradient effect */
-  background-image: linear-gradient(black, black), 
+  background-image: linear-gradient(#0e131f, #0e131f), 
                     linear-gradient(45deg, #aaf9f4, #4dbae5, #71f5fc, #e3f07e, #eaff00, #46f6ca, #a976e0, #9e34ef, #62b1ff);
   background-origin: border-box;
   background-clip: padding-box, border-box;
@@ -286,18 +288,21 @@ form button {
   height: 2.5rem;
   font-size: 1rem;
   padding: 8px;
-  background: black; /* Solid black background */
+  background: #0e131f; 
   backdrop-filter: blur(6px); /* Frosted glass effect */
   -webkit-backdrop-filter: blur(6px); /* For Safari */
   outline: none;
   border: none;
-  color: white;
+  color: #e8d5c5;
+  border-radius: 1.5rem; /* Rounded corners for the input field */
+  transition: border-radius 0.3s ease-in-out; /* Smooth rounding transition */
 }
 
 .input-container button {
   padding: 10px 20px;
-  background-color: black; /* Solid black background */
-  color: white;
+  border-radius: 50%;
+  background-color: #0e131f; 
+  color: #e8d5c5;
   border: none;
   margin: 8px;
   border-radius: 5px;
@@ -317,10 +322,15 @@ form button {
   }
 }
 
+input::placeholder {
+  color: #818aab;
+  font-weight: bold;
+}
+
 /* Send icon hover animation */
 .send-icon {
   font-size: 1.5rem;
-  color: white;
+  color: #dac8ba;
   transition: transform 0.3s ease, color 0.3s ease;
   cursor: pointer;
 }
@@ -333,16 +343,6 @@ form button {
 /* Send icon click (send) animation */
 .send-icon.active {
   animation: send-icon-tilt 0.3s ease-in-out;
-}
-
-/* For Medium Screens - Ensure form container adjusts responsively */
-@media screen and (max-width: 1080px) {
-  .input-container {
-    width: 80%; /* Adjust width to fill 90% of the screen */
-    max-width: 50rem; /* Cap the width to prevent it from becoming too wide */
-    padding: 0.5rem 1rem; /* Adjust padding for better scaling */
-    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out; /* Smooth resizing */
-  }
 }
 
 .loader {
@@ -516,18 +516,20 @@ form button {
 }
 
 .message.user {
-  background-color: #005C4B; /* Slightly different shade for user messages */
-  color: #ffffff;
+  background-color: #242d47; /* Slightly different shade for user messages */
+  color: #e8d5c5 !important;
   border-radius: 20px 20px 5px 20px; /* Different border-radius for user */
   padding: 10px 15px;
   max-width: 60%;
   margin-left: auto; /* Align to right */
   margin-bottom: 20px;
+  font-weight: normal; /* Normal text weight for user */
 }
 
 .message.bot {
   background-color: #232333; /* Dark color for bot messages */
-  color: #ffffff; /* Text color */
+  color: #e8d5c5 !important; /* Text color */
+  font-weight: bold !important; /* Make bot message slightly bolder */
   border-radius: 20px 20px 20px 3px; /* Customize border-radius for shape */
   padding: 10px 15px;
   max-width: 60%;
@@ -554,7 +556,7 @@ form button {
 .source-card {
   margin: 10px 0;
   padding: 12px;
-  background-color: #fff; /* White background for each card */
+  background-color: #e8d5c5; /* White background for each card */
   border: 1px solid #e0e0e0; /* Light border */
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Slight shadow for depth */
