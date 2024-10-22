@@ -31,6 +31,7 @@ from fastapi.staticfiles import StaticFiles
 from urllib.parse import quote
 from prompts import generate_follow_up_questions
 from langchain.chat_models import ChatOpenAI
+from mongo import get_last_chat_sessions
 
 app = FastAPI()
 
@@ -345,10 +346,8 @@ def query_response(query: QueryModel):
 
     # Extract sources and chunks from the result
     source_documents = result.get('source_documents', [])
-    sources = list(set([
-        doc.metadata.get('source', '').replace('\\', '/').replace('data/', '')
-        for doc in source_documents if isinstance(doc.metadata.get('source', ''), str)
-    ]))
+    sources = list(set([doc.metadata.get('source', '').replace('\\', '/').replace('data/', '')
+                        for doc in source_documents if isinstance(doc.metadata.get('source', ''), str)]))
     chunks = [doc for doc in source_documents]
 
     # Use BM25 to rerank the chunks based on relevance to the query
@@ -366,6 +365,9 @@ def query_response(query: QueryModel):
     # List of out-of-context queries to avoid attaching sources
     out_of_context_queries = ['hi', 'hello', 'hey', 'thank you', 'sorry']
 
+    # Initialize formatted_sources
+    formatted_sources = []
+
     # Handle unknown or insufficient knowledge queries
     if not answer or "I don't know" in answer.lower() or 'sorry' in answer.lower():
         final_answer_with_sources = answer  # No sources for unknown queries
@@ -380,7 +382,7 @@ def query_response(query: QueryModel):
         ]
         # Attach the formatted sources to the answer once, avoiding duplication
         final_answer_with_sources = f"{answer}\n\n### Sources:\n" + "\n".join(
-            [f'- <a href="{source["static_url"]}" target="_blank">Source {i+1}: {source["file_name"]}</a>' for i, source in enumerate(formatted_sources)]
+            [f'- <a href="{source["static_url"]}" target="_blank">Source {i + 1}: {source["file_name"]}</a>' for i, source in enumerate(formatted_sources)]
         )
     else:
         # No sources for out-of-context queries
@@ -413,7 +415,6 @@ def query_response(query: QueryModel):
     }
 
 
-
 @app.delete("/delete")
 async def delete_file(folder: str = Body(...), fileName: str = Body(...)):
     try:
@@ -443,8 +444,7 @@ async def get_folders():
         return JSONResponse(status_code=500, content={"error": str(e)})
 
 
-
-
-
-
-
+@app.get("/get_last_sessions")
+async def fetch_last_sessions(n: int = 5):
+    sessions = get_last_chat_sessions(n)
+    return {"sessions": sessions}

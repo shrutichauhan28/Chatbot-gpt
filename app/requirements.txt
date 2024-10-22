@@ -26,3 +26,4 @@ pyaudio
 assemblyai
 watchdog
 pymongo
+flask

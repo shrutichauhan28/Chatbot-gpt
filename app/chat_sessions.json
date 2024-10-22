@@ -152,5 +152,33 @@
                 "content": "- **Career Counseling Services**\n  - Resources available to help employees explore career paths, set goals, and navigate career transitions.\n- **Promotions**\n  - Eligibility criteria based on performance, experience, and timing.\n- **Educational Support**\n  - Assistance with seminars, online courses, and professional certifications.\n  - Financial support or time off for educational pursuits subject to managerial approval and budget constraints.\n- **Mentorship Programs**\n  - Participation in mentorship programs for guidance and advice from experienced colleagues.\n  - Matching mentors and mentees based on career interests and developmental needs. \n\nIf you have any other questions or need further assistance, feel free to ask!\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/Company%20K%20Career%20Development%20and%20Promotions%20Policy.pdf\" target=\"_blank\">Source 1: Company K Career Development and Promotions Policy.pdf</a>\n- <a href=\"http://127.0.0.1:8000/static/Company%20K%20Transport%20and%20Travel%20Booking.txt\" target=\"_blank\">Source 2: Company K Transport and Travel Booking.txt</a>"
             }
         }
+    ],
+    "477d40f3-eb51-42ef-8c16-b6c3e6e05411": [
+        {
+            "type": "human",
+            "data": {
+                "content": "yo"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "- **I'm sorry, but I don't have enough information to answer that question based on my current knowledge.**\n- If you have any other questions or need further help, feel free to ask!"
+            }
+        }
+    ],
+    "563880e0-6242-4b1b-b351-5efccdb1d98f": [
+        {
+            "type": "human",
+            "data": {
+                "content": "hi"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "- Hello! How can I assist you today?\n- Do you have any questions or need help with something specific?"
+            }
+        }
     ]
 }
