@@ -3,17 +3,21 @@
 }
 
 .profile-button {
-  background-color: #317d83; /* Circle background color */
-  color: white;
+  background-color: #191725;
+  color: #f2ddcc;
   border-radius: 50%; /* Makes the button round */
   width: 45px; /* Adjusted smaller size */
   font-size: 14px; /* Reduced font size */
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: 1px solid #383354; /* Grey border */
   cursor: pointer;
-  bottom: 5px;
+  bottom: 8px;
+}
+
+.profile-button:hover {
+  background-color: #191e29; /* Grey color on hover */
 }
 
 .profile-dropdown {
@@ -50,16 +54,17 @@
   list-style: none;
   padding: 10px;
   margin: 0;
-  color: white;
+  color: #f2ddcc;
 }
 
 .profile-dropdown li {
   padding: 10px;
   cursor: pointer;
   font-size: 14px;
-  color: white;
+  color: #f2ddcc;
 }
 
 .profile-dropdown li:hover {
-  background-color: rgb(123, 106, 135) !important; /* Change hover color to dark gray */
+  border-radius: 18px;
+  background-color: #191725 !important; /* Change hover color to dark gray */
 }

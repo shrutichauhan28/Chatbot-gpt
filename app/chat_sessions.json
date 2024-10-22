@@ -82,5 +82,19 @@
                 "content": "I'm sorry, I don't have information related to the question \"yo.\" If you have any other questions or need further assistance, feel free to ask!"
             }
         }
+    ],
+    "fbc8e910-53b3-4a83-bf87-d9ef38e7da92": [
+        {
+            "type": "human",
+            "data": {
+                "content": "hi"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "I'm Yugm.ai, an expert in natural language, built by AUGUSTIKA, NEHA, SHRUTI, and MAHENDRA. I have been working at this company for over a decade and know every corner of its history, policies, and culture. Here to help! \n\n- If you have any questions or need further assistance, feel free to ask!\n- You can reach out to me anytime at youremail@email.com or visit our website at www.yourwebsite.com.\n- Thank you for engaging with us, and have a great day!\n\nDo you have any other questions or need further help?"
+            }
+        }
     ]
 }
