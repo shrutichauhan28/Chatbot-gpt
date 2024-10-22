@@ -82,5 +82,47 @@
                 "content": "I'm sorry, I don't have information related to the question \"yo.\" If you have any other questions or need further assistance, feel free to ask!"
             }
         }
+    ],
+    "a1c604fc-10c4-486d-9dd1-d578b443126f": [
+        {
+            "type": "human",
+            "data": {
+                "content": "What is the company\u2019s policy on unpaid leave?"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "The company's policy on unpaid leave is as follows:\n\n- **Extended Sick Leave**: \n  - Employees who exhaust their sick leave may apply for unpaid leave or use accrued vacation time for extended recovery.\n- **Parental Leave Policy**:\n  - Eligibility: Full-time employees who have been with the company for at least 1 year are eligible for parental leave.\n  - Maternity Leave:\n    - 16 weeks of paid maternity leave.\n    - An additional 4 weeks of unpaid leave is available, upon request.\n  - Paternity Leave:\n    - 4 weeks of paid paternity leave.\n  - Adoption Leave:\n    - 12 weeks of paid leave for adoptive parents.\n\nIf you have any other questions or need further help, feel free to ask!\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/Company%20K%20Leave%20Policies.pdf\" target=\"_blank\">Source 1: Company K Leave Policies.pdf</a>"
+            }
+        }
+    ],
+    "8bf110fb-8c6d-4f5b-b623-96f4f0be5452": [
+        {
+            "type": "human",
+            "data": {
+                "content": "How do I apply for sick leave?"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "To apply for sick leave, follow these steps:\n\n1. **Notification**: \n   - Notify your manager as soon as possible when taking sick leave.\n   - If you are absent for 3 or more consecutive days, a medical certificate is required.\n\n2. **Documentation**:\n   - Provide any necessary medical documentation to support your sick leave.\n\n3. **Sick Leave Allotment**:\n   - Full-time employees are entitled to 12 days of paid sick leave per calendar year (1 day per month).\n   - Part-time employees' sick leave is prorated based on hours worked.\n\n4. **Extended Sick Leave**:\n   - If you exhaust your sick leave, you may apply for unpaid leave or use accrued vacation time for extended recovery.\n\n5. **Parental Leave**:\n   - If your sick leave extends due to parental responsibilities, check the company's parental leave policy for further guidance.\n\nIf you have any other questions or need further assistance, feel free to ask!\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/Company%20K%20Leave%20Policies.pdf\" target=\"_blank\">Source 1: Company K Leave Policies.pdf</a>"
+            }
+        }
+    ],
+    "decab2d4-9019-433d-9c34-364d5aacef7e": [
+        {
+            "type": "human",
+            "data": {
+                "content": "What is the company\u2019s policy on unpaid leave?"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "The company's policy on unpaid leave is as follows:\n\n- **Extended Sick Leave**:\n  - Employees who exhaust their sick leave may apply for unpaid leave or use accrued vacation time for extended recovery.\n  \n- **Maternity Leave**:\n  - An additional 4 weeks of unpaid leave is available upon request after the 16 weeks of paid maternity leave.\n  \n- **Adoption Leave**:\n  - There is no specific mention of unpaid leave for adoption, so it's advisable to check with HR for further details.\n\nIf you have any other questions or need further assistance, feel free to ask!\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/Company%20K%20Leave%20Policies.pdf\" target=\"_blank\">Source 1: Company K Leave Policies.pdf</a>"
+            }
+        }
     ]
 }
