@@ -1,5 +1,6 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 
 PROMPT_TEMPLATE_DOC = """
@@ -93,3 +94,28 @@ def handle_basic_questions(user_input):
 # Append follow-up prompt at the end of responses
 def append_follow_up(response):
     return response + " 😊 Would you like any further assistance?"
+
+FOLLOW_UP_TEMPLATE = """
+Based on the following query and answer, generate 3 relevant follow-up questions:
+
+Query: {query}
+
+Answer: {answer}
+
+Follow-up Questions:
+1.
+2.
+3.
+"""
+
+follow_up_prompt = PromptTemplate(template=FOLLOW_UP_TEMPLATE, input_variables=["query", "answer"])
+
+def generate_follow_up_questions(query: str, answer: str) -> list:
+    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7)  # Use the same model as in vector_database.py
+    chain = LLMChain(llm=llm, prompt=follow_up_prompt)
+    result = chain.run(query=query, answer=answer)
+    
+    # Split the result into individual questions and remove any empty lines
+    questions = [q.strip() for q in result.split('\n') if q.strip()]
+    
+    return questions[:3]  # Ensure we return at most 3 questions

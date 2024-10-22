@@ -29,6 +29,8 @@ import logging
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from urllib.parse import quote
+from prompts import generate_follow_up_questions
+from langchain.chat_models import ChatOpenAI
 
 app = FastAPI()
 
@@ -325,21 +327,17 @@ def query_response(query: QueryModel):
     # Get conversation chain with stored memory
     chain = db_conversation_chain(
         stored_memory=stored_memory,
-        llm_name=query.llm_name,
+        llm_name=query.llm_name,  # Use the llm_name from the query
         collection_name=query.collection_name
     )
 
-    # Call LLM and calculate token cost if using OpenAI
-    if query.llm_name == 'openai':
-        result, cost = count_tokens(chain, query.text)
-    else:
-        result = chain(query.text)
-        cost = None
+    # Call LLM and calculate token cost
+    result, cost = count_tokens(chain, query.text)
 
     # Extract sources and chunks from the result
     source_documents = result.get('source_documents', [])
     sources = list(set([
-        doc.metadata.get('source', '').replace('\\', '/').replace('data/', '')  # Handle missing or incorrect source format
+        doc.metadata.get('source', '').replace('\\', '/').replace('data/', '')
         for doc in source_documents if isinstance(doc.metadata.get('source', ''), str)
     ]))
     chunks = [doc for doc in source_documents]
@@ -360,7 +358,7 @@ def query_response(query: QueryModel):
     out_of_context_queries = ['hi', 'hello', 'hey', 'thank you', 'sorry']
 
     # Handle unknown or insufficient knowledge queries
-    if not answer or 'I don’t know' in answer.lower() or 'sorry' in answer.lower():
+    if not answer or "I don't know" in answer.lower() or 'sorry' in answer.lower():
         final_answer_with_sources = answer  # No sources for unknown queries
     elif query.text.lower().strip() not in out_of_context_queries and len(query.text.split()) > 1:
         # Format the sources properly for rendering as cards
@@ -379,26 +377,30 @@ def query_response(query: QueryModel):
         # No sources for out-of-context queries
         final_answer_with_sources = answer
 
+    # Generate follow-up questions
+    follow_up_questions = generate_follow_up_questions(query.text, final_answer_with_sources)
+
+    # Don't append follow-up questions to the response
+    final_response = final_answer_with_sources
+
     # Save the session information in the database
-    chat_session.save_sess_db(query.session_id, query.text, final_answer_with_sources)
+    chat_session.save_sess_db(query.session_id, query.text, final_response)
 
     # Log the query, response, and ranked chunks with BM25 score
     log_data = {
         "session_id": query.session_id,
         "query": query.text,
-        "response": final_answer_with_sources,
+        "response": final_response,
         "ranked_chunks": ranked_chunks,
         "bm25_scores": [chunk['bm25_score'] for chunk in ranked_chunks],
         "sources": formatted_sources if query.text.lower().strip() not in out_of_context_queries else []
     }
 
     return {
-        "answer": final_answer_with_sources,  # This already includes the answer + formatted sources
+        "answer": final_response,
         "cost": cost,
         "ranked_chunks": ranked_chunks,
-        # Optional: return formatted_sources if you need them separately (but avoid duplication in frontend)
-        # If not needed separately, remove the "sources" key entirely
-        # "sources": formatted_sources if query.text.lower().strip() not in out_of_context_queries and len(query.text.split()) > 1 else []
+        "follow_up_questions": follow_up_questions  # Add this line
     }
 
 
