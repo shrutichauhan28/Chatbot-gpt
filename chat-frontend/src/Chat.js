@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { queryAPI } from './api';  // Ensure this sends data to the backend
+import SuggestionCard from './SuggestionCard';
 import ChatGreeting from './ChatGreeting';
 import Message from './Message';
 import Skull from './Skull';
 import { IoSend } from "react-icons/io5";
+import FollowUpQuestion from './FollowUpQuestion';  // New import
 
 const suggestions = [
   { id: 1, text: 'Can I carry over unused vacation days to the next year?', icon: '📊' },
@@ -17,6 +19,7 @@ function Chat({ sessionId, userInfo }) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [conversationStarted, setConversationStarted] = useState(false);
+  const [followUpQuestions, setFollowUpQuestions] = useState([]);  // New state
   const messagesEndRef = useRef(null);
   const [isMessageSent, setIsMessageSent] = useState(false);
 
@@ -48,8 +51,8 @@ function Chat({ sessionId, userInfo }) {
         const response = await queryAPI(sessionId, starterMessage);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: response.answer, sources: response.sources },
-        ]);        
+          { sender: 'bot', text: response.answer },
+        ]);
       } catch (error) {
         console.error('Error fetching bot response:', error);
         setMessages((prevMessages) => [
@@ -62,20 +65,21 @@ function Chat({ sessionId, userInfo }) {
     }
   };
 
-  const sendMessage = async () => {
-    if (input.trim() && !isLoading && !isMessageSent) {
-      const userMessage = { sender: 'user', text: input };
+  const sendMessage = async (messageText = input) => {
+    if (messageText.trim() && !isLoading && !isMessageSent) {
+      const userMessage = { sender: 'user', text: messageText };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
       setInput('');
       setIsLoading(true);
       setIsMessageSent(true);
-  
+
       try {
-        const response = await queryAPI(sessionId, input);
+        const response = await queryAPI(sessionId, messageText);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: response.answer, sources: response.sources },
+          { sender: 'bot', text: response.answer },
         ]);
+        setFollowUpQuestions(response.follow_up_questions || []);  // Set follow-up questions
       } catch (error) {
         console.error('Error fetching bot response:', error);
         setMessages((prevMessages) => [
@@ -89,17 +93,32 @@ function Chat({ sessionId, userInfo }) {
     }
   };
 
+  const handleFollowUpClick = (question) => {
+    sendMessage(question);
+  };
+
   return (
     <div className="chat-container" aria-live="polite" aria-atomic="true">
       <div className={`messages ${isLoading ? 'loading' : ''}`}>
-  {messages.map((msg, index) => (
-    <Message key={index} sender={msg.sender} text={msg.text} sources={msg.sources} />
-  ))}
-  {isLoading && (
-    <Message key="loading" sender="bot" text={<Skull />} />
-  )}
-  <div ref={messagesEndRef} />
-</div>
+        {messages.map((msg, index) => (
+          <Message key={index} sender={msg.sender} text={msg.text} />
+        ))}
+        {isLoading && (
+          <Message key="loading" sender="bot" text={<Skull />} />
+        )}
+        {!isLoading && followUpQuestions.length > 0 && (
+          <div className="follow-up-questions">
+            {followUpQuestions.map((question, index) => (
+              <FollowUpQuestion
+                key={index}
+                question={question}
+                onClick={() => handleFollowUpClick(question)}
+              />
+            ))}
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
       {!conversationStarted ? (
         <div className="start-conversation">
           <ChatGreeting userInfo={userInfo} />
@@ -148,3 +167,4 @@ function Chat({ sessionId, userInfo }) {
 }
 
 export default Chat;
+ 
