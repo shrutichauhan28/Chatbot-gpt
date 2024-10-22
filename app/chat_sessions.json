@@ -110,5 +110,61 @@
                 "content": "- **Java's object-oriented programming paradigm** contributes to its popularity and ease of use in several ways:\n  1. **Encapsulation**: Data is stored within classes, making it secure and not easily accessible, enhancing code organization and security.\n  2. **Inheritance**: Attributes and characteristics of one class can be inherited by another, reducing code duplication and saving time in development.\n  3. **Polymorphism**: Allows the same method to be used for different tasks, increasing code reusability and flexibility.\n- The combination of these **object-oriented features** in Java makes it easier to read, understand, and maintain code, leading to its widespread adoption in various applications and industries.\n- Java's object-oriented approach also promotes **modularity** and **reusability** of code, making it efficient for developers to create complex programs with ease.\n- The platform independence of Java, along with its object-oriented nature, allows for **portability** and **flexibility** in deploying applications across different environments without the need for major modifications.\n- Overall, Java's object-oriented programming paradigm plays a significant role in its **popularity** and **versatility** across a wide range of software development scenarios. \n\nDo you have any other questions or need further clarification on this topic?\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/video1.txt\" target=\"_blank\">Source 1: video1.txt</a>"
             }
         }
+    ],
+    "5114b0c2-1427-4524-936f-2aabed31fee5": [
+        {
+            "type": "human",
+            "data": {
+                "content": "What is java"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "- **Java** is an object-oriented programming language used in a distributed environment on the Internet.\n- It is a high-level language that is easy to read and understand.\n- Java is popularly used in console, graphical user interface, web and mobile applications, game development, and embedded systems.\n- It is also used to develop software for devices like televisions, washing machines, air conditioners, etc.\n- Online forms, banking, and shopping are possible because of Java.\n- Invented by James Gosling and Sun Microsystems in 1991 with the motto \"write once, run anywhere.\"\n- Java files are converted to bitcode format using a compiler and executed by the Java interpreter.\n- The code runs on the Java Virtual Machine, providing a runtime environment.\n- Key concepts in Java are methods (blocks of code that perform tasks when called) and classes.\n- **Java is platform independent**, running on any machine due to compilation to bytecode.\n- It is secure with no viruses, supports multi-threading for multitasking, and is portable across platforms.\n- While not as fast as C and C, Java provides higher-level abstractions for easier programming. \n\nDo you have any other questions or need further help?\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/video1.txt\" target=\"_blank\">Source 1: video1.txt</a>"
+            }
+        }
+    ],
+    "0ab54df6-c6e9-4c34-a7f9-03f191f2e391": [
+        {
+            "type": "human",
+            "data": {
+                "content": "and python"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "- **Java** is the focus of the provided context, and there is no direct mention of **Python**.\n- Based on the information given, it is not possible to provide a comparison or information about **Python**.\n- If you have any specific questions about **Java** or need further assistance, feel free to ask!\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/video1.txt\" target=\"_blank\">Source 1: video1.txt</a>"
+            }
+        }
+    ],
+    "05da9975-dd1a-46ef-9e65-b4237c332368": [
+        {
+            "type": "human",
+            "data": {
+                "content": "list out holidays"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "- New Year\u2019s Day: January 1, 2024 (Monday)\n- Republic Day: January 26, 2024 (Friday)\n- Maha Shivaratri: March 8, 2024 (Friday)\n- Good Friday: March 29, 2024 (Friday)\n- Labour Day: May 1, 2024 (Wednesday)\n- Independence Day: August 15, 2024 (Thursday)\n- Raksha Bandhan: August 19, 2024 (Monday)\n- Ganesh Chaturthi: September 7, 2024 (Saturday)\n- Gandhi Jayanti: October 2, 2024 (Wednesday)\n- Dussehra: October 11, 2024 (Friday)\n- Diwali: October 31, 2024 (Thursday)\n- Christmas Day: December 25, 2024 (Wednesday)\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/Company%20K%20Holiday%20Schedules.txt\" target=\"_blank\">Source 1: Company K Holiday Schedules.txt</a>"
+            }
+        }
+    ],
+    "f34d4834-4007-4e41-a0e5-e99cffe97b60": [
+        {
+            "type": "human",
+            "data": {
+                "content": "3. Are employees at Company K given any additional benefits or compensation for working on holidays?"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "Yes, employees at Company K may be eligible for additional compensation or time off if they are required to work on a company-observed holiday. The specifics of these benefits are outlined in their employment agreement or company policy. Here are some key points regarding additional benefits for working on holidays:\n\n- **Additional Compensation**: Employees may receive extra pay for working on holidays.\n- **Time Off**: Alternatively, employees might be granted compensatory time off for working on holidays.\n- **Employment Agreement**: The details of these benefits are typically specified in the employee's employment agreement.\n- **Company Policy**: The company's policy also outlines the specific benefits or compensation employees are entitled to for working on holidays.\n\nIf you have any further questions or need more information, feel free to contact the HR department at hr@companyk.com or visit the HR office. Do you have any other questions or need further assistance?\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/Company%20K%20Holiday%20Schedules.txt\" target=\"_blank\">Source 1: Company K Holiday Schedules.txt</a>"
+            }
+        }
     ]
 }

@@ -142,7 +142,7 @@ def db_conversation_chain(llm_name, stored_memory, collection_name):
     # Create and return the ConversationalRetrievalChain
     chain = ConversationalRetrievalChain.from_llm(
         llm,
-        retriever=vector_db.as_retriever(),
+        retriever=vector_db.as_retriever(search_kwargs={"k": 3}),  # Adjust k as needed
         memory=memory,
         chain_type="stuff",
         return_source_documents=True,
@@ -150,6 +150,9 @@ def db_conversation_chain(llm_name, stored_memory, collection_name):
         condense_question_prompt=prompt_chat,
         return_generated_question=True,
         get_chat_history=get_chat_history,
-        combine_docs_chain_kwargs={"prompt": prompt_doc}
+        combine_docs_chain_kwargs={
+            "prompt": prompt_doc,
+            "document_variable_name": "context"
+        }
     )
     return chain

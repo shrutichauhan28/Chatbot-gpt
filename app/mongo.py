@@ -6,7 +6,7 @@ import os
 print("Current working directory:", os.getcwd())
 
 # Load the JSON file (assuming it's in the same directory as this script)
-with open('./chat_Sessions.json', 'r') as file:
+with open('./chat_sessions.json', 'r') as file:
     data = json.load(file)
 
 # Connect to MongoDB
