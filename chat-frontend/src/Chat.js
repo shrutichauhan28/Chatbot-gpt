@@ -65,20 +65,26 @@ function Chat({ sessionId, userInfo }) {
   };
 
   const sendMessage = async (messageText = input) => {
-    if (messageText.trim() && !isLoading && !isMessageSent) {
-      const userMessage = { sender: 'user', text: messageText };
+    const trimmedMessage = typeof messageText === 'string' ? messageText.trim() : '';
+    if (trimmedMessage && !isLoading && !isMessageSent) {
+      const userMessage = { sender: 'user', text: trimmedMessage };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
       setInput('');
       setIsLoading(true);
       setIsMessageSent(true);
 
       try {
-        const response = await queryAPI(sessionId, messageText);
+        const response = await queryAPI(sessionId, trimmedMessage);
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: response.answer },
         ]);
-        setFollowUpQuestions(response.follow_up_questions || []);  // Set follow-up questions
+        setFollowUpQuestions(response.follow_up_questions || []);
+        
+        // If no relevant information was found, don't display follow-up questions
+        if (response.answer.includes("I'm sorry, but I couldn't find any relevant information")) {
+          setFollowUpQuestions([]);
+        }
       } catch (error) {
         console.error('Error fetching bot response:', error);
         setMessages((prevMessages) => [
@@ -151,7 +157,7 @@ function Chat({ sessionId, userInfo }) {
               onKeyPress={(e) => e.key === 'Enter' && !isLoading ? sendMessage() : null}
               aria-label="Chat Input"
             />
-            <button onClick={sendMessage} disabled={isLoading}>
+            <button onClick={() => sendMessage()} disabled={isLoading}>
               {isLoading ? (
                 <div className="loader"></div>
               ) : (
@@ -166,4 +172,3 @@ function Chat({ sessionId, userInfo }) {
 }
 
 export default Chat;
- 

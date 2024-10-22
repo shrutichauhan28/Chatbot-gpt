@@ -334,6 +334,15 @@ def query_response(query: QueryModel):
     # Call LLM and calculate token cost
     result, cost = count_tokens(chain, query.text)
 
+    # Check if any relevant information was found
+    if not result.get('source_documents'):
+        return {
+            "answer": "I'm sorry, but I couldn't find any relevant information in my knowledge base to answer your question. Could you please rephrase your question or ask about a different topic?",
+            "cost": cost,
+            "ranked_chunks": [],
+            "follow_up_questions": []
+        }
+
     # Extract sources and chunks from the result
     source_documents = result.get('source_documents', [])
     sources = list(set([
@@ -436,15 +445,6 @@ async def get_folders():
 
 
 
-@app.post("/chat/session/{session_id}")
-async def save_chat_session(session_id: str, query: str, answer: str):
-    ChatSession.save_sess_db(session_id, query, answer)
-    return {"message": "Chat session saved."}
 
-@app.get("/chat/session/{session_id}")
-async def get_chat_session(session_id: str):
-    return ChatSession.load_history(session_id)
 
-@app.delete("/chat/session/{session_id}")
-async def delete_chat_session(session_id: str):
-    return ChatSession.delete_sess_db(session_id)
+
