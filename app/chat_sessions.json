@@ -125,25 +125,11 @@
             }
         }
     ],
-    "e73bea5f-1b2d-4ed5-9324-dea3c16b2d2f": [
-        {
-            "type": "human",
-            "data": {
-                "content": "hi"
-            }
-        },
-        {
-            "type": "ai",
-            "data": {
-                "content": "- **Hello! How can I assist you today?**\n- If you have any questions or need help, feel free to ask.\n- Is there anything specific you would like to know or discuss?"
-            }
-        }
-    ],
     "4e20d9b8-c0a2-435d-9216-ea4463d34bc7": [
         {
             "type": "human",
             "data": {
-                "content": "2. What services do you offer?"
+                "content": "What services do you offer?"
             }
         },
         {
@@ -153,31 +139,45 @@
             }
         }
     ],
-    "477d40f3-eb51-42ef-8c16-b6c3e6e05411": [
+    "3b0f92b7-9390-4eb1-8f06-c47651e349b3": [
         {
             "type": "human",
             "data": {
-                "content": "yo"
+                "content": "How does the IT department ensure the confidentiality of corporate data and proprietary software systems?"
             }
         },
         {
             "type": "ai",
             "data": {
-                "content": "- **I'm sorry, but I don't have enough information to answer that question based on my current knowledge.**\n- If you have any other questions or need further help, feel free to ask!"
+                "content": "- **Responsibility**: It is the responsibility of the IT department to provide protection and confidentiality of all corporate data and proprietary software systems.\n- **Security Measures**:\n  1. **Unauthorized Software**: The use of unauthorized software is prohibited, and any discovered unauthorized software is removed immediately.\n  2. **Data Backup**: Measures are taken to backup data, applications, and configurations of all workstations to prevent loss of availability of IT resources.\n  3. **Regular Backup**: Critical data is regularly backed up, and restoration processes are tested to ensure data can be recovered in case of loss or corruption.\n  4. **Physical Access Controls**: Physical access controls, surveillance systems, and alarms are implemented to protect the physical IT infrastructure from unauthorized access.\n  5. **Authorized Installation**: Only authorized and licensed software may be installed, and installation can only be performed by IT department staff. \n\nIf you have any other questions or need further assistance, feel free to ask!\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/IT%20POLICY.mp4\" target=\"_blank\">Source 1: IT POLICY.mp4</a>"
             }
         }
     ],
-    "563880e0-6242-4b1b-b351-5efccdb1d98f": [
+    "08639684-fee9-4dac-bbd1-14b5e2ec7a81": [
         {
             "type": "human",
             "data": {
-                "content": "hi"
+                "content": "1. How often does the IT department conduct audits or assessments to ensure compliance with security measures for protecting corporate data and proprietary software systems?"
             }
         },
         {
             "type": "ai",
             "data": {
-                "content": "- Hello! How can I assist you today?\n- Do you have any questions or need help with something specific?"
+                "content": "- **The IT department conducts audits or assessments regularly to ensure compliance with security measures for protecting corporate data and proprietary software systems.**\n- Audits are typically scheduled periodically to review and assess the effectiveness of security measures.\n- These audits help identify any gaps or vulnerabilities in the security infrastructure and ensure that all policies and procedures are being followed.\n- Regular assessments also help in maintaining the integrity and confidentiality of corporate data and proprietary software systems.\n- The frequency of these audits may vary based on the organization's policies and industry regulations.\n  \nIf you have any further questions or need more details on this topic, feel free to ask!\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/IT%20POLICY.mp4\" target=\"_blank\">Source 1: IT POLICY.mp4</a>"
+            }
+        }
+    ],
+    "56a77758-b30a-424d-a7ae-480c90ba010f": [
+        {
+            "type": "human",
+            "data": {
+                "content": "What happens if an employee receives a \"Needs Improvement\" rating in two consecutive reviews?"
+            }
+        },
+        {
+            "type": "ai",
+            "data": {
+                "content": "- If an employee receives a \"Needs Improvement\" rating in two consecutive reviews, they would be put through a Performance Improvement Program (PIP).\n- The purpose of the PIP is to help individuals succeed within the organization by overcoming the mismatch with the expected standards of performance or behavior.\n- The PIP is a program that an employee is placed into if the appraiser strongly feels that the individual is not performing up to the agreed expectations.\n- The employee's Reporting Manager would have the information that the individual is not meeting the expected standards, which can be based on factors such as poor performance ratings in two consecutive cycles, behavioral complaints, or escalations about performance from the project team.\n- The PIP is designed to provide support and guidance to the employee to improve their performance and align it with the organization's expectations.\n\nDo you have any other questions or need further clarification on this topic?\n\n### Sources:\n- <a href=\"http://127.0.0.1:8000/static/HR%20Policy%20-%20Valuebound%20Consulting%20Services%20Pvt%20Ltd.pdf\" target=\"_blank\">Source 1: HR Policy - Valuebound Consulting Services Pvt Ltd.pdf</a>"
             }
         }
     ]

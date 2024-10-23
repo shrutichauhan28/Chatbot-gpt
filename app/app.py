@@ -190,7 +190,7 @@ def ingest_document(file_path: str, filename: str, static_url: str):
         # Ingest the document chunks into the vector database
         vector_database(
             doc_text=chunks,  # Pass the chunks to be indexed
-            collection_name="betaCollection",  # Replace with your actual collection name
+            collection_name="demoDB",  # Replace with your actual collection name
             embeddings_name="openai"   # Replace with the embeddings model you are using
         )
 
