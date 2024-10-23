@@ -23,3 +23,10 @@ for query_id, conversations in data.items():
     collection.insert_one(document)
 
 print("Data successfully inserted into MongoDB!")
+
+
+# Function to get the last 4-5 chat sessions
+def get_last_chat_sessions(limit=5):
+    last_sessions = list(collection.find().sort("_id", -1).limit(limit))
+    # Convert the result to a JSON-friendly format (if needed)
+    return [{"query_id": session["query_id"], "conversations": session["conversations"]} for session in last_sessions]

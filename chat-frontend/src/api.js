@@ -74,3 +74,13 @@ export const getFolders = async () => {
     throw error;
   }
 };
+
+export const getLastChatSessions = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/get_last_sessions');
+    return response.data; // Return the last chat sessions
+  } catch (error) {
+    console.error("Error fetching last chat sessions:", error);
+    throw error;
+  }
+};

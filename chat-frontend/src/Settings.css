@@ -1,7 +1,7 @@
 .settings-page {
   padding: 20px;
-  color: #fff;
-  background-color: black;
+  color: #e8d5c5;
+  background-color: #101524;
   font-family: 'Arial', sans-serif;
 }
 
@@ -70,7 +70,7 @@ input[type="file"] {
 }
 
 .file-list-container::-webkit-scrollbar-track {
-  background-color: #2c2c3d;
+  background-color: #101524;
 }
 
 /* Button styling */
@@ -79,7 +79,7 @@ button {
   padding: 12px 25px;
   background-color: #252235;
   border: grey 1px solid;
-  color: white;
+  color: #e8d5c5;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -87,7 +87,7 @@ button {
 }
 
 button:hover {
-  background-color: #62d1f3;
+  background-color: #191725;
 }
 
 .button-group {
@@ -98,7 +98,7 @@ button:hover {
 }
 
 h2 {
-  color: #ffffff;
+  color: #e8d5c5;
 }
 
 ul {
@@ -122,16 +122,16 @@ ul li a:hover {
 }
 
 ul li button {
-  background-color: #6d0c0c;
+  background-color: #5e0b0b;
   border: none;
-  color: white;
+  color: #e8d5c5;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
 }
 
 ul li button:hover {
-  background-color: #ff6b6b;
+  background-color: #cc2f2f;
 }
 
 .file-list-container {
@@ -162,7 +162,7 @@ ul li button:hover {
   padding: 10px;
   background-color: #252235;  /* Set black background */
   border: 1px solid #62d1f3 !important;
-  color: #ffffff;  /* White text color */
+  color: #e8d5c5;  /* White text color */
   border-radius: 6px;
   cursor: pointer;
   appearance: none;
@@ -170,7 +170,7 @@ ul li button:hover {
 }
 
 .folder-dropdown select:hover {
-  border-color: #62d1f3;
+  border-color: #e8d5c5;
 }
 
 .folder-dropdown:after {
@@ -243,8 +243,9 @@ ul li button:hover {
 }
 
 .new-folder label {
-  color: #ffffff; /* White text for the label */
+  color: #e8d5c5; /* White text for the label */
   font-size: 16px;
+  padding-top: 20px !important; /* Adjust this value as needed */
 }
 
 /* Toast container styling */
@@ -304,7 +305,7 @@ ul li button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #252235;
-  color: white; 
+  color: #e8d5c5;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -325,10 +326,10 @@ ul li button:hover {
 
 .confirm-button {
   background-color: #851111;
-  color: white;
+  color: #e8d5c5;
   padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -336,7 +337,7 @@ ul li button:hover {
   background-color: #0d0c14;
   padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
 }
 

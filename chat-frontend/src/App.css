@@ -473,10 +473,10 @@ input::placeholder {
 .start-button:hover:before {
   content: "";
   position: absolute;
-  top: -5px;
-  right: -5px;
-  bottom: -5px;
-  left: -5px;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
   z-index: -1;
   background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
   background-size: 400%;
@@ -529,7 +529,7 @@ input::placeholder {
 .message.bot {
   background-color: #232333; /* Dark color for bot messages */
   color: #e8d5c5 !important; /* Text color */
-  font-weight: bold !important; /* Make bot message slightly bolder */
+  /* font-weight: bold !important; */
   border-radius: 20px 20px 20px 3px; /* Customize border-radius for shape */
   padding: 10px 15px;
   max-width: 60%;

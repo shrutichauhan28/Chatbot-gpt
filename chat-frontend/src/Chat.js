@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { queryAPI } from './api';  // Ensure this sends data to the backend
-import SuggestionCard from './SuggestionCard';
 import ChatGreeting from './ChatGreeting';
 import Message from './Message';
 import Skull from './Skull';
